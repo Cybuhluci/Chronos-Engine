@@ -1,0 +1,10 @@
+Blender:
+	1.When you import the model, make sure to use the "Auto Smooth" option with the angle set to 30 degrees,
+	  the model will use the its correct normals if you checkmark this option. If not , it will use the 
+	  incorrect normals.
+	2.If the model looks dark, so into the shading workspace, click on the texture node, open its properties
+	  (press N), go to the item tab, and set the Alpha to Channel Packed
+  
+
+ Model ripped by KartMakerBrosU
+ 

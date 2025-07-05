@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c205aab95ba754e4cafcdbb30971f542, type: 3}
+  m_Name: ChunNan
+  m_EditorClassIdentifier: 
+  poiHoverIcon: {fileID: 1105817849, guid: 3dd8b3e9e48b8654aabe480046d8a1ab, type: 3}
+  poiShortName: Chun-nan
+  poiShortDescription: Traditional centre of China
+  stagesAvailable: 010101010101
+  poiStageSelectMenu: {fileID: 8243792155463660603, guid: f7bd9eb376fcd244c83b6d5c410705ce,
+    type: 3}
