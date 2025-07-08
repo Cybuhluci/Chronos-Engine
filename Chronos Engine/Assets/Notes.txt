@@ -1,0 +1,121 @@
+==== CIRCUITS STARTED/COMPLETED ====
+--Dematerialisation Circuit Subsystems--
+Time Rotor Handbrake
+Space Time Throttle
+
+--Navigational Computer Subsystems--
+Telepathic Circuit
+
+==== CIRCUITS TO DO ====
+--Dematerialisation Circuit Subsystems--
+Time Rotor Handbrake
+Space Time Throttle
+Fast Return
+
+--Navigational Computer Subsystems--
+Telepathic Circuit
+Helmic Regulator
+Landing Type Controller
+Monitor
+Epsilon Circuit
+
+--Fluid Link Subsystems--
+Refueller
+Isomorphic Security
+Exotronic Circuit
+Flux Regulator
+
+--Interstitial Antennae Subsystems--
+Communicator
+Distress Signal Interceptor
+Upsilon Circuit - Deep Space Scanner
+
+--Chameleon Circuit Subsytems--
+Chameleon Circuit - blends in to environment
+Cloaking Mechanism - invis
+Cloaking Mechanism  - undetect
+
+--Shield Generator Subsystems--
+Exterior Bulkhead Lock
+Physical Lock
+Shields
+Hostile Action Displacement System
+
+--Stabiliser Subsystems--
+Stabilisers
+Anti-Gravs / Spatial Anchor
+Inertial Dampeners
+
+--Temporal Grace Unit Subsystems--
+Temporal Grace Unit
+Wibbly Lever
+Chronal Field Emitter
+Temporal Anomaly Alarm - Paradox detector system
+
+
+Tardis Telepathic Keys:
+1234567890-=
+qwertyuiop[]
+asdfghjkl;'
+zxcvbnm,./
+
+--- current binds ---
+Handbrake - L-CTRL
+Throttle - W/S
+Stablilisers - #
+Power - T
+Shields - V
+(X coord) Cluster Plotting - ,
+(Y coord) Galaxy Plotting - .
+(Z coord) Planet Plotting - .
+Randomiser - R-ALT
+Wibbly Lever - H
+Exit Telepathic - TAB
+
+--- POSSIBLE BINDS ---
+Q: Time Rotor Handbrake (Toggle)
+E: Space-Time Throttle (Hold for Accelerate, Release to Decelerate/Neutral)
+R: Fast Return Switch (Press)
+T: Console Power Switch (Toggle)
+F: Stabilizers (Toggle)
+G: Anti-Gravs (Toggle)
+Z: Helmic Regulator (Toggle activate/fine-tune mode, then use J/K/L for adjustment)
+X: Chameleon Circuit (Cycle next exterior)
+C: Hostile Actions Displacement System (HADS) (Activate)
+V: Shields (Toggle)
+B: Physical Lock Mechanism (Toggle TARDIS doors)
+
+U: Communicator (Activate/Open Comms UI)
+I: Tardis Monitor (Toggle display on/off)
+O: Locking Down Mechanism (Toggle internal locks)
+P: Isomorphic Security System (Toggle)
+H: Wibbly Lever (Rapid Tap/Spam)
+J: Landing Type Controllers: Yaw Left (Hold/Press)
+K: Landing Type Controllers: Yaw Right (Hold/Press)
+L: Refueler (Activate)
+M: Coordinate Plotter: X-Axis
+, (Comma): Coordinate Plotter: Y-Axis 
+. (Full Stop): Coordinate Plotter: Z-Axis 
+/ (Slash):** Coordinate Randomiser (Activate)
+
+Y: Epsilon Circuit (Toggle)
+N: Exotronic Circuits (Toggle)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 0 (Above QWERTY row): Engine Diagnostics
+Hashtag (# ~ | \): Console Redecorator (Activate/If fixed)
+
+--- CURRENT SCRIPTS ---
+
+Engine_
+TemporalGrace
+Stabilisers
+ShieldGen
+FluidLink
+Chameleon
+Antennae
+Demat
+Navcom
+
+Console_
+Handbrake
+Throttle
+Telepathic
