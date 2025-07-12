@@ -1,11 +1,12 @@
 using UnityEngine;
+using Luci.Interactions;
 
 public class tardisdoorlockscript : MonoBehaviour, IInteractable
 {
     private const string TardisLockKey = "TardisLocked";  // Key for PlayerPrefs
     public string requiredKeyName;
 
-    public void Interact()
+    public void LeftInteract()
     {
         if (InventoryManager.Instance.HasItem(requiredKeyName) || PlayerPrefs.GetInt("HasTardisKey", 0) == 1)  // Check if player has the key
         {
@@ -19,6 +20,11 @@ public class tardisdoorlockscript : MonoBehaviour, IInteractable
         {
             Debug.Log("Can't open door without TARDIS key");
         }
+    }
+
+    public void RightInteract()
+    {
+        Debug.Log("RightInteract");
     }
 
     public bool IsLocked()

@@ -1,12 +1,23 @@
 using UnityEngine;
+using Luci.TARDIS;
+using Luci.TARDIS.Console;
 
-public class Engine_FluidLink : MonoBehaviour
+namespace Luci.TARDIS.Engine
 {
-    [Header("Dependencies")]
-    [SerializeField] private TARDISMain tardisMain;
-    [SerializeField] private TARDISConsoleManager consoleManager;
-    [SerializeField] private TARDISEngineManager engineManager;
+    public class Engine_FluidLink : TARDISSubsystemController
+    {
+        [Header("Dependencies")]
+        [SerializeField] private TARDISMain tardisMain;
+        [SerializeField] private TARDISConsoleManager consoleManager;
+        [SerializeField] private TARDISEngineManager engineManager;
 
-    [Header("Fluid Link Stuff")]
-    public float FuelLeft= 100;
+        [Header("Fluid Link Stuff")]
+        public float maxFuelCapacity = 100f; 
+        public float FuelLeft= 100;
+
+        // --- TARDISSubsystemController Implementations ---
+        protected override void OnCircuitActivated() { Debug.Log("Engine_FluidLink: ENGAGED"); }
+        protected override void OnCircuitDeactivated() { Debug.Log("Engine_FluidLink: RELEASED"); }
+        public override string GetCircuitStatus() { return _isCircuitActive ? "Engaged" : "Released"; }
+    }
 }

@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ public partial class FirstPersonController : MonoBehaviour
     public Transform groundCheck;
     public CharacterController characterController; // Made public for direct assignment in Inspector if needed
     public Camera cam; // Made public for direct assignment if needed
+    public CinemachineBrain brain; // Cinemachine Brain for camera control
     public AudioSource slideAudioSource; // Made public for direct assignment if needed
     [SerializeField] PlayerInput playerinput; // Already serialized, good!
 
@@ -146,11 +148,12 @@ public partial class FirstPersonController : MonoBehaviour
         HandleMovement();
     }
 
+    // Cinemachine First Person Look: Rotates cameraParent (pitch) and player (yaw)
+    // Ensure your CinemachineVirtualCamera's Follow and LookAt targets are set to cameraParent.
     private void HandleLook()
     {
         if (isLook)
         {
-            // Read look input directly from PlayerInput actions
             cameraInputPlayerInput = playerinput.actions["Look"].ReadValue<Vector2>();
 
             float mouseX = cameraInputPlayerInput.x * mouseSensitivity * Time.deltaTime;
@@ -165,7 +168,10 @@ public partial class FirstPersonController : MonoBehaviour
 
             float targetTiltAngle = isSliding ? slideTiltAngle : 0f;
             currentTiltAngle = Mathf.SmoothDamp(currentTiltAngle, targetTiltAngle, ref tiltVelocity, 0.2f);
-            playerCamera.transform.localRotation = Quaternion.Euler(yVelocity - currentTiltAngle, 0f, 0f);
+
+            // Pitch (vertical look) on cameraParent, with tilt for sliding
+            cameraParent.localRotation = Quaternion.Euler(yVelocity - currentTiltAngle, 0f, 0f);
+            // Yaw (horizontal look) on player body
             transform.rotation = Quaternion.Euler(0f, xVelocity, 0f);
         }
     }

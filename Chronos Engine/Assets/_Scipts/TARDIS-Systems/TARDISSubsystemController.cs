@@ -1,4 +1,7 @@
 using UnityEngine;
+using Luci.TARDIS;
+using Luci.TARDIS.Engine;
+using Luci.TARDIS.Console;
 
 // Define common functionality for all TARDIS subsystems
 public abstract class TARDISSubsystemController : MonoBehaviour
@@ -20,10 +23,10 @@ public abstract class TARDISSubsystemController : MonoBehaviour
     protected abstract void OnCircuitDeactivated();
 
     // --- Methods to be overridden or used by concrete subsystems (TARDIS State Events) ---
-    public virtual void OnTARDISDematerialize() { Debug.Log($"{gameObject.name}: TARDIS dematerializing."); }
-    public virtual void OnTARDISMaterialize() { Debug.Log($"{gameObject.name}: TARDIS materializing."); }
-    public virtual void OnTARDISFlightStart() { Debug.Log($"{gameObject.name}: TARDIS flight started."); }
-    public virtual void OnTARDISFlightEnd() { Debug.Log($"{gameObject.name}: TARDIS flight ended."); }
+    public virtual void OnTARDISDematerialize() { /*Debug.Log($"{gameObject.name}: TARDIS dematerializing.");*/ }
+    public virtual void OnTARDISMaterialize() { /*Debug.Log($"{gameObject.name}: TARDIS materializing.");*/ }
+    public virtual void OnTARDISFlightStart() { /*Debug.Log($"{gameObject.name}: TARDIS flight started.");*/ }
+    public virtual void OnTARDISFlightEnd() { /*Debug.Log($"{gameObject.name}: TARDIS flight ended.");*/ }
 
     // --- Core control method from your design ---
 

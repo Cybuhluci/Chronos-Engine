@@ -75,7 +75,7 @@ public class PlayerColliderInteract : MonoBehaviour
     {
         if (currentInteractable != null && playerInput.actions["Interact"].WasPressedThisFrame())
         {
-            currentInteractable.Interact();
+            currentInteractable.LeftInteract();
         }
     }
 

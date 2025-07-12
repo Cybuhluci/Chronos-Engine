@@ -13,7 +13,8 @@ public enum EInteractionType
 public interface IInteractable
 {
     // Method to be called when the player interacts with the object
-    void Interact();
+    void LeftInteract();
+    void RightInteract();
     // Method to get the type of interaction for crosshair feedback
     EInteractionType GetInteractionType();
 }
@@ -32,11 +33,12 @@ public class PlayerLookInteract : MonoBehaviour
     [SerializeField] private GameObject crosshairDefault;
     [SerializeField] private GameObject crosshairInteractable;
     [SerializeField] private GameObject crosshairProp;
-    [SerializeField] private GameObject crosshairLongInteract; // Corrected typo here
+    [SerializeField] private GameObject crosshairLongInteract;
 
     // Cached Input Actions for performance (gets references once instead of string lookup every frame)
     private InputAction _mouseLookAction;
-    private InputAction _interactAction;
+    private InputAction _LeftInteractAction; // left mouse
+    private InputAction _RightInteractAction; // right mouse
 
     void Awake() // Changed Start to Awake for input action caching
     {
@@ -48,7 +50,8 @@ public class PlayerLookInteract : MonoBehaviour
         if (playerInput != null && playerInput.actions != null)
         {
             _mouseLookAction = playerInput.actions.FindAction("Look"); // Assuming "Look" action for mouse delta/look
-            _interactAction = playerInput.actions.FindAction("Interact");
+            _LeftInteractAction = playerInput.actions.FindAction("LeftInteract");
+            _RightInteractAction = playerInput.actions.FindAction("RightInteract"); // Assuming "RightInteract" for right mouse button
         }
 
         // Lock cursor on Awake for first-person control
@@ -77,9 +80,13 @@ public class PlayerLookInteract : MonoBehaviour
                 SetCrosshair(interactable.GetInteractionType());
 
                 // If the interact button was pressed this frame, interact with the object
-                if (_interactAction != null && _interactAction.WasPressedThisFrame())
+                if (_LeftInteractAction != null && _LeftInteractAction.WasPressedThisFrame())
                 {
-                    interactable.Interact();
+                    interactable.LeftInteract();
+                }
+                if (_RightInteractAction != null && _RightInteractAction.WasPressedThisFrame())
+                {
+                    interactable.RightInteract();
                 }
             }
             else
@@ -136,12 +143,14 @@ public class PlayerLookInteract : MonoBehaviour
         if (enabled)
         {
             // Potentially re-enable input actions if they were disabled
-            _interactAction?.Enable();
+            _LeftInteractAction?.Enable();
+            _RightInteractAction?.Enable();
             SetCrosshair(EInteractionType.Normal); // Show default crosshair when interaction is enabled
         }
         else
         {
-            _interactAction?.Disable();
+            _LeftInteractAction?.Disable();
+            _RightInteractAction?.Disable();
             ResetCrosshairs(); // Hide all crosshairs when interaction is disabled
         }
     }

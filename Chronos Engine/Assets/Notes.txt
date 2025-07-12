@@ -71,6 +71,12 @@ Shields - V
 Randomiser - R-ALT
 Wibbly Lever - H
 Exit Telepathic - TAB
+Coordinate increment - ;
+Landing Type - '
+(W coord) Pocket Plotting - l
+Vortex Flight - V
+Refueller - R
+Fast Return - R-CTRL
 
 --- POSSIBLE BINDS ---
 Q: Time Rotor Handbrake (Toggle)

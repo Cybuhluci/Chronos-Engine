@@ -1,19 +1,29 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ButtonScript : MonoBehaviour, IInteractable
+namespace Luci.Interactions
 {
-    [Header("Button Events")]
-    public UnityEvent onButtonPressed;  
-
-    public void Interact()
+    public class ButtonScript : MonoBehaviour, IInteractable
     {
-        Debug.Log("Button pressed!");
-        onButtonPressed.Invoke();  // Calls whatever methods are assigned in the Inspector
-    }
+        [Header("Button Events")]
+        public UnityEvent LeftInteraction;
+        public UnityEvent RightInteraction;
 
-    public EInteractionType GetInteractionType()
-    {
-        return EInteractionType.InteractShort;
+        public void LeftInteract()
+        {
+            //Debug.Log("Button pressed!");
+            LeftInteraction.Invoke();  // Calls whatever methods are assigned in the Inspector
+        }
+
+        public void RightInteract()
+        {
+            //Debug.Log("RightInteract");
+            RightInteraction.Invoke(); // Calls whatever methods are assigned in the Inspector
+        }
+
+        public EInteractionType GetInteractionType()
+        {
+            return EInteractionType.InteractShort;
+        }
     }
 }
