@@ -12,21 +12,6 @@ public class Zplot : ConsoleCore
 
     public DeltaCircuit deltaCircuit;
 
-    public void IncreaseZ()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.IncreaseZCoordinate();
-        }
-    }
-    public void DecreaseZ()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.DecreaseZCoordinate();
-        }
-    }
-
     private void Awake()
     {
         ToggleCircuit();

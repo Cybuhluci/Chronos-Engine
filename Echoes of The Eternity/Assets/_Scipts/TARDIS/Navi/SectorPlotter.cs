@@ -12,22 +12,6 @@ public class SectorPlotter : ConsoleCore
 
     public DeltaCircuit deltaCircuit;
 
-    public void IncreaseW()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.IncreaseWCoordinate();
-        }
-    }
-
-    public void DecreaseW()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.DecreaseWCoordinate();
-        }
-    }
-
     private void Awake()
     {
         ToggleCircuit();

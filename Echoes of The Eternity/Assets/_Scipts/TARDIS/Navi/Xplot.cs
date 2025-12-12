@@ -12,22 +12,6 @@ public class Xplot : ConsoleCore
 
     public DeltaCircuit deltaCircuit;
 
-    public void IncreaseX()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.IncreaseXCoordinate();
-        }
-    }
-
-    public void DecreaseX()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.DecreaseXCoordinate();
-        }
-    }
-
     private void Awake()
     {
         ToggleCircuit();

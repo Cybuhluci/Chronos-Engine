@@ -12,22 +12,6 @@ public class PlotterIncrement : ConsoleCore
 
     public DeltaCircuit deltaCircuit;
 
-    public void IncreaseAmount()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.CycleIncrementAmountUp();
-        }
-    }
-
-    public void DecreaseAmount()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.CycleIncrementAmountDown();
-        }
-    }
-
     private void Awake()
     {
         ToggleCircuit();

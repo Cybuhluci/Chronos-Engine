@@ -13,7 +13,7 @@ public partial class FirstPersonController : MonoBehaviour
     public Camera cam; // Made public for direct assignment if needed
     public CinemachineBrain brain; // Cinemachine Brain for camera control
     public AudioSource slideAudioSource; // Made public for direct assignment if needed
-    [SerializeField] PlayerInput playerinput; // Already serialized, good!
+    public PlayerInput playerinput; // Already serialized, good!
 
     [Header("Mouse Look Settings")]
     [Range(0, 100)] public float mouseSensitivity = 25f;
@@ -118,7 +118,7 @@ public partial class FirstPersonController : MonoBehaviour
         }
         
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false; // Usually want cursor invisible when locked
+        Cursor.visible = true;
 
         currentCameraHeight = originalCameraParentHeight;
         currentBobOffset = 0f;
@@ -161,7 +161,7 @@ public partial class FirstPersonController : MonoBehaviour
             brain.enabled = false;
         }
 
-            HandleHeadBob();
+        HandleHeadBob();
         HandleCrouchSlideState(); // Renamed and consolidated crouch/slide logic
     }
 
@@ -375,6 +375,5 @@ public partial class FirstPersonController : MonoBehaviour
     public void SetCursorVisibility(bool newVisibility)
     {
         Cursor.lockState = newVisibility ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = newVisibility;
     }
 }

@@ -12,22 +12,6 @@ public class Yplot : ConsoleCore
 
     public DeltaCircuit deltaCircuit;
 
-    public void IncreaseY()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.IncreaseYCoordinate();
-        }
-    }
-
-    public void DecreaseY()
-    {
-        if (deltaCircuit.IsCircuitActive)
-        {
-            deltaCircuit.DecreaseYCoordinate();
-        }
-    }
-
     private void Awake()
     {
         ToggleCircuit();
