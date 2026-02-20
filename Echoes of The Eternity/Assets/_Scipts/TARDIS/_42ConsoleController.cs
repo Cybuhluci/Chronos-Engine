@@ -1,19 +1,20 @@
 using TARDIS.Main;
-using TMPro;
 using UnityEngine;
 
-public abstract class ConsoleCore : MonoBehaviour
+public abstract class _42ConsoleController : MonoBehaviour
 {
     [Header("Dependencies")]
     [HideInInspector] protected _42Main tardisMain;
-    [HideInInspector] protected CoreManager coreManager;
 
-    public Transform markerAnchor; // Anchor for the marker, used for positioning flight event indicator on the console
+    public Transform markerAnchor; // Anchor for the marker, used for positioning in the console
 
-    public void Start()
+    private void Awake()
     {
-        tardisMain = FindAnyObjectByType<_42Main>();
-        coreManager = FindAnyObjectByType<CoreManager>();
+        tardisMain ??= FindAnyObjectByType<_42Main>();
+    }
+    private void Start()
+    {
+        tardisMain ??= FindAnyObjectByType<_42Main>();
     }
 
     public virtual string GetButtonState() { return _isCircuitActive ? "On" : "Off"; }
@@ -110,4 +111,5 @@ public abstract class ConsoleCore : MonoBehaviour
     {
         _inFlightEvent = state; // Flip the active state
     }
+
 }

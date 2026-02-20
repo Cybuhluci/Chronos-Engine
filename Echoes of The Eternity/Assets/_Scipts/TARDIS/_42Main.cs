@@ -19,23 +19,5 @@ namespace TARDIS.Main
             audioManager.PlayEngineLoop();
             audioManager.PlayAmbient();
         }
-
-        public enum ShipFlightState
-        {
-            Parked,
-            Dematerialising,
-            InFlight,
-            Rematerialising,
-        }
-        public ShipFlightState currentFlightState;
-
-        public enum FlightMode
-        {
-            Drift,
-            Spatial,
-            Vortex,
-            Quantum,
-        }
-        public FlightMode flightMode;
     }
 }

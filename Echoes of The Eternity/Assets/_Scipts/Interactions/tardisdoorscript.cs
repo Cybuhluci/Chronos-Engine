@@ -29,15 +29,6 @@ namespace Luci.Interactions
 
         private void Start()
         {
-            if (sceneManager == null)
-            {
-                Debug.LogError("SceneManagerScript not found in the scene!");
-            }
-
-            if (doorLockScript == null)
-            {
-                Debug.LogError("TardisDoorLockScript is missing on TARDIS door!");
-            }
         }
 
         private void Update()

@@ -1,22 +1,13 @@
 using UnityEngine;
-using TARDIS.Core;
 
-public class AstronavCU : ConsoleCore
+public class AstronavCU : MonoBehaviour
 {
-    // --- TARDISSubsystemController Implementations ---
-
-    // This method is called by the base ToggleCircuit() when _isCircuitActive becomes TRUE.
-    protected override void OnCircuitActivated() { }
-    // This method is called by the base ToggleCircuit() when _isCircuitActive becomes FALSE.
-    protected override void OnCircuitDeactivated() { }
-
-    [SerializeField] NaviCore deltaCircuit;
     [SerializeField] GameObject astronavUI;
     [SerializeField] FirstPersonController playerController;
 
     private void Awake()
     {
-        ToggleCircuit();
+
     }
 
     private void Update()
