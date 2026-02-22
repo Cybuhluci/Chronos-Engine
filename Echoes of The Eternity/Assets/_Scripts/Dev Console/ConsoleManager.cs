@@ -11,6 +11,13 @@ public class ConsoleManager : MonoBehaviour
     public Button submitButton;            // Assign in inspector
     public PlayerInput playerInput;        // Assign in inspector
 
+    [Header("Output Auto-Resize")]
+    [Tooltip("Optional RectTransform to resize. If null the script will use outputText.rectTransform.")]
+    public RectTransform outputTextRect;
+    [Tooltip("Optional ScrollRect to auto-scroll when new text is added.")]
+    public ScrollRect outputScrollRect;
+    [Tooltip("Minimum height (px) for the output area")] public float outputMinHeight = 100f;
+
     public GameObject developerconsole;
     public bool consoleActive => developerconsole.activeSelf;
 
@@ -33,6 +40,8 @@ public class ConsoleManager : MonoBehaviour
     {
         inputField.onSubmit.AddListener(OnCommandSubmitted);
         submitButton.onClick.AddListener(OnSubmitButtonClicked);
+        // Ensure initial size is correct
+        AdjustOutputHeight();
     }
 
     void OnDestroy()
@@ -122,13 +131,74 @@ public class ConsoleManager : MonoBehaviour
         bool success = CommandRegistry.Execute(input);
         if (success)
         {
-            outputText.text += $"\n> {input}";
+            outputText.text += $"] {input}\n";
         }
         else
         {
-            outputText.text += $"\nUnknown command: {input}";
+            outputText.text += $"Unknown command: {input}\n";
+        }
+        // Resize output area to fit the new contents
+        AdjustOutputHeight();
+        // Auto-scroll to bottom if a ScrollRect was provided
+        if (outputScrollRect != null)
+        {
+            Canvas.ForceUpdateCanvases();
+            outputScrollRect.verticalNormalizedPosition = 0f;
+            Canvas.ForceUpdateCanvases();
         }
         inputField.text = "";
         inputField.ActivateInputField();
+    }
+
+    // Resize the output text RectTransform to match TMP preferred height (clamped).
+    private void AdjustOutputHeight()
+    {
+        if (outputText == null) return;
+
+        RectTransform rt = outputTextRect != null ? outputTextRect : outputText.rectTransform;
+
+        // Force mesh update so preferred values are accurate
+        outputText.ForceMeshUpdate();
+
+        // Use GetPreferredValues with current width to compute required height
+        float width = rt.rect.width;
+        Vector2 preferred = outputText.GetPreferredValues(outputText.text, width, 0f);
+        float targetHeight = preferred.y;
+
+        // Enforce minimum and apply (no maximum clamp to allow long backlog)
+        targetHeight = Mathf.Max(targetHeight, outputMinHeight);
+        rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, targetHeight);
+
+        // Ensure layout updates immediately (useful if parent uses LayoutGroup)
+        Canvas.ForceUpdateCanvases();
+        UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(rt);
+    }
+
+    // Public helper to append a line to the console output and update layout/scroll
+    public void AppendOutput(string line)
+    {
+        if (outputText == null) return;
+        outputText.text += line + "\n";
+        AdjustOutputHeight();
+        if (outputScrollRect != null)
+        {
+            Canvas.ForceUpdateCanvases();
+            outputScrollRect.verticalNormalizedPosition = 0f;
+            Canvas.ForceUpdateCanvases();
+        }
+    }
+
+    // Public helper to clear the console output
+    public void ClearOutput()
+    {
+        if (outputText == null) return;
+        outputText.text = string.Empty;
+        AdjustOutputHeight();
+        if (outputScrollRect != null)
+        {
+            Canvas.ForceUpdateCanvases();
+            outputScrollRect.verticalNormalizedPosition = 0f;
+            Canvas.ForceUpdateCanvases();
+        }
     }
 }

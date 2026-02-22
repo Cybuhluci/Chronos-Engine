@@ -25,8 +25,21 @@ public class LookTowardsMainCam : MonoBehaviour
 // Until as the Raven quoth, "Nevermore."
 
 {
+    [Tooltip("If true the object will face away from the main camera (useful for world-space canvases). If false it will LookAt the camera.")]
+    public bool faceAwayFromCamera = true;
+
     void LateUpdate()
     {
-        transform.LookAt(Camera.main.transform);
+        var cam = Camera.main;
+        if (cam == null) return;
+
+        // Direction from camera to this object
+        Vector3 dir = transform.position - cam.transform.position;
+        if (dir.sqrMagnitude <= 0.0001f) return;
+
+        // If faceAwayFromCamera is false, invert direction so it looks at camera
+        if (!faceAwayFromCamera) dir = -dir;
+
+        transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
     }
 }

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CommandGenerator : MonoBehaviour
 {
+    [SerializeField] private ConsoleManager consoleManager; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -9,7 +11,22 @@ public class CommandGenerator : MonoBehaviour
         {
             Name = "echo",
             Description = "Echoes the input.",
-            Execute = args => Debug.Log(string.Join(" ", args))
+            Execute = args =>
+            {
+                string msg = string.Join(" ", args);
+                Debug.Log(msg);
+                consoleManager.AppendOutput(msg);
+            }
+        });
+
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "clear",
+            Description = "Clears the console output.",
+            Execute = args =>
+            {
+                consoleManager.ClearOutput();
+            }
         });
 
         CommandRegistry.Register(new ConsoleCommand
@@ -37,10 +54,5 @@ public class CommandGenerator : MonoBehaviour
                     Debug.Log("Usage: loadscene <sceneName>");
             }
         });
-
-
-        // GAME SPECIFIC COMMANDS BELOW
-
-        
     }
 }
