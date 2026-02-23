@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a147a70f5d8d104187022dcabd8f3be, type: 3}
+  m_Name: M1014
+  m_EditorClassIdentifier: Assembly-CSharp::MainGunDataSO
+  gunType: 2
+  weaponName: M4 Benelli
+  model: {fileID: 6772441487285836388, guid: dc00984313b607d47ba8d7c471dd66d2, type: 3}
+  damage: 35
+  headshotMultiplier: 1.5
+  fireRate: 720
+  fireMode: 1
+  magazineSize: 20
+  reserveAmmo: 120
+  bulletsPerShot: 1
+  equipTime: 0.63
+  dequipTime: 0.23
+  reloadTime: 3
+  ADSTime: 0.25
+  recoil: 1.06
+  spread: 2
+  muzzleVelocity: 670

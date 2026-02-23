@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - CinemachineTarget
+  - FxTemporaire
+  - Head
+  - PrimaryAmmoMagazine
+  - PrimaryAmmoReserve
+  - SecondaryAmmoMagRes
   layers:
   - Default
   - TransparentFX
@@ -14,7 +20,7 @@ TagManager:
   - 
   - Player
   - Interactable
-  - 
+  - Gun
   - 
   - 
   - 

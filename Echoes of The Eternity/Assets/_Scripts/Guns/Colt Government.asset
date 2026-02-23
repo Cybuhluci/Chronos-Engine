@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a147a70f5d8d104187022dcabd8f3be, type: 3}
+  m_Name: Colt Government
+  m_EditorClassIdentifier: Assembly-CSharp::MainGunDataSO
+  gunType: 0
+  weaponName: Colt Government
+  model: {fileID: 3606513933071933589, guid: 17b3562458160f344810da5e9f21b6ff, type: 3}
+  damage: 35
+  headshotMultiplier: 1.5
+  fireRate: 600
+  fireMode: 0
+  magazineSize: 7
+  reserveAmmo: 64
+  bulletsPerShot: 1
+  equipTime: 0.27
+  dequipTime: 0.12
+  reloadTime: 2
+  ADSTime: 0.167
+  recoil: 167
+  spread: 1
+  muzzleVelocity: 350

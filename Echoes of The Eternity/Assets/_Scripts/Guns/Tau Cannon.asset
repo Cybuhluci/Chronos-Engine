@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4bc224b8613f2344b489c940bbced3b, type: 3}
+  m_Name: Tau Cannon
+  m_EditorClassIdentifier: Assembly-CSharp::GadgetDataSO
+  gadgetType: 3
+  weaponName: TAU Cannon
+  model: {fileID: 834474034353824050, guid: 56934e61d9f4ad348886d6a243cd2cb4, type: 3}
+  damage: 500
+  headshotMultiplier: 1.5
+  fireRate: 50
+  fireMode: 0
+  ammoStart: 3
+  ammoMax: 5
+  equipTime: 1.5
+  dequipTime: 0.5
+  reloadTime: 5
+  ADSTime: 1
+  recoil: 5
+  muzzleVelocity: 2500
