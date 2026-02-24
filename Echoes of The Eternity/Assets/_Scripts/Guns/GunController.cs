@@ -375,7 +375,25 @@ public class GunController : MonoBehaviour
                     damage *= gunData.headshotMultiplier;
                 }
 
-                hit.collider.gameObject.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+                // Prefer EnemyHealth component when present
+                var enemyHealth = hit.collider.GetComponentInParent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(damage, gameObject);
+                }
+                else
+                {
+                    // fallback for older scripts that expect SendMessage
+                    hit.collider.gameObject.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+                }
+
+                // Apply physical impulse if the hit object has a rigidbody
+                if (hit.rigidbody != null)
+                {
+                    float impulseScale = (gunData != null) ? gunData.muzzleVelocity * 0.02f : 1f;
+                    hit.rigidbody.AddForceAtPosition(dir * impulseScale, hit.point, ForceMode.Impulse);
+                }
+
                 Debug.Log($"Hit {hit.collider.name} for {damage} damage");
             }
             else

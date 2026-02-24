@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace StarterAssets
+namespace Luci
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
     public class FirstPersonController : MonoBehaviour
     {
-        public enum PlayerState { Standing, Crouching, Proning }
+        public enum PlayerState { Standing, Crouching, Downed }
+        public PlayerState _playerState = PlayerState.Standing;
         public bool CameraDisable = false;
         public bool MovementDisable = false;
 
         [Header("Player")]
+        public bool noclipEnabled = false;
         public float MoveSpeed = 4.0f;
         public float SprintSpeed = 6.0f;
         public float RotationSpeed = 1.0f;
@@ -44,13 +46,14 @@ namespace StarterAssets
         public float MinSprintStamina = 10f;
 
         [Header("Crouch Settings")]
+        public float CrouchSpeedMultiplier = 0.5f;
         public float StandingHeight = 2.0f;
         public float CrouchHeight = 1.0f;
         public float CrouchCameraYOffset = -0.5f;
 
-        [Header("Prone Settings")]
-        public float ProneHeight = 0.5f;
-        public float ProneCameraYOffset = -1.0f;
+        [Header("Downed Settings")]
+        public float DownedHeight = 0.5f;
+        public float DownedCameraYOffset = -1.0f;
 
         [Header("Camera Settings")]
         public float MouseSensitivity = 1.0f;
@@ -64,17 +67,10 @@ namespace StarterAssets
         private float targetYaw;
         private float targetPitch;
 
-        // Dolphin dive feature removed
-
         [Header("Collision")]
         public float CapsuleCastSkin = 0.05f; // small gap to prevent immediate collision
 
-        [Header("Movement Penalties")]
-        public float CrouchSpeedMultiplier = 0.5f;
-        public float ProneSpeedMultiplier = 0.2f;
-
         // internal state
-        public PlayerState _playerState = PlayerState.Standing;
         private float _lastCrouchPressTime = -10f;
         private float _crouchDoublePressThreshold = 0.3f;
 
@@ -163,6 +159,15 @@ namespace StarterAssets
             HandleStamina();
             JumpAndGravity();
             GroundedCheck();
+            // sync noclip state if CharacterController was toggled externally
+            if (_controller != null)
+            {
+                if (!_controller.enabled && !noclipEnabled)
+                    ToggleNoclip(true);
+                else if (_controller.enabled && noclipEnabled)
+                    ToggleNoclip(false);
+            }
+
             Move();
             DeveloperConsoleBind();
         }
@@ -203,37 +208,22 @@ namespace StarterAssets
         {
             if (MovementDisable) return;
             bool crouchPressed = false;
-            bool pronePressed = false;
             bool sprintHeld = false;
             if (_playerInput != null)
             {
                 var a = _playerInput.actions;
                 if (a["Crouch"] != null) crouchPressed = a["Crouch"].WasPressedThisFrame();
-                if (a["Prone"] != null) pronePressed = a["Prone"].WasPressedThisFrame();
                 if (a["Sprint"] != null) sprintHeld = a["Sprint"].IsPressed();
             }
             else
             {
                 crouchPressed = Input.GetKeyDown(KeyCode.C);
-                pronePressed = Input.GetKeyDown(KeyCode.Z);
                 sprintHeld = Input.GetKey(KeyCode.LeftShift);
             }
             // stance handling
-            bool pronePressedLocal = false;
-            if (_playerInput != null)
+            if (crouchPressed)
             {
-                var a = _playerInput.actions;
-                if (a["Prone"] != null) pronePressedLocal = a["Prone"].WasPressedThisFrame();
-            }
-
-            if (pronePressedLocal) SetPlayerState(PlayerState.Proning);
-            else if (crouchPressed)
-            {
-                if (Time.time - _lastCrouchPressTime < _crouchDoublePressThreshold)
-                {
-                    SetPlayerState(PlayerState.Proning);
-                }
-                else if (_playerState == PlayerState.Crouching)
+                if (_playerState == PlayerState.Crouching)
                 {
                     SetPlayerState(PlayerState.Standing);
                 }
@@ -241,13 +231,8 @@ namespace StarterAssets
                 {
                     SetPlayerState(PlayerState.Crouching);
                 }
-                _lastCrouchPressTime = Time.time;
             }
-
-            // dive feature removed
         }
-
-        // Dolphin dive feature removed
 
         private void HandleStanceSmooth()
         {
@@ -263,10 +248,10 @@ namespace StarterAssets
                     _cameraLocalPosTarget = _originalCameraLocalPos + new Vector3(0, CrouchCameraYOffset, 0);
                     _targetControllerCenter = new Vector3(_originalControllerCenterCached.x, CrouchHeight / 2f, _originalControllerCenterCached.z);
                     break;
-                case PlayerState.Proning:
-                    _targetControllerHeight = ProneHeight;
-                    _cameraLocalPosTarget = _originalCameraLocalPos + new Vector3(0, ProneCameraYOffset, 0);
-                    _targetControllerCenter = new Vector3(_originalControllerCenterCached.x, ProneHeight / 2f, _originalControllerCenterCached.z);
+                case PlayerState.Downed:
+                    _targetControllerHeight = DownedHeight;
+                    _cameraLocalPosTarget = _originalCameraLocalPos + new Vector3(0, DownedCameraYOffset, 0);
+                    _targetControllerCenter = new Vector3(_originalControllerCenterCached.x, DownedHeight / 2f, _originalControllerCenterCached.z);
                     break;
             }
 
@@ -357,6 +342,12 @@ namespace StarterAssets
         private void Move()
         {
             if (MovementDisable) return;
+
+            if (noclipEnabled)
+            {
+                MoveNoclip();
+                return;
+            }
             bool sprint = false;
             Vector2 move = Vector2.zero;
             if (_playerInput != null)
@@ -372,15 +363,14 @@ namespace StarterAssets
             }
 
             // Normal movement
-            // Normal movement
             float stateSpeedMultiplier = 1.0f;
             switch (_playerState)
             {
                 case PlayerState.Crouching:
                     stateSpeedMultiplier = CrouchSpeedMultiplier;
                     break;
-                case PlayerState.Proning:
-                    stateSpeedMultiplier = ProneSpeedMultiplier;
+                case PlayerState.Downed:
+                    stateSpeedMultiplier = 0.15f;
                     break;
             }
 
@@ -417,6 +407,52 @@ namespace StarterAssets
             _controller.Move(safe);
         }
 
+        // Noclip movement: ignores collisions and gravity, moves in camera look direction so "look up and walk" works
+        private void MoveNoclip()
+        {
+            // determine input
+            Vector2 move = Vector2.zero;
+            bool sprint = false;
+            bool jumpHeld = false;
+            bool descendHeld = false;
+            if (_playerInput != null)
+            {
+                var a = _playerInput.actions;
+                if (a["Move"] != null) move = a["Move"].ReadValue<Vector2>();
+                if (a["Sprint"] != null) sprint = a["Sprint"].IsPressed();
+                if (a["Jump"] != null) jumpHeld = a["Jump"].IsPressed();
+                if (a["Crouch"] != null) descendHeld = a["Crouch"].IsPressed();
+            }
+            else
+            {
+                move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                sprint = Input.GetKey(KeyCode.LeftShift);
+                jumpHeld = Input.GetButton("Jump");
+                descendHeld = Input.GetKey(KeyCode.C);
+            }
+
+            // pick a reference forward (camera target if present, else main camera, else transform)
+            Transform refT = CinemachineCameraTarget != null ? CinemachineCameraTarget.transform : (Camera.main != null ? Camera.main.transform : transform);
+
+            // build direction: forward uses full camera forward (includes vertical) so looking up and walking moves up
+            Vector3 forward = refT.forward;
+            Vector3 right = refT.right;
+
+            Vector3 dir = (right * move.x) + (forward * move.y);
+
+            // vertical ascend/descend
+            if (jumpHeld) dir += Vector3.up;
+            if (descendHeld) dir += Vector3.down;
+
+            if (dir.sqrMagnitude > 0.0001f) dir = dir.normalized;
+
+            float speed = sprint ? SprintSpeed : MoveSpeed;
+            Vector3 delta = dir * speed * Time.deltaTime;
+
+            // move transform directly (ignores collisions)
+            transform.position += delta;
+        }
+
         private Vector3 ComputeSafeDisplacement(Vector3 desiredDisplacement)
         {
             float radius = Mathf.Max(0.01f, _controller.radius);
@@ -446,11 +482,11 @@ namespace StarterAssets
             return desiredDisplacement;
         }
 
-        // Dolphin dive feature removed
-
         private void JumpAndGravity()
         {
-            if (MovementDisable) return;
+            // when noclip is active, do not apply gravity or jumping
+            if (noclipEnabled) return;
+            if (MovementDisable || _playerState == PlayerState.Downed) return;
             bool jump = false;
             if (_playerInput != null)
             {
@@ -494,10 +530,44 @@ namespace StarterAssets
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
         }
 
+        private PlayerState preDownPlayerState;
+
+        public void SetDownedState(bool isDowned)
+        {
+            if (isDowned)
+            {
+                preDownPlayerState = _playerState; // store current state to return to later
+                _playerState = PlayerState.Downed;
+                SetPlayerState(PlayerState.Downed);
+            }
+            else
+            {
+                if (_playerState == PlayerState.Downed)
+                {
+                    _playerState = preDownPlayerState;
+                    SetPlayerState(preDownPlayerState);
+                }
+            }
+        }
+
         private void SetPlayerState(PlayerState newState)
         {
             if (_playerState == newState) return;
             _playerState = newState;
+
+            //// If downed, disable movement but allow camera rotation. Also set target stance to prone height.
+            //if (_playerState == PlayerState.Downed)
+            //{
+            //    // set target controller height to downed values so player visually goes down
+            //    _targetControllerHeight = DownedHeight;
+            //    _cameraLocalPosTarget = _originalCameraLocalPos + new Vector3(0, DownedCameraYOffset, 0);
+            //    _targetControllerCenter = new Vector3(_originalControllerCenterCached.x, DownedHeight / 2f, _originalControllerCenterCached.z);
+            //}
+            //else
+            //{
+            //    // leaving downed state re-enable movement
+            //    ToggleDisableMovement(false);
+            //}
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -521,6 +591,18 @@ namespace StarterAssets
         public void ToggleDisableMovement(bool set)
         {
             MovementDisable = set;
+        }
+
+        // Enable or disable noclip mode. When enabled CharacterController is disabled and movement ignores collisions/gravity.
+        public void ToggleNoclip(bool enable)
+        {
+            noclipEnabled = enable;
+            if (_controller != null)
+            {
+                _controller.enabled = !enable;
+            }
+            // reset vertical velocity so gravity does not immediately apply when toggling
+            _verticalVelocity = 0f;
         }
 
         private void OnDrawGizmosSelected()

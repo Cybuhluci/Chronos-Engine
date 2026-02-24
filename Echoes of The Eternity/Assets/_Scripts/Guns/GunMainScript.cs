@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GunMainScript : MonoBehaviour
 {
@@ -41,7 +43,10 @@ public class GunMainScript : MonoBehaviour
     public MainGunDataSO StartingSecondary;
     public GadgetDataSO StartingGadget1, StartingGadget2;
     public GrenadeDataSO StartingGrenade;
+    public SignatureDeployableSO StartingSignature;
     public GameObject isPrimaryActive;
+    private GameObject SignatureDeployable;
+    private float signatureCooldownRemaining = 0f;
 
     public WeaponSlot currentSlot = WeaponSlot.Primary;
 
@@ -53,6 +58,7 @@ public class GunMainScript : MonoBehaviour
     [SerializeField] private TMP_Text primaryAmmo;
     [SerializeField] private TMP_Text primaryAmmoReserve;
     [SerializeField] private TMP_Text secondaryAmmo;
+    [SerializeField] private Image SignatureCooldown;
 
     [SerializeField] private GameObject WoodPrefab, MetalPrefab, ConcretePrefab; // bullet hole prefabs for different materials
 
@@ -86,10 +92,35 @@ public class GunMainScript : MonoBehaviour
 
         secondaryAmmo.text = StartingSecondary.magazineSize.ToString() + "/" + StartingSecondary.reserveAmmo.ToString();
         GiveControllersBulletHolePrefabs();
+
+        // initialize signature cooldown UI
+        if (SignatureCooldown != null)
+            SignatureCooldown.fillAmount = 1f; // ready
     }
 
     private void Update()
     {
+        // update signature cooldown timer and UI
+        if (signatureCooldownRemaining > 0f)
+        {
+            signatureCooldownRemaining -= Time.deltaTime;
+            if (signatureCooldownRemaining < 0f) signatureCooldownRemaining = 0f;
+        }
+        if (SignatureCooldown != null)
+        {
+            if (StartingSignature != null && StartingSignature.cooldownTime > 0)
+            {
+                float denom = StartingSignature.cooldownTime;
+                // show progress filling up as cooldown replenishes
+                float progress = 1f - (signatureCooldownRemaining / denom);
+                SignatureCooldown.fillAmount = Mathf.Clamp01(progress);
+            }
+            else
+            {
+                SignatureCooldown.fillAmount = 1f;
+            }
+        }
+
         UpdateWeaponNameText();
 
         if (playerInput != null)
@@ -108,6 +139,8 @@ public class GunMainScript : MonoBehaviour
                 SwitchToSlot(WeaponSlot.Gadget2);
             else if (playerInput.actions["Grenade"] != null && playerInput.actions["Grenade"].WasPressedThisFrame())
                 SwitchToSlot(WeaponSlot.Grenade);
+            else if (playerInput.actions["Signature"] != null && playerInput.actions["Signature"].WasPressedThisFrame())
+                SignatureDeploy();
         }
 
         // Shooting
@@ -138,6 +171,36 @@ public class GunMainScript : MonoBehaviour
                 SetWeaponNameAlpha(0f);
                 weaponNameVisible = false;
             }
+        }
+    }
+
+    private void SignatureDeploy()
+    {
+        // potentially a thing to check if it's a hold or press.
+        // there is a "map based signature deployable" which uses a hold to deply, the regular signature will use a press to deploy.
+
+
+        // check cooldown
+        if (StartingSignature == null) return;
+        if (signatureCooldownRemaining > 0f) return;
+
+        if (SignatureDeployable != null)
+        {
+            // if there is already a deployed signature, destroy it before deploying a new one
+            Destroy(SignatureDeployable);
+        }
+
+        // instantiate the signature deployable and throw it forward from the player's camera, the deployable's own script will handle its behavior and destruction
+        if (StartingSignature != null && StartingSignature.model != null)
+        {
+            SignatureDeployable = Instantiate(StartingSignature.model, weaponHolder.transform.position, weaponHolder.transform.rotation);
+            Rigidbody rb = SignatureDeployable.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Camera.main.transform.forward * 10f; // throw forward with some speed
+            }
+            // start cooldown
+            signatureCooldownRemaining = Mathf.Max(0, StartingSignature.cooldownTime);
         }
     }
 

@@ -115,15 +115,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Prone",
-                    "type": "Button",
-                    "id": "200613b2-f110-444e-8b6c-cd693d9a470b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "dc6670d7-3969-4555-a7d1-9f5150783450",
@@ -145,6 +136,24 @@
                     "name": "Console",
                     "type": "Button",
                     "id": "8b5e4ef4-9530-4625-abba-0624342dd567",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Melee",
+                    "type": "Button",
+                    "id": "b624ddbf-eb08-4454-8f31-a61f4b602743",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Signature",
+                    "type": "Button",
+                    "id": "6fe9a199-443d-4845-b708-29e75348867d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -257,7 +266,7 @@
                     "path": "<Mouse>/backButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Gadget1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -279,7 +288,7 @@
                     "path": "<Mouse>/forwardButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Gadget2",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -336,17 +345,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3d30c6f4-ebc8-43ce-82bd-73a7cf9e424a",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Prone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -433,8 +431,30 @@
                     "path": "<Keyboard>/5",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Grenade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7dab88d0-c7a1-4795-b7b1-77bda29aec7e",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Melee",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0586cf7-e91b-4a06-a499-37a0a2fb0e7b",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Signature",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

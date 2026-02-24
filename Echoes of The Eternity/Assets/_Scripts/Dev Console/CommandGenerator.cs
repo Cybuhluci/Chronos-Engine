@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CommandGenerator : MonoBehaviour
 {
@@ -16,6 +17,281 @@ public class CommandGenerator : MonoBehaviour
                 string msg = string.Join(" ", args);
                 Debug.Log(msg);
                 consoleManager.AppendOutput(msg);
+            }
+        });
+
+        // AI disable/enable: AI_Disable 0|1
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "AI_Disable",
+            Description = "Disable or enable all enemy AI. Usage: AI_Disable 0|1",
+            Execute = args =>
+            {
+                if (PlayerPrefs.GetInt("sv_cheats", 0) == 0)
+                {
+                    string err = "Cheats are disabled.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                    return;
+                }
+                bool enable = true;
+                if (args.Length > 0 && (args[0] == "0")) enable = false;
+                var enemies = GameObject.FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+                int count = 0;
+                foreach (var e in enemies)
+                {
+                    if (e == null) continue;
+                    e.enabled = enable;
+                    var nav = e.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                    if (nav != null) nav.isStopped = !enable;
+                    count++;
+                }
+                string msg = $"AI {(enable ? "enabled" : "disabled")} for {count} enemies";
+                Debug.Log(msg);
+                consoleManager.AppendOutput(msg);
+            }
+        });
+
+        // SpawnEnemy: tries Resources/Enemies/<name> or uses EnemyButtonSpawner if no arg
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "SpawnEnemy",
+            Description = "Spawns an enemy. Usage: SpawnEnemy <prefabName> (looks in Resources/Enemies) or no args to use spawners",
+            Execute = args =>
+            {
+                if (args.Length > 0)
+                {
+                    if (PlayerPrefs.GetInt("sv_cheats", 0) == 0)
+                    {
+                        string err = "Cheats are disabled.";
+                        Debug.LogWarning(err);
+                        consoleManager.AppendOutput(err);
+                        return;
+                    }
+                    string prefabName = args[0];
+                    var prefab = Resources.Load<GameObject>("Enemies/" + prefabName);
+                    if (prefab != null)
+                    {
+                        var player = GameObject.FindGameObjectWithTag("Player");
+                        Vector3 pos = player != null ? player.transform.position + player.transform.forward * 2f : Vector3.zero;
+                        GameObject.Instantiate(prefab, pos, Quaternion.identity);
+                        string msg = $"Spawned enemy prefab '{prefabName}'";
+                        Debug.Log(msg);
+                        consoleManager.AppendOutput(msg);
+                        return;
+                    }
+                    else
+                    {
+                        string err = $"Prefab 'Enemies/{prefabName}' not found.";
+                        Debug.LogWarning(err);
+                        consoleManager.AppendOutput(err);
+                        return;
+                    }
+                }
+
+                // fallback: call any EnemyButtonSpawner in the scene
+                var spawners = GameObject.FindObjectsByType<EnemyButtonSpawner>(FindObjectsSortMode.None);
+                if (spawners.Length == 0)
+                {
+                    string err = "No EnemyButtonSpawner found to spawn an enemy.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                    return;
+                }
+                spawners[0].SpawnEnemy();
+                string msg2 = "Spawned enemy via EnemyButtonSpawner.";
+                Debug.Log(msg2);
+                consoleManager.AppendOutput(msg2);
+            }
+        });
+
+        // God: refill health and armour
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "God",
+            Description = "Make the player unable to die.",
+            Execute = args =>
+            {
+                if (PlayerPrefs.GetInt("sv_cheats", 0) == 0)
+                {
+                    string err = "Cheats are disabled.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                    return;
+                }
+                var ph = GameObject.FindFirstObjectByType<PlayerHealth>();
+                if (ph != null)
+                {
+                    ph._isInvulnerable = !ph._isInvulnerable;
+                    string err = $"godmode {ph._isInvulnerable}.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                }
+                else
+                {
+                    string err = "PlayerHealth not found.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                }
+            }
+        });
+
+        // noclip: toggle CharacterController on player
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "noclip",
+            Description = "Toggle noclip (disables CharacterController).",
+            Execute = args =>
+            {
+                if (PlayerPrefs.GetInt("sv_cheats", 0) == 0)
+                {
+                    string err = "Cheats are disabled.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                    return;
+                }
+                var player = GameObject.FindFirstObjectByType<Luci.FirstPersonController>();
+                if (player == null)
+                {
+                    consoleManager.AppendOutput("Player object not found.");
+                    return;
+                }
+                player.ToggleNoclip(!player.noclipEnabled);
+                string msg = $"Noclip {(player.noclipEnabled ? "off" : "on")}";
+                Debug.Log(msg);
+                consoleManager.AppendOutput(msg);
+            }
+        });
+
+        // kill: apply large damage to player
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "kill",
+            Description = "Kills the player instantly.",
+            Execute = args =>
+            {
+                var ph = GameObject.FindFirstObjectByType<PlayerHealth>();
+                if (ph != null)
+                {
+                    ph.TakeDamage(99999f);
+                    string msg = "Player downed.";
+                    Debug.Log(msg);
+                    consoleManager.AppendOutput(msg);
+                }
+                else
+                {
+                    string err = "PlayerHealth not found.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                }
+            }
+        });
+
+        // quit -> exit application
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "quit",
+            Description = "Quit the application.",
+            Execute = args =>
+            {
+                consoleManager.AppendOutput("Quitting application...");
+                Application.Quit();
+# if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+# endif
+            }
+        });
+
+        // exit -> return to main menu
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "exit",
+            Description = "Exit to main menu.",
+            Execute = args =>
+            {
+                consoleManager.AppendOutput("Returning to main menu...");
+                if (StageManager.Instance != null) StageManager.Instance.LoadMiscScene("mainmenu");
+                else UnityEngine.SceneManagement.SceneManager.LoadScene("mainmenu");
+            }
+        });
+
+        // sv_cheats 0/1 -> set PlayerPrefs flag
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "sv_cheats",
+            Description = "Toggle server cheats (sv_cheats 0|1)",
+            Execute = args =>
+            {
+                if (args.Length == 0)
+                {
+                    consoleManager.AppendOutput("Usage: sv_cheats 0|1");
+                    return;
+                }
+                int val = (args[0] == "1") ? 1 : 0;
+                PlayerPrefs.SetInt("sv_cheats", val);
+                PlayerPrefs.Save();
+                consoleManager.AppendOutput($"sv_cheats set to {val}");
+            }
+        });
+
+        // giveammo -> refill all GunController ammo
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "giveammo",
+            Description = "Give the player full ammo for current weapons.",
+            Execute = args =>
+            {
+                if (PlayerPrefs.GetInt("sv_cheats", 0) == 0)
+                {
+                    string err = "Cheats are disabled.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                    return;
+                }
+                var guns = GameObject.FindObjectsByType<GunController>(FindObjectsSortMode.None);
+                int changed = 0;
+                foreach (var g in guns)
+                {
+                    if (g == null || g.gunData == null) continue;
+                    g.currentAmmo = g.gunData.magazineSize;
+                    g.reserveAmmo = g.gunData.reserveAmmo;
+                    changed++;
+                }
+                string msg = $"Refilled ammo for {changed} weapons.";
+                Debug.Log(msg);
+                consoleManager.AppendOutput(msg);
+            }
+        });
+
+        // givehealth -> refill player's health and armour
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "givehealth",
+            Description = "Refill player's health and armour.",
+            Execute = args =>
+            {
+                if (PlayerPrefs.GetInt("sv_cheats", 0) == 0)
+                {
+                    string err = "Cheats are disabled.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                    return;
+                }
+                var ph = GameObject.FindFirstObjectByType<PlayerHealth>();
+                if (ph != null)
+                {
+                    ph.CurrentHealth = ph.MaxHealth;
+                    ph.CurrentArmour = ph.MaxArmour;
+                    string msg = "Player health and armour refilled.";
+                    Debug.Log(msg);
+                    consoleManager.AppendOutput(msg);
+                }
+                else
+                {
+                    string err = "PlayerHealth not found.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                }
             }
         });
 
@@ -38,7 +314,7 @@ public class CommandGenerator : MonoBehaviour
                 if (args.Length > 0)
                     StageManager.Instance.LoadSceneDeveloper(args[0]);
                 else
-                    Debug.Log("Usage: loadscene <sceneName>");
+                    consoleManager.AppendOutput("Usage: loadscene <sceneName>");
             }
         });
 
@@ -48,11 +324,23 @@ public class CommandGenerator : MonoBehaviour
             Description = "Resets the current scene. Usage: resetscene",
             Execute = args =>
             {
-                if (args.Length > 0)
+                if (args.Length >= 0)
                     StageManager.Instance.ReloadScene();
                 else
-                    Debug.Log("Usage: loadscene <sceneName>");
+                    consoleManager.AppendOutput("Usage: resetscene");
             }
         });
+
+        // necessary commands for tesing:
+        // AI_Disable 0/1 - enables and disables enemy AI
+        // SpawnEnemy <enemyTypeName> - spawns an enemy of the specified type at the player's location
+        // God - enables god mode
+        // noclip - enables noclip mode
+        // kill - kills the player
+        // quit - quits the game
+        // exit - quits to main menu
+        // sv_cheats 0/1 - enables or disables cheats
+        // giveammo - gives the player max ammo
+        // givehealth - gives the player max health
     }
 }
