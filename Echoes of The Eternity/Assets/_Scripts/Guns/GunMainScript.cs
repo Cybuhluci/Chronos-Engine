@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -44,9 +45,14 @@ public class GunMainScript : MonoBehaviour
     public GadgetDataSO StartingGadget1, StartingGadget2;
     public GrenadeDataSO StartingGrenade;
     public SignatureDeployableSO StartingSignature;
+    public UniqueDeployableSO StartingUniqueDeployable;
     public GameObject isPrimaryActive;
     private GameObject SignatureDeployable;
     private float signatureCooldownRemaining = 0f;
+    // signature / unique hold state
+    private bool _sigHoldInProgress = false;
+    private float _sigHoldTimer = 0f;
+    private bool _sigHoldTriggered = false; // whether unique action triggered from hold
 
     public WeaponSlot currentSlot = WeaponSlot.Primary;
 
@@ -55,10 +61,20 @@ public class GunMainScript : MonoBehaviour
     private float weaponNameVisibleTime = 0.5f;
     private float weaponNameTimer = 0f;
     private bool weaponNameVisible = true;
+
+    [Header("Ammo")]
     [SerializeField] private TMP_Text primaryAmmo;
     [SerializeField] private TMP_Text primaryAmmoReserve;
     [SerializeField] private TMP_Text secondaryAmmo;
     [SerializeField] private Image SignatureCooldown;
+
+    [Header("Unique Deployable")]
+    [SerializeField] private GameObject UDInsantObject;
+    private bool uniqueDeployableActivated;
+    private Image UDBindProgress;
+    private int holdTimeForUD = 1;
+    private float _udHoldProgress = 0f;
+    [SerializeField] private UniqueDeployableMainScript _uniqueDeployableMainScript;
 
     [SerializeField] private GameObject WoodPrefab, MetalPrefab, ConcretePrefab; // bullet hole prefabs for different materials
 
@@ -77,6 +93,11 @@ public class GunMainScript : MonoBehaviour
         secondaryAmmo.text = primaryAmmo.text + primaryAmmoReserve.text;
     }
 
+    public bool IsUniqueDeployableActivated()
+    {
+        return uniqueDeployableActivated;
+    }
+
     private void Start()
     {
         for (int i = 0; i < inventory.Length; i++) inventory[i] = new WeaponInstance();
@@ -86,6 +107,7 @@ public class GunMainScript : MonoBehaviour
         if (StartingGadget1 != null) EquipWeapon(WeaponSlot.Gadget1, StartingGadget1, StartingGadget1.model);
         if (StartingGadget2 != null) EquipWeapon(WeaponSlot.Gadget2, StartingGadget2, StartingGadget2.model);
         if (StartingGrenade != null) EquipWeapon(WeaponSlot.Grenade, StartingGrenade, StartingGrenade.model);
+        if (StartingUniqueDeployable != null) Instantiate(StartingUniqueDeployable.uniqueDeployablePrefab, UDInsantObject.transform);
 
         UpdateWeaponNameText();
         ShowOnlyCurrentWeaponModel();
@@ -96,6 +118,15 @@ public class GunMainScript : MonoBehaviour
         // initialize signature cooldown UI
         if (SignatureCooldown != null)
             SignatureCooldown.fillAmount = 1f; // ready
+
+        // set hold time from unique deployable if provided
+        if (StartingUniqueDeployable != null && StartingUniqueDeployable.equipTime > 0f)
+        {
+            holdTimeForUD = Mathf.Max(1, Mathf.RoundToInt(StartingUniqueDeployable.equipTime));
+        }
+
+        UDBindProgress = GameObject.FindWithTag("UDBindHold")?.GetComponent<Image>();
+        _uniqueDeployableMainScript = GameObject.FindFirstObjectByType<UniqueDeployableMainScript>().GetComponent<UniqueDeployableMainScript>();
     }
 
     private void Update()
@@ -125,12 +156,9 @@ public class GunMainScript : MonoBehaviour
 
         if (playerInput != null)
         {
+            // weapon slot switching
             if (playerInput.actions["Primary"] != null && playerInput.actions["Primary"].WasPressedThisFrame())
                 SwitchToSlot(WeaponSlot.Primary);
-            else if (playerInput.actions["Secondary"] != null && playerInput.actions["Secondary"].WasPressedThisFrame())
-                SwitchToSlot(WeaponSlot.Secondary);
-            else if (playerInput.actions["Secondary"] != null && playerInput.actions["Secondary"].WasPressedThisFrame())
-                SwitchToSlot(WeaponSlot.Secondary);
             else if (playerInput.actions["Secondary"] != null && playerInput.actions["Secondary"].WasPressedThisFrame())
                 SwitchToSlot(WeaponSlot.Secondary);
             else if (playerInput.actions["Gadget1"] != null && playerInput.actions["Gadget1"].WasPressedThisFrame())
@@ -139,8 +167,49 @@ public class GunMainScript : MonoBehaviour
                 SwitchToSlot(WeaponSlot.Gadget2);
             else if (playerInput.actions["Grenade"] != null && playerInput.actions["Grenade"].WasPressedThisFrame())
                 SwitchToSlot(WeaponSlot.Grenade);
-            else if (playerInput.actions["Signature"] != null && playerInput.actions["Signature"].WasPressedThisFrame())
-                SignatureDeploy();
+
+            // Signature button: tap = SignatureDeploy, hold = UniqueDeployable
+            var sigAction = playerInput.actions["Signature"];
+            if (sigAction != null)
+            {
+                if (sigAction.WasPressedThisFrame())
+                {
+                    _sigHoldInProgress = true;
+                    _sigHoldTimer = 0f;
+                    _sigHoldTriggered = false;
+                    if (UDBindProgress != null)
+                        UDBindProgress.fillAmount = 0f;
+                }
+
+                if (_sigHoldInProgress && sigAction.IsPressed())
+                {
+                    _sigHoldTimer += Time.deltaTime;
+                    // update UDCooldown UI to show hold progress
+                    float progress = Mathf.Clamp01(_sigHoldTimer / holdTimeForUD);
+                    if (UDBindProgress != null)
+                        UDBindProgress.fillAmount = progress;
+
+                    if (!_sigHoldTriggered && _sigHoldTimer >= holdTimeForUD)
+                    {
+                        // trigger unique deploy
+                        TryUniqueDeploy();
+                        _sigHoldTriggered = true;
+                        _sigHoldInProgress = false;
+                    }
+                }
+
+                if (_sigHoldInProgress && sigAction.WasReleasedThisFrame())
+                {
+                    // tap: if hold duration less than threshold, treat as signature press
+                    if (!_sigHoldTriggered)
+                    {
+                        SignatureDeploy();
+                    }
+                    _sigHoldInProgress = false;
+                    _sigHoldTimer = 0f;
+                    if (UDBindProgress != null) UDBindProgress.fillAmount = 0f;
+                }
+            }
         }
 
         // Shooting
@@ -176,10 +245,6 @@ public class GunMainScript : MonoBehaviour
 
     private void SignatureDeploy()
     {
-        // potentially a thing to check if it's a hold or press.
-        // there is a "map based signature deployable" which uses a hold to deply, the regular signature will use a press to deploy.
-
-
         // check cooldown
         if (StartingSignature == null) return;
         if (signatureCooldownRemaining > 0f) return;
@@ -201,6 +266,27 @@ public class GunMainScript : MonoBehaviour
             }
             // start cooldown
             signatureCooldownRemaining = Mathf.Max(0, StartingSignature.cooldownTime);
+        }
+    }
+
+    private void TryUniqueDeploy()
+    {
+        if (StartingUniqueDeployable == null) return;
+
+        // If not currently equipped, equip 
+        if (!uniqueDeployableActivated)
+        {
+            if (_uniqueDeployableMainScript != null)
+            {
+                _uniqueDeployableMainScript.ToggleUniqueDeployable();
+            }
+        }
+        else
+        {
+            if (_uniqueDeployableMainScript != null)
+            {
+                _uniqueDeployableMainScript.ToggleUniqueDeployable(); 
+            }
         }
     }
 

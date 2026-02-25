@@ -6,12 +6,13 @@ TagManager:
   tags:
   - CinemachineTarget
   - FxTemporaire
-  - Head
   - PrimaryAmmoMagazine
   - PrimaryAmmoReserve
   - SecondaryAmmoMagRes
   - Ground
   - SignatureDeployAmmo
+  - UDBindHold
+  - Head
   layers:
   - Default
   - TransparentFX

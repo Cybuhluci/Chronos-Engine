@@ -331,16 +331,28 @@ public class CommandGenerator : MonoBehaviour
             }
         });
 
-        // necessary commands for tesing:
-        // AI_Disable 0/1 - enables and disables enemy AI
-        // SpawnEnemy <enemyTypeName> - spawns an enemy of the specified type at the player's location
-        // God - enables god mode
-        // noclip - enables noclip mode
-        // kill - kills the player
-        // quit - quits the game
-        // exit - quits to main menu
-        // sv_cheats 0/1 - enables or disables cheats
-        // giveammo - gives the player max ammo
-        // givehealth - gives the player max health
+        // Toggle chemical gas in current scene (if any)
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "togglegas",
+            Description = "Toggle chemical gas in the current scene.",
+            Execute = args =>
+            {
+                var ph = GameObject.FindFirstObjectByType<ChemicalGasZone>();
+                if (ph != null)
+                {
+                    ph.ToggleGasZone();
+                    string msg = "Toggled chemical gas.";
+                    Debug.Log(msg);
+                    consoleManager.AppendOutput(msg);
+                }
+                else
+                {
+                    string err = "ChemicalGasZone not found.";
+                    Debug.LogWarning(err);
+                    consoleManager.AppendOutput(err);
+                }
+            }
+        });
     }
 }
