@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class ConsoleManager : MonoBehaviour
 {
+    public static ConsoleManager instance;
+
     public TMP_InputField inputField;      // Assign in inspector
     public TMP_Text outputText;            // Assign in inspector
     public Button submitButton;            // Assign in inspector
@@ -38,6 +40,8 @@ public class ConsoleManager : MonoBehaviour
 
     void Start()
     {
+        instance = this;
+
         inputField.onSubmit.AddListener(OnCommandSubmitted);
         submitButton.onClick.AddListener(OnSubmitButtonClicked);
         // Ensure initial size is correct

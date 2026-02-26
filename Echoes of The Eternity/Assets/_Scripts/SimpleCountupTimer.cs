@@ -12,7 +12,7 @@ public class SimpleCountupTimer : MonoBehaviour
         countupTime += Time.deltaTime;
         if (timerText != null)
         {
-            timerText.text = countupTime.ToString("F2");
+            timerText.text = countupTime.ToString("F0");
         }
     }
 }

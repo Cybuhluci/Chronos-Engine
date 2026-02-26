@@ -16,8 +16,6 @@ public class GasMaskScript : UniqueDeployableMainScript
     private void Start()
     {
         chargesRemaining = gasMaskData.startingAmmo;
-
-        ToggleUniqueDeploy();
     }
 
     public override void ToggleUniqueDeployable()

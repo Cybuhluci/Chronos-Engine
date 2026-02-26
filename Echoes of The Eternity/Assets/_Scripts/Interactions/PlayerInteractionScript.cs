@@ -68,6 +68,25 @@ namespace Luci.Interactions
                 var interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null)
                 {
+                    // If the interactable exposes an "isActive" flag and it is false, don't target it
+                    if (!IsInteractableActive(interactable))
+                    {
+                        // lost focus if we previously had one
+                        if (currentInteractable != null)
+                        {
+                            currentInteractable = null;
+                            ResetHoldState();
+                            if (_spawnedPrompt != null)
+                            {
+                                Destroy(_spawnedPrompt);
+                                _spawnedPrompt = null;
+                            }
+                            interactionCircle = null;
+                            interactionText = null;
+                        }
+                        return;
+                    }
+
                     if (currentInteractable != interactable)
                     {
                         // New target: reset any hold state
@@ -224,6 +243,40 @@ namespace Luci.Interactions
             _holdTimer = 0f;
             _holdCompleted = false;
             if (interactionCircle != null) interactionCircle.fillAmount = 0f;
+        }
+
+        // Try to detect a common pattern for an "isActive" flag on the interactable MonoBehaviour.
+        private bool IsInteractableActive(IInteractable interactable)
+        {
+            var mb = interactable as MonoBehaviour;
+            if (mb == null) return true;
+
+            // look for common field/property names
+            var t = mb.GetType();
+            var f = t.GetField("isactive");
+            if (f != null && f.FieldType == typeof(bool))
+            {
+                return (bool)f.GetValue(mb);
+            }
+            f = t.GetField("isActive");
+            if (f != null && f.FieldType == typeof(bool))
+            {
+                return (bool)f.GetValue(mb);
+            }
+
+            var p = t.GetProperty("isActive");
+            if (p != null && p.PropertyType == typeof(bool))
+            {
+                return (bool)p.GetValue(mb);
+            }
+            p = t.GetProperty("IsActive");
+            if (p != null && p.PropertyType == typeof(bool))
+            {
+                return (bool)p.GetValue(mb);
+            }
+
+            // default: treat as active
+            return true;
         }
 
         // Useful debug visualization in the editor
