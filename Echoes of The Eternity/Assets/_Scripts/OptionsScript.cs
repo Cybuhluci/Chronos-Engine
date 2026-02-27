@@ -19,28 +19,28 @@ public class OptionsScript : MonoBehaviour
         {
             theMixer.SetFloat("Master", PlayerPrefs.GetFloat("Master"));
         }
-        if (PlayerPrefs.HasKey("MUSIC"))
+        if (PlayerPrefs.HasKey("Music"))
         {
-            theMixer.SetFloat("MUSIC", PlayerPrefs.GetFloat("MUSIC"));
+            theMixer.SetFloat("Music", PlayerPrefs.GetFloat("Music"));
         }
-        if (PlayerPrefs.HasKey("SFX"))
+        if (PlayerPrefs.HasKey("Sounds"))
         {
-            theMixer.SetFloat("SFX", PlayerPrefs.GetFloat("SFX"));
+            theMixer.SetFloat("Sounds", PlayerPrefs.GetFloat("Sounds"));
         }
-        if (PlayerPrefs.HasKey("VOICE"))
+        if (PlayerPrefs.HasKey("Voice"))
         {
-            theMixer.SetFloat("VOICE", PlayerPrefs.GetFloat("VOICE"));
+            theMixer.SetFloat("Voice", PlayerPrefs.GetFloat("Voice"));
         }
 
         // Load volume sliders
         float vol = 0f;
         theMixer.GetFloat("Master", out vol);
         masterslider.value = vol;
-        theMixer.GetFloat("MUSIC", out vol);
+        theMixer.GetFloat("Music", out vol);
         musicslider.value = vol;
-        theMixer.GetFloat("SFX", out vol);
+        theMixer.GetFloat("Sounds", out vol);
         soundslider.value = vol;
-        theMixer.GetFloat("VOICE", out vol);
+        theMixer.GetFloat("Voice", out vol);
         voiceslider.value = vol;
 
         masterlabel.text = (masterslider.value + 80).ToString();
@@ -111,22 +111,22 @@ public class OptionsScript : MonoBehaviour
     public void setmusicvol()
     {
         musiclabel.text = (musicslider.value + 80).ToString();
-        theMixer.SetFloat("MUSIC", musicslider.value);
-        PlayerPrefs.SetFloat("MUSIC", musicslider.value);
+        theMixer.SetFloat("Music", musicslider.value);
+        PlayerPrefs.SetFloat("Music", musicslider.value);
     }
 
     public void setsoundvol()
     {
         soundlabel.text = (soundslider.value + 80).ToString();
-        theMixer.SetFloat("SFX", soundslider.value);
-        PlayerPrefs.SetFloat("SFX", soundslider.value);
+        theMixer.SetFloat("Sounds", soundslider.value);
+        PlayerPrefs.SetFloat("Sounds", soundslider.value);
     }
     
     public void setvoicevol()
     {
         voicelabel.text = (voiceslider.value + 80).ToString();
-        theMixer.SetFloat("VOICE", voiceslider.value);
-        PlayerPrefs.SetFloat("VOICE", voiceslider.value);
+        theMixer.SetFloat("Voice", voiceslider.value);
+        PlayerPrefs.SetFloat("Voice", voiceslider.value);
     }
 
     public void setfullscreenlabel()

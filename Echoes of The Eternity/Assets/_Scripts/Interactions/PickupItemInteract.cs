@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace Luci.Interactions
@@ -13,6 +14,19 @@ namespace Luci.Interactions
         public void PressInteract()
         {
             playerInventory.AddItemToInventory(this);
+            Destroy(gameObject);
+        }
+
+        private void Update()
+        {
+            if (playerInventory.GetInventory().Contains(itemName))
+            {
+                isactive = false;
+            }
+            else 
+            {                 
+                isactive = true;
+            }
         }
 
         // Called when player interacts (presses the interact key)

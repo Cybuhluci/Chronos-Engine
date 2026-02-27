@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class mainmenu : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class mainmenu : MonoBehaviour
     private InputAction UItitleanykey;
     public GameObject wholeofthemenu;
 
-    public GameObject stageselect, mainmenuscreen, optionsscreen;
+    public GameObject creditsScreen, mainmenuscreen, optionsscreen;
     public GameObject titlescreen;
 
     // Stage Selection Screens
@@ -21,7 +20,7 @@ public class mainmenu : MonoBehaviour
     void Start()
     {
         UIgoback = UIasset.FindAction("Cancel");
-        UItitleanykey = UIasset.FindAction("Submit");
+        UItitleanykey = UIasset.FindAction("AnyKey");
 
         UIgoback.Enable();
         UItitleanykey.Enable();
@@ -37,19 +36,18 @@ public class mainmenu : MonoBehaviour
             if (mainmenuscreen.activeSelf)
             {
                 optionsscreen.SetActive(false);
-                stageselect.SetActive(false);
                 mainmenuscreen.SetActive(true);
                 wholeofthemenu.SetActive(false);
                 titlescreen.SetActive(true);
             }
-            else if (stageselect.activeSelf)
-            {
-                stageselect.SetActive(false);
-                mainmenuscreen.SetActive(true);
-            }
             else if (optionsscreen.activeSelf)
             {
                 optionsscreen.SetActive(false);
+                mainmenuscreen.SetActive(true);
+            }
+            else if (creditsScreen.activeSelf)
+            {
+                creditsScreen.SetActive(false);
                 mainmenuscreen.SetActive(true);
             }
         }
@@ -62,74 +60,17 @@ public class mainmenu : MonoBehaviour
                 wholeofthemenu.SetActive(true);
             }
         }
-
-        if (stageselect.activeSelf)
-        {
-            if (UIasset.FindActionMap("UI").FindAction("StageLeft").WasPressedThisFrame())
-            {
-                ChangeStageScreen(-1);
-            }
-            else if (UIasset.FindActionMap("UI").FindAction("StageRight").WasPressedThisFrame())
-            {
-                ChangeStageScreen(1);
-            }
-        }
     }
 
-    void ChangeStageScreen(int direction)
+    public void playgame()
     {
-        stageScreens[currentStageIndex].SetActive(false);
-        currentStageIndex = (currentStageIndex + direction + stageScreens.Length) % stageScreens.Length;
-        stageScreens[currentStageIndex].SetActive(true);
+        StageManager.Instance.LoadMiscScene("Test");
     }
 
-    public void playgame(string SceneName)
-    {
-        LoadStage(SceneName);
-    }
-
-    public void LoadStage(string stageName)
-    {
-        if (string.IsNullOrEmpty(stageName))
-        {
-            Debug.LogError("ERROR: Scene name is empty or null!");
-            return;
-        }
-
-        // Save scene names
-        PlayerPrefs.SetString("NextScene", stageName);
-        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
-        PlayerPrefs.SetInt("IsStageLoading", 1); // 1 = Stage
-        PlayerPrefs.Save(); // Ensure data is written
-
-        Debug.Log($"Loading screen opened. Next Scene: {stageName}, Previous Scene: {SceneManager.GetActiveScene().name}");
-
-        SceneManager.LoadSceneAsync("LoadingScene", LoadSceneMode.Additive);
-    }
-
-    public void LoadMiscScene(string sceneName)
-    {
-        if (string.IsNullOrEmpty(sceneName))
-        {
-            Debug.LogError("ERROR: Scene name is empty or null!");
-            return;
-        }
-
-        // Save scene names
-        PlayerPrefs.SetString("NextScene", sceneName);
-        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
-        PlayerPrefs.SetInt("IsStageLoading", 0); // 0 = Misc
-        PlayerPrefs.Save(); // Ensure data is written
-
-        Debug.Log($"Loading screen opened. Next Scene: {sceneName}, Previous Scene: {SceneManager.GetActiveScene().name}");
-
-        SceneManager.LoadSceneAsync("LoadingScene", LoadSceneMode.Additive);
-    }
-
-    public void openstageselect()
+    public void opencreditsscreen()
     {
         mainmenuscreen.SetActive(false);
-        stageselect.SetActive(true);
+        creditsScreen.SetActive(true);
     }
 
     public void openoptionsscreen()
@@ -138,22 +79,11 @@ public class mainmenu : MonoBehaviour
         optionsscreen.SetActive(true);
     }
 
-    public void closeoptionsscreen()
-    {
-        optionsscreen.SetActive(false);
-        mainmenuscreen.SetActive(true);
-    }
-
-    public void quittomenu()
-    {
-        SceneManager.LoadScene("mainmenu");
-    }
-
     public void quittodesktop()
     {
         Application.Quit();
-#if unityeditor
-        EditorApplication.isPlaying = false; // Only works in editor
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Only works in editor
 #endif
     }
 }

@@ -13,6 +13,7 @@ TagManager:
   - SignatureDeployAmmo
   - UDBindHold
   - Head
+  - Loot
   layers:
   - Default
   - TransparentFX

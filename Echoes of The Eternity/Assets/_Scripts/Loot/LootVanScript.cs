@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class LootVanScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public MissionManager _missionManager;
+    public Collider lootVanCollider;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Loot"))
+        {
+            _missionManager.AddBags(1, other.gameObject);
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            if (_missionManager.IsHeistLeavable())
+            {
+                _missionManager.TryExitHeist();
+            }
+        }
     }
 }
