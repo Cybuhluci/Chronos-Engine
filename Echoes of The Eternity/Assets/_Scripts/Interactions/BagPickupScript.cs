@@ -5,7 +5,9 @@ namespace Luci.Interactions
 {
     public class BagPickupScript : MonoBehaviour, IInteractable
     {
+        public bool IsLootBag = true;
         public LootSO lootSO;
+        public GameObject miscBag;
         public PlayerBagScript playerBagScript;
         public bool isactive = true;
         public string itemName;
@@ -24,8 +26,16 @@ namespace Luci.Interactions
 
         public void PressInteract()
         {
-            playerBagScript.AddLoot(lootSO);
-            Destroy(gameObject);
+            if (IsLootBag)
+            {
+                playerBagScript.AddLoot(lootSO);
+                Destroy(gameObject);
+            }
+            else
+            {
+                playerBagScript.AddMiscBag(miscBag);
+                Destroy(gameObject);
+            }
         }
 
         // Called when player interacts (presses the interact key)

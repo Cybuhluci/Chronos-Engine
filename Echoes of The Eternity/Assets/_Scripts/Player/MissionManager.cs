@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
@@ -9,6 +10,13 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private int minimumBagsToLeave = 5;
     int funnyExitHeistDelay = 5; // a delay before ending that allows the player to run off and do funny shit before the heist actually ends
     int heistdelaycounter;
+
+    [SerializeField] private TMP_Text bagcounter;
+
+    private void Update()
+    {
+        bagcounter.text = $"Bags Secured: {bagsCollected}";
+    }
 
     private void Awake()
     {

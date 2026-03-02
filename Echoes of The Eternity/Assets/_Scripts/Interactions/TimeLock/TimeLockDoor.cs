@@ -51,9 +51,5 @@ public class TimeLockDoor : MonoBehaviour
     private void UnlockDoor()
     {
         doorScript.OpenDoor();
-
-        // Logic to unlock the door, e.g., disable the door's collider or play an animation
-        Debug.Log("Door unlocked!");
-        // You can add your specific unlocking logic here
     }
 }
