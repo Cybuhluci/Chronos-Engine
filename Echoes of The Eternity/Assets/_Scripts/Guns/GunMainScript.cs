@@ -78,6 +78,8 @@ public class GunMainScript : MonoBehaviour
 
     [SerializeField] private GameObject WoodPrefab, MetalPrefab, ConcretePrefab; // bullet hole prefabs for different materials
 
+    bool maskedUp = false;
+
     public void GiveControllersBulletHolePrefabs()
     {
         // include inactive so unloaded weapon models also receive the prefabs
@@ -98,8 +100,11 @@ public class GunMainScript : MonoBehaviour
         return uniqueDeployableActivated;
     }
 
-    private void Start()
+    public void MaskUp()
     {
+        // this is how the guns and stuff are enabled - meaning the game can start in a casing mode.
+        MissionManager.Instance.ChangeHeistState(MissionManager.HeistStage.Control);
+
         for (int i = 0; i < inventory.Length; i++) inventory[i] = new WeaponInstance();
 
         if (StartingPrimary != null) EquipWeapon(WeaponSlot.Primary, StartingPrimary, StartingPrimary.model);
@@ -127,10 +132,15 @@ public class GunMainScript : MonoBehaviour
 
         UDBindProgress = GameObject.FindWithTag("UDBindHold")?.GetComponent<Image>();
         _uniqueDeployableMainScript = GameObject.FindFirstObjectByType<UniqueDeployableMainScript>().GetComponent<UniqueDeployableMainScript>();
+
+        maskedUp = true;
     }
 
     private void Update()
     {
+        if (!maskedUp)
+            return; 
+
         // update signature cooldown timer and UI
         if (signatureCooldownRemaining > 0f)
         {

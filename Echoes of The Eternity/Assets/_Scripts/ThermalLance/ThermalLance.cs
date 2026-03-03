@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Luci.Interactions
@@ -7,13 +8,18 @@ namespace Luci.Interactions
     {
         public GameObject theDrill;
 
-        public int drillTime = 10;
+        public int drillTime = 10; // in seconds
         public int breaks = 2;
 
         public bool isactive = true;
         public string itemName;
         public static bool isHoldInteract = true;
         public float holdDuration = 5f; // Only relevant if interactionType is Hold
+
+        [SerializeField] private AudioSource drillAudioSource;
+        [SerializeField] private AudioClip drillingsound, breaksound;
+
+        [SerializeField] private TMP_Text drilltimer;
 
         public void PressInteract()
         {
@@ -28,6 +34,8 @@ namespace Luci.Interactions
         IEnumerator DrillCoroutine(BasicKeyDoorScript door)
         {
             // countdown the drill time, and every now and again try to break the drill, if the break succeeds, pause drill timer and wait for interaction repair, if the drill timer hits 0, open the door
+            drilltimer.text = drillTime.ToString();
+            drillTime--;
             yield return new WaitForSeconds(holdDuration);
             door.OpenDoor();
             Destroy(gameObject);
