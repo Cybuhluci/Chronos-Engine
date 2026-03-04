@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     private EnemyHealth _health;
     private Transform _player;
     private PlayerHealth _playerHealth;
-    private MissionManager _missionManager;
+    [SerializeField] private MissionManager _missionManager;
 
     private enum State { Idle, Patrol, Investigate, Chase, Attack, Dead }
     private State _state = State.Idle;
@@ -27,7 +27,8 @@ public class EnemyController : MonoBehaviour
     public float GetSuspicion() => _susMeter;
 
     [Header("Patrol")]
-    public Transform[] PatrolPoints;
+    [SerializeField] private GameObject PatrolParent;
+    [SerializeField] private Transform[] PatrolPoints;
     private int _patrolIndex = 0;
 
     [Header("Audio")]
@@ -44,16 +45,11 @@ public class EnemyController : MonoBehaviour
     [Range(10f, 180f)] public float viewAngle = 90f;
 
     [Header("Suspicion Settings")]
-    [Tooltip("Suspicion increase per second when player is casing in public areas")]
-    public float susRatePublic = 5f;
-    [Tooltip("Suspicion increase per second when player is casing in private areas")]
-    public float susRatePrivate = 25f;
-    [Tooltip("Suspicion increase per second when player is casing in secure areas")]
-    public float susRateSecure = 50f;
-    [Tooltip("Suspicion increase per second when player is masked (treated like secure)")]
-    public float susRateMasked = 50f;
-    [Tooltip("How fast suspicion decays per second when not seen")]
-    public float susDecayRate = 10f;
+    // Public is not changeable in-editor, this is because it should  be 0 nonetheless.
+    private float susRatePublic = 0f;
+    [SerializeField] private float susRatePrivate = 10f;
+    [SerializeField] private float susRateSecure = 25f;
+    [SerializeField] private float susDecayRate = 10f;
 
     // Investigation
     private bool _isInvestigating = false;
@@ -87,13 +83,22 @@ public class EnemyController : MonoBehaviour
             if (_playerHealth != null && _player == null) _player = _playerHealth.transform;
         }
 
-        _mission_manager_fallback();
+        // Setup patrol points from parent if assigned
+        if (PatrolParent != null)
+        {
+            int count = PatrolParent.transform.childCount;
+            PatrolPoints = new Transform[count];
+            for (int i = 0; i < count; i++)
+            {
+                PatrolPoints[i] = PatrolParent.transform.GetChild(i);
+            }
+        }
     }
 
-    // separate so we can tolerate missing mission manager at edit-time
-    private void _mission_manager_fallback()
+    private void Start()
     {
         _missionManager = FindObjectOfType<MissionManager>();
+        _missionManager = MissionManager.Instance;
     }
 
     private void Update()
@@ -126,7 +131,7 @@ public class EnemyController : MonoBehaviour
             var playerState = _missionManager.GetPlayerState();
             if (playerState == MissionManager.PlayerState.Masked)
             {
-                susIncrease = susRateMasked;
+                susIncrease = susRateSecure;
             }
             else
             {
@@ -366,8 +371,8 @@ public class EnemyController : MonoBehaviour
             audioSource.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)]);
 
         float delay = (Stats != null) ? Stats.DeathDelay : 5f;
-        yield return new WaitForSeconds(delay);
         Destroy(gameObject);
+        yield return new WaitForSeconds(delay);
     }
 }
 #endregion

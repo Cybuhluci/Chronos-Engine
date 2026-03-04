@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1928899035352947350}
   - component: {fileID: 2461155594176349734}
   m_Layer: 8
-  m_Name: DalekGold
+  m_Name: BenLootBag
   m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.BagPickupScript
   IsLootBag: 1
-  lootSO: {fileID: 11400000, guid: 72a2f4b5dcc99e94fb4e263070953cea, type: 2}
+  lootSO: {fileID: 11400000, guid: 4dae5dbf090a4c140ab8aacdd8d1410f, type: 2}
   miscBag: {fileID: 0}
   playerBagScript: {fileID: 0}
   isactive: 1
-  itemName: Dalek-Gold Bag
+  itemName: Money Bag
   isHoldInteract: 1
   holdDuration: 1
 --- !u!65 &1928899035352947350
@@ -169,7 +169,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c2e40fa84d53ccd428f640eac126b1fb, type: 2}
+  - {fileID: 2100000, guid: 97a57895896b4c14b9d65d6df3b74d9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

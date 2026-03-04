@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,12 +33,23 @@ public class MissionManager : MonoBehaviour
     }
     public PlayerLocation currentPlayerLocation = PlayerLocation.Public;
 
+    public enum Difficulty
+    {
+        Easy, 
+        Normal, 
+        Hard, 
+        VeryHard, 
+        Overkill,
+        Mayhem,
+    }
+    public Difficulty currentDifficulty = Difficulty.Normal;
+
     [SerializeField] private int bagsCollected;
     [SerializeField] private int minimumBagsToLeave = 5;
     int funnyExitHeistDelay = 5; // a delay before ending that allows the player to run off and do funny shit before the heist actually ends
     int heistdelaycounter;
 
-    [SerializeField] private TMP_Text bagcounter;
+    [SerializeField] private TMP_Text bagcounter, assaulPhaseText;
 
     [SerializeField] private PlayerInput _PlayerInput;
     [SerializeField] private GunMainScript _GunMainScript;
@@ -48,6 +60,8 @@ public class MissionManager : MonoBehaviour
     private void Update()
     {
         bagcounter.text = $"Bags Secured: {bagsCollected}";
+        assaulPhaseText.text = $"{currentHeistStage}";
+
         if (!maskedUp)
         {
             if (_PlayerInput.actions["Quicknade"].WasPressedThisFrame())
@@ -58,8 +72,46 @@ public class MissionManager : MonoBehaviour
             }
         }
 
+        ManagePhases();
+
         // spherecast to check for the nearest enemy and check the susmeter to put onto the sustext tmptext.
         UpdateNearestEnemySuspicion();
+    }
+
+    public float timer;
+    public float controlPhaseDuration = 60f; // 60
+    public float anticipationPhaseDuration = 20f; // 20
+    public float assaultPhaseDuration = 180f; // 180
+    public float fadePhaseDuration = 30f; // 30
+    private void ManagePhases()
+    {
+        // this function will change phases based on timers and conditions.
+        // For example, if the player is in control phase, after 1 minute it will switch to anticipation phase.
+        // If the player is in anticipation phase for 20 seconds, it will switch to assault phase,
+        // and assault -> fade in 3 minutes, then it repeats from control until the heist ends.
+
+        if (currentHeistStage == HeistStage.Stealth) return; // don't start the phase timer until the player fucks up stealth
+        timer += Time.deltaTime;
+        if (currentHeistStage == HeistStage.Control && timer >= controlPhaseDuration)
+        {
+            ChangeHeistState(HeistStage.Anticipation);
+            timer = 0f;
+        }
+        else if (currentHeistStage == HeistStage.Anticipation && timer >= anticipationPhaseDuration)
+        {
+            ChangeHeistState(HeistStage.Assault);
+            timer = 0f;
+        }
+        else if (currentHeistStage == HeistStage.Assault && timer >= assaultPhaseDuration)
+        {
+            ChangeHeistState(HeistStage.Fade);
+            timer = 0f;
+        }
+        else if (currentHeistStage == HeistStage.Fade && timer >= fadePhaseDuration)
+        {
+            ChangeHeistState(HeistStage.Control);
+            timer = 0f;
+        }
     }
 
     private void UpdateNearestEnemySuspicion()
@@ -86,7 +138,7 @@ public class MissionManager : MonoBehaviour
             if (nearest == float.MaxValue)
                 sustext.text = "No nearby enemies";
             else
-                sustext.text = $"Nearest enemy suspicion: {maxSus:0.0} (dist {nearest:0.0}m)";
+                sustext.text = $"Highest enemy suspicion: {maxSus:0.0} (dist {nearest:0.0}m)";
         }
     }
 

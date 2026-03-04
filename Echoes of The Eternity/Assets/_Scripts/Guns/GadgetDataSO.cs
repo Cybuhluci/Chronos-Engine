@@ -22,6 +22,7 @@ public class GadgetDataSO : ScriptableObject
     public float recoil; // Recoil amount
     public float muzzleVelocity; // Muzzle velocity
 
+    public bool isQuiet = false; // Whether the gadget is quiet or not - this is mostly false, but crossbows and other similar things will be true
 
     public enum GadgetType
     {

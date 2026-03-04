@@ -103,7 +103,7 @@ public class GunMainScript : MonoBehaviour
     public void MaskUp()
     {
         // this is how the guns and stuff are enabled - meaning the game can start in a casing mode.
-        MissionManager.Instance.ChangeHeistState(MissionManager.HeistStage.Control);
+        MissionManager.Instance.currentPlayerState = MissionManager.PlayerState.Masked;
 
         for (int i = 0; i < inventory.Length; i++) inventory[i] = new WeaponInstance();
 

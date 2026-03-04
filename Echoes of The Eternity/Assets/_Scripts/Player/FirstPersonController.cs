@@ -7,6 +7,7 @@ namespace Luci
     [RequireComponent(typeof(PlayerInput))]
     public class FirstPersonController : MonoBehaviour
     {
+        [SerializeField] MissionManager _MissionManager;
         public enum PlayerState { Standing, Crouching, Downed }
         public PlayerState _playerState = PlayerState.Standing;
         public bool CameraDisable = false;
@@ -146,6 +147,8 @@ namespace Luci
                 if (pitch > 180f) pitch -= 360f;
                 targetPitch = pitch;
             }
+
+            _MissionManager = MissionManager.Instance;
         }
 
         private void Update()
@@ -486,6 +489,15 @@ namespace Luci
         {
             // when noclip is active, do not apply gravity or jumping
             if (noclipEnabled) return;
+
+            // apply gravity
+            if (_verticalVelocity < _terminalVelocity)
+            {
+                _verticalVelocity += Gravity * Time.deltaTime;
+            }
+
+            if (_MissionManager.GetPlayerState() == MissionManager.PlayerState.Casing) return;
+
             if (MovementDisable || _playerState == PlayerState.Downed) return;
             bool jump = false;
             if (_playerInput != null)
@@ -497,7 +509,6 @@ namespace Luci
             {
                 jump = Input.GetButtonDown("Jump");
             }
-
 
             if (Grounded)
             {
@@ -515,12 +526,6 @@ namespace Luci
             else
             {
                 _jumpTimeoutDelta = JumpTimeout;
-            }
-
-            // apply gravity
-            if (_verticalVelocity < _terminalVelocity)
-            {
-                _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
 

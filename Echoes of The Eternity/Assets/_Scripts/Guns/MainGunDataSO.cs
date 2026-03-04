@@ -24,6 +24,8 @@ public class MainGunDataSO : ScriptableObject
     public float spread; // Bullet spread
     public float muzzleVelocity; // Muzzle velocity
 
+    public float soundFalloff; // the distance where enemies can hear gunshots - 0 means it is supressed
+
     public enum GunType
     {
         Pistol,

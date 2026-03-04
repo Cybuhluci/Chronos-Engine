@@ -381,10 +381,11 @@ public class GunController : MonoBehaviour
                 {
                     enemyHealth.TakeDamage(damage, gameObject);
                 }
-                else
+
+                var camera = hit.collider.GetComponent<CameraDetection>();
+                if (camera != null)
                 {
-                    // fallback for older scripts that expect SendMessage
-                    hit.collider.gameObject.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+                    camera.GetShot();
                 }
 
                 // Apply physical impulse if the hit object has a rigidbody

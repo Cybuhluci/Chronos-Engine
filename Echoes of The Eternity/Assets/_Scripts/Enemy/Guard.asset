@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272dcc67adad1a849ad04338e1448d7b, type: 3}
   m_Name: Guard
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatsSO
-  MaxHealth: 100
+  MaxHealth: 20
   WalkSpeed: 2.5
   RunSpeed: 4.5
   ammoCount: 6

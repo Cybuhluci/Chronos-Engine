@@ -88,20 +88,6 @@ public class CommandGenerator : MonoBehaviour
                         return;
                     }
                 }
-
-                // fallback: call any EnemyButtonSpawner in the scene
-                var spawners = GameObject.FindObjectsByType<EnemyButtonSpawner>(FindObjectsSortMode.None);
-                if (spawners.Length == 0)
-                {
-                    string err = "No EnemyButtonSpawner found to spawn an enemy.";
-                    Debug.LogWarning(err);
-                    consoleManager.AppendOutput(err);
-                    return;
-                }
-                spawners[0].SpawnEnemy();
-                string msg2 = "Spawned enemy via EnemyButtonSpawner.";
-                Debug.Log(msg2);
-                consoleManager.AppendOutput(msg2);
             }
         });
 

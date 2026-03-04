@@ -1326,10 +1326,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5289669678856441409}
+  - component: {fileID: 5264677918472312620}
   - component: {fileID: 5502117229342658059}
   - component: {fileID: 8905378679076408588}
   - component: {fileID: 4895647147707727239}
-  - component: {fileID: 5264677918472312620}
   - component: {fileID: -7292655529696004220}
   m_Layer: 10
   m_Name: Guard
@@ -1359,6 +1359,34 @@ Transform:
   - {fileID: 5500122616522971561}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &5264677918472312620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401040553096885092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16baba5bc0573c44f99aba27be4777b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  Stats: {fileID: 11400000, guid: 92635decba42c014cbfcda8aefad62e8, type: 2}
+  mainGunData: {fileID: 11400000, guid: d6fec2ea8a4eb2b448782364c3f6d6af, type: 2}
+  PatrolParent: {fileID: 0}
+  PatrolPoints: []
+  audioSource: {fileID: -7292655529696004220}
+  attackSoundsClose:
+  - {fileID: 8300000, guid: d818bdd1782b66346baad12a3b946842, type: 3}
+  attackSoundsFar:
+  - {fileID: 8300000, guid: 241dd4b384091c54a934c7c81d3c3729, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: dc2dbcbaf2142df4facc2b6a89a2ce7f, type: 3}
+  viewRadius: 12
+  viewAngle: 90
+  susRatePrivate: 10
+  susRateSecure: 25
+  susDecayRate: 10
 --- !u!64 &5502117229342658059
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1416,30 +1444,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   Stats: {fileID: 11400000, guid: 92635decba42c014cbfcda8aefad62e8, type: 2}
---- !u!114 &5264677918472312620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8401040553096885092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16baba5bc0573c44f99aba27be4777b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  Stats: {fileID: 11400000, guid: 92635decba42c014cbfcda8aefad62e8, type: 2}
-  mainGunData: {fileID: 11400000, guid: d6fec2ea8a4eb2b448782364c3f6d6af, type: 2}
-  PatrolPoints: []
-  audioSource: {fileID: -7292655529696004220}
-  attackSoundsClose:
-  - {fileID: 8300000, guid: d818bdd1782b66346baad12a3b946842, type: 3}
-  attackSoundsFar:
-  - {fileID: 8300000, guid: 241dd4b384091c54a934c7c81d3c3729, type: 3}
-  deathSounds:
-  - {fileID: 8300000, guid: dc2dbcbaf2142df4facc2b6a89a2ce7f, type: 3}
-  viewRadius: 12
-  viewAngle: 90
 --- !u!82 &-7292655529696004220
 AudioSource:
   m_ObjectHideFlags: 0
