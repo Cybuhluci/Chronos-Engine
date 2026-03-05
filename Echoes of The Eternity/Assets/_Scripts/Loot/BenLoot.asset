@@ -15,3 +15,4 @@ MonoBehaviour:
   lootName: Ben
   lootBagPrefab: {fileID: 4871940512631923368, guid: 44c70ae4c94b2ad42bf4c839079aa872, type: 3}
   lootCost: 1000000
+  lootEXP: 676767

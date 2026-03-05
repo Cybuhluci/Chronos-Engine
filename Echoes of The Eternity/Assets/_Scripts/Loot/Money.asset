@@ -15,3 +15,4 @@ MonoBehaviour:
   lootName: Money
   lootBagPrefab: {fileID: 4871940512631923368, guid: 88c1d975d9638284dbb262ffc750ce0c, type: 3}
   lootCost: 275000
+  lootEXP: 275000

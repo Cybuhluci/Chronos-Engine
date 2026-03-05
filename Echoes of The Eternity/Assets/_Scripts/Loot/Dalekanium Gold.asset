@@ -15,3 +15,4 @@ MonoBehaviour:
   lootName: Dalekanium Gold
   lootBagPrefab: {fileID: 4871940512631923368, guid: 7551451fadf4aa94ab4f5f2a0dfe8732, type: 3}
   lootCost: 275000
+  lootEXP: 50051

@@ -29,8 +29,13 @@ public class ConsoleManager : MonoBehaviour
     private bool upPressedLastFrame = false;
     private bool downPressedLastFrame = false;
 
+    private CursorLockMode cursorLockState;
+
     public void ToggleConsole()
     {
+        cursorLockState = Cursor.lockState;
+        Cursor.lockState = developerconsole.activeSelf ? cursorLockState : CursorLockMode.None;
+
         developerconsole.SetActive(!developerconsole.activeSelf);
         if (developerconsole.activeSelf)
         {

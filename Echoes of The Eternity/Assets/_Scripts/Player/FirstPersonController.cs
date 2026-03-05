@@ -487,27 +487,20 @@ namespace Luci
 
         private void JumpAndGravity()
         {
+            bool jump = false;
+
             // when noclip is active, do not apply gravity or jumping
             if (noclipEnabled) return;
 
-            // apply gravity
-            if (_verticalVelocity < _terminalVelocity)
-            {
-                _verticalVelocity += Gravity * Time.deltaTime;
-            }
-
-            if (_MissionManager.GetPlayerState() == MissionManager.PlayerState.Casing) return;
-
             if (MovementDisable || _playerState == PlayerState.Downed) return;
-            bool jump = false;
-            if (_playerInput != null)
+
+            if (!(_MissionManager.GetPlayerState() == MissionManager.PlayerState.Casing))
             {
-                var a = _playerInput.actions;
-                if (a["Jump"] != null) jump = a["Jump"].WasPressedThisFrame();
-            }
-            else
-            {
-                jump = Input.GetButtonDown("Jump");
+                if (_playerInput != null)
+                {
+                    var a = _playerInput.actions;
+                    if (a["Jump"] != null) jump = a["Jump"].WasPressedThisFrame();
+                }
             }
 
             if (Grounded)
@@ -526,6 +519,12 @@ namespace Luci
             else
             {
                 _jumpTimeoutDelta = JumpTimeout;
+            }
+
+            // apply gravity
+            if (_verticalVelocity < _terminalVelocity)
+            {
+                _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
 

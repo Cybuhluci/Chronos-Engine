@@ -57,6 +57,8 @@ public class MissionManager : MonoBehaviour
 
     [SerializeField] private TMP_Text sustext;
 
+    [SerializeField] private ResultsScreen _resultsScreen;
+
     private void Update()
     {
         bagcounter.text = $"Bags Secured: {bagsCollected}";
@@ -189,7 +191,6 @@ public class MissionManager : MonoBehaviour
         if (IsHeistLeavable())
         {
             StartCoroutine(ExitHeistAfterDelay());
-            StageManager.Instance.LoadMiscScene("mainmenu");
         }
     }
 
@@ -207,5 +208,6 @@ public class MissionManager : MonoBehaviour
     private IEnumerator ExitHeistAfterDelay()
     {
         yield return new WaitForSecondsRealtime(funnyExitHeistDelay);
+        _resultsScreen.StartResults();
     }
 }

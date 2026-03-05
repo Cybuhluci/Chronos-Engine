@@ -6,4 +6,5 @@ public class LootSO : ScriptableObject
     public string lootName;
     public GameObject lootBagPrefab;
     public int lootCost;
+    public float lootEXP;
 }
