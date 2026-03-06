@@ -11,6 +11,8 @@ public class UniqueDeployableSO : ScriptableObject
     public int Chunks; // how many amounts of ammo the deployable has; only relevant for gas masks, which deplete in chunks
     public float equipTime = 1f; // time in seconds required to hold to equip/unequip
 
+    public int maxChunks; // only relevant for gas masks, which have a max of 5 chunks
+
     public enum UniqueDeployableAmmoType
     {
         Charges, // gas masks - charges deplete in chunks; 5 chunks max; chunks can be replenished with support bags

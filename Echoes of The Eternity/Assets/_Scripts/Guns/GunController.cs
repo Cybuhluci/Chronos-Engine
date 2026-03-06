@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Splines;
 
 public class GunController : MonoBehaviour
 {
@@ -106,8 +107,7 @@ public class GunController : MonoBehaviour
     private Vector2 recoilAngle = Vector2.zero; // x = pitch, y = yaw
     private Quaternion originalRecoilLocalRotation = Quaternion.identity;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void StartGun()
     {
         playerCameraTransform = GameObject.FindWithTag("CinemachineTarget")?.transform; ; // doesnt work, as it is the par
         primaryAmmo = GameObject.FindWithTag("PrimaryAmmoMagazine")?.GetComponent<TMP_Text>();
@@ -418,5 +418,12 @@ public class GunController : MonoBehaviour
             currentAmmo += toReload;
             reserveAmmo -= toReload;
         }
+    }
+
+    public void ReplenishAmmo(int percentage)
+    {
+        if (gunData == null) return;
+        int amount = Mathf.CeilToInt(gunData.reserveAmmo * (percentage / 100f));
+        reserveAmmo = Mathf.Min(reserveAmmo + amount, gunData.reserveAmmo);
     }
 }

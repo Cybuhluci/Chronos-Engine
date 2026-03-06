@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using Luci;
 using UnityEngine.UI;
+using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 // Player health and downed/self-revive behaviour
 public class PlayerHealth : MonoBehaviour
@@ -13,6 +15,9 @@ public class PlayerHealth : MonoBehaviour
     public float CurrentHealth = 100f;
     public float MaxArmour = 100f;
     public float CurrentArmour = 100f;
+    // Time of last received damage (Time.time). Used by healing logic to wait until player hasn't
+    // taken damage for a short duration before starting passive heals.
+    public float LastDamageTime { get; private set; } = -999f;
 
     // Armour is ablative: it absorbs damage until depleted, then health takes damage
 
@@ -78,6 +83,7 @@ public class PlayerHealth : MonoBehaviour
         if (_isInvulnerable) return;
         if (!_isDowned)
         {
+            LastDamageTime = Time.time;
             if (CurrentArmour > 0f)
             {
                 float armourDamage = Mathf.Min(CurrentArmour, amount);
@@ -103,6 +109,22 @@ public class PlayerHealth : MonoBehaviour
         {
             CurrentHealth = Mathf.Min(CurrentHealth + amount, MaxHealth);
         }
+    }
+
+    public void HealOverTime()
+    {
+        StartCoroutine(HealOverTimeCoroutine());
+    }
+
+    IEnumerator HealOverTimeCoroutine()
+    {
+        new WaitForSeconds(1f);
+        while (CurrentHealth <= MaxHealth)
+        {
+            CurrentHealth = Mathf.Min(CurrentHealth + 1 * (Time.deltaTime / 2), MaxHealth);
+            yield return null;
+        }
+        yield break;
     }
 
     private void EnterDownedState()

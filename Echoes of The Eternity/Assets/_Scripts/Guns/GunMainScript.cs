@@ -100,11 +100,73 @@ public class GunMainScript : MonoBehaviour
         return uniqueDeployableActivated;
     }
 
-    public void MaskUp()
+    void UnequipToCasing()
     {
-        // this is how the guns and stuff are enabled - meaning the game can start in a casing mode.
-        MissionManager.Instance.currentPlayerState = MissionManager.PlayerState.Masked;
+        // setactive false on all weapon models to "unequip" them, but keep them in inventory so they can be re-equipped when masking up
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            var inst = inventory[i];
+            if (inst != null && inst.weaponModel != null)
+                inst.weaponModel.SetActive(false);
+        }
+    }
 
+    void EquipFromCasing()
+    {
+        // set active the primary weapon and then start to allow weapon switching.
+        currentSlot = WeaponSlot.Primary;
+        // activate primary model if present
+        var primary = inventory[(int)WeaponSlot.Primary];
+        if (primary != null && primary.weaponModel != null)
+            primary.weaponModel.SetActive(true);
+
+    }
+
+    // Called to initialize gun HUD/controllers when entering masked/combat mode
+    public void StartGuns()
+    {
+        // update ammo UI on all GunController components that are part of this weapon holder
+        if (weaponHolder != null)
+        {
+            var controllers = weaponHolder.GetComponentsInChildren<GunController>(true);
+            foreach (var c in controllers)
+            {
+                if (c == null) continue;
+                c.StartGun();
+            }
+        }
+        else
+        {
+            var controllers = GetComponentsInChildren<GunController>(true);
+            foreach (var c in controllers) c.UpdateAmmoUI();
+        }
+    }
+
+    // Called to initialize gadget HUD/controllers when entering masked/combat mode
+    public void StartGadgets()
+    {
+        // intentionally named per project convention (StartGafgets)
+        var gadgets = weaponHolder.GetComponentsInChildren<GadgetController>(true); ;
+        foreach (var g in gadgets)
+        {
+            if (g == null) continue;
+            g.StartGadget();
+        }
+    }
+
+    // Called to initialize grenade HUD/controllers when entering masked/combat mode
+    public void StartGrenade()
+    {
+        var grenades = weaponHolder.GetComponentsInChildren<GrenadeController>(true);
+        foreach (var gr in grenades)
+        {
+            if (gr == null) continue;
+            gr.StartGrenade();
+        }
+    }
+
+    private void Start()
+    {
         for (int i = 0; i < inventory.Length; i++) inventory[i] = new WeaponInstance();
 
         if (StartingPrimary != null) EquipWeapon(WeaponSlot.Primary, StartingPrimary, StartingPrimary.model);
@@ -132,6 +194,26 @@ public class GunMainScript : MonoBehaviour
 
         UDBindProgress = GameObject.FindWithTag("UDBindHold")?.GetComponent<Image>();
         _uniqueDeployableMainScript = GameObject.FindFirstObjectByType<UniqueDeployableMainScript>().GetComponent<UniqueDeployableMainScript>();
+
+        // equip all the guns, but do not go into masked-up mode.
+        // then unequiptocasing so the player has all the HUD assets actually showing,
+        // then the player can maskup and equip the primary weapon to then begin shooting shit.
+
+
+        // initialize HUD and controllers for guns, gadgets and grenade
+        StartGuns();
+        StartGadgets();
+        StartGrenade();
+
+        UnequipToCasing();
+    }
+
+    public void MaskUp()
+    {
+        // this is how the guns and stuff are enabled - meaning the game can start in a casing mode.
+        MissionManager.Instance.currentPlayerState = MissionManager.PlayerState.Masked;
+
+        EquipFromCasing();
 
         maskedUp = true;
     }

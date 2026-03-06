@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 75523761794885837}
+  - component: {fileID: -7908839893672891636}
   - component: {fileID: 3521893433413807740}
   m_Layer: 9
   m_Name: Tau Cannon
@@ -35,6 +36,25 @@ Transform:
   - {fileID: 115075847759866892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7908839893672891636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834474034353824050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453bc1cbdacdd0542b75f342b4738fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GadgetController
+  gadgetData: {fileID: 11400000, guid: 7a7a44db471d6c545a4e7f805ac3de74, type: 2}
+  currentAmmo: 0
+  chunkImage: {fileID: 0}
+  gadgetAmmo: {fileID: 0}
+  UIInstanceGadget3: {fileID: 7553428274174279342, guid: 7b6dd6359811ab94698af04badda6c8f, type: 3}
+  UIInstanceGadget4: {fileID: 8421631059730643242, guid: fc9d99cc9831d8842bfb37101b9d2c54, type: 3}
+  UIInstanceContainer: {fileID: 0}
 --- !u!82 &3521893433413807740
 AudioSource:
   m_ObjectHideFlags: 0

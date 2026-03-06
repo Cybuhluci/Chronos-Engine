@@ -47,7 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207eaf904ac5fea46b5c45a2a6648f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.BagPickupScript
+  IsLootBag: 1
   lootSO: {fileID: 11400000, guid: 23c7bc0fa8700244f9649cf7759a3c55, type: 2}
+  miscBag: {fileID: 0}
   playerBagScript: {fileID: 0}
   isactive: 1
   itemName: Money Bag
@@ -66,7 +68,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -98,9 +100,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &4957348702471917132
 GameObject:
   m_ObjectHideFlags: 0

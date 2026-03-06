@@ -5904,18 +5904,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3092790174402812036, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3514017493315480907, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
-      propertyPath: assaulPhaseText
-      value: 
-      objectReference: {fileID: 1350709224}
-    - target: {fileID: 3890687233482786787, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
-      propertyPath: MouseSensitivity
-      value: 75
-      objectReference: {fileID: 0}
     - target: {fileID: 4127247610375505400, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5927,10 +5915,6 @@ PrefabInstance:
     - target: {fileID: 4127247610375505400, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5659394287949724017, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -45471,7 +45455,7 @@ GameObject:
   - component: {fileID: 1056393590}
   m_Layer: 0
   m_Name: Outside
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57947,17 +57931,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!114 &1350709224 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8044989774500014677, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
-  m_PrefabInstance: {fileID: 119341858}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1358633095
 GameObject:
   m_ObjectHideFlags: 0

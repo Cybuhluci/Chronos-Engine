@@ -189,6 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1099046510915781936}
+  - component: {fileID: -4274455481907318779}
   - component: {fileID: 519390836092396984}
   m_Layer: 9
   m_Name: RPG7
@@ -217,6 +218,25 @@ Transform:
   - {fileID: 1712561470626469612}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5}
+--- !u!114 &-4274455481907318779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5099328952773561342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453bc1cbdacdd0542b75f342b4738fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GadgetController
+  gadgetData: {fileID: 11400000, guid: da7c6a1ede7b5e242b8e08ed187c2c85, type: 2}
+  currentAmmo: 0
+  chunkImage: {fileID: 0}
+  gadgetAmmo: {fileID: 0}
+  UIInstanceGadget3: {fileID: 7553428274174279342, guid: 7b6dd6359811ab94698af04badda6c8f, type: 3}
+  UIInstanceGadget4: {fileID: 8421631059730643242, guid: fc9d99cc9831d8842bfb37101b9d2c54, type: 3}
+  UIInstanceContainer: {fileID: 0}
 --- !u!82 &519390836092396984
 AudioSource:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ public class GrenadeDataSO : ScriptableObject
     public string weaponName;
     public GameObject model;
 
+    public int ammoStart; // how many grenades the player starts with
+    public int maxAmmo; // maximum grenades the player can carry
+
     public GrenadeType grenadeType;
     public int damage;
     public float blastRadius;

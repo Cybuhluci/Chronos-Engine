@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -107,6 +108,28 @@ public class SupportBagSD : MonoBehaviour
         }
     }
 
+    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private GunController[] playerGuns;
+    [SerializeField] private UniqueDeployableMainScript playerUniqueDeployable;
+    [SerializeField] private float chunktime = 2.5f;
+    [SerializeField] private float chunkTimer = 0f;
+
+    [Header("Refill Rates")]
+    [Tooltip("Heal percent of max health per second (0-1)")]
+    [SerializeField] private float healPercentPerSecond = 0.02f; // 2% per second
+    [Tooltip("UD refill percent per second (0-100)")]
+    [SerializeField] private float udPercentPerSecond = 1f; // 1% per second
+    [Tooltip("Gadget refill fraction per second (0-1)")]
+    [SerializeField] private float gadgetFracPerSecond = 0.02f; // 2% per second
+    [Tooltip("Grenade refill fraction per second (0-1)")]
+    [SerializeField] private float grenadeFracPerSecond = 0.02f; // 2% per second
+    [Tooltip("Ammo chunk percent applied each chunk (0-100)")]
+    [SerializeField] private int ammoChunkPercent = 20; // 20% of reserve per chunk
+
+    // cached lists
+    private GadgetController[] playerGadgets;
+    private GrenadeController[] playerGrenades;
+
     private void GiveAmmoAndHealth()
     {
         // give the player ammo and health when they are within the pickup distance of the bag, and the bag is deployed.
@@ -118,7 +141,79 @@ public class SupportBagSD : MonoBehaviour
             {
                 if (hitCollider.CompareTag("Player"))
                 {
-                    // give the player ammo and health here.
+                    // HEALTH - non-chunk based
+                    // healing works like this:
+                    // 1. waits for player to stop taking damage for 2 seconds
+                    // 2. begins to quickly heal the player for all the maxHealth.
+                    // the PlayerHealth script has a "Heal(float amount)" method inside that can be used.
+
+                    // UNIQUE DEPLOYABLE - non-chunk based
+                    // unique deployable works like this:
+                    // 1. slowly refills the UD meter by 25% every 2.5 seconds, so a full refill takes 10 seconds. Refills "Ammo"
+                    // 2. if the meter reaches 100%, then it adds 1 chunk to the UD ammo if it uses chunks. Adds "Chunks"
+                    // use "findfirstobjectbytype<uniqueDeployableMainScript>()" to get the player's unique deployable script,
+                    // and then call the "RefillUDMeter(float percentage)" method inside it to refill the meter.
+                    // just use getcomponent<uniqueDeployableMainScript>() because it will always give whatever unique is being used.
+
+                    // GADGETS - non-chunk based
+                    // gadgets work like this:
+                    // 1. slowly fiils a bar over 10 seconds, and when the bar is full, it gives the player 1 gadget charge. Refills "Ammo"
+                    // the GadgetController script has a "refillchunkammo(float percentage)" method inside that can be used.
+
+                    // GRENADES - non-chunk based
+                    // grenades work like this:
+                    // 1. slowly fills a bar over 10 seconds, and when the bar is full, it gives the player 1 grenade. Refills "Ammo"
+                    // the GrenadeController script has a "refillchunkammo(float percentage)" method inside that can be used.
+
+                    // accumulate per-frame refills for continuous systems
+                    float dt = Time.deltaTime;
+
+                    // HEALTH: slowly heal a percentage of max per second (only if player hasn't taken damage recently)
+                    if (playerHealth != null)
+                    {
+                        if (Time.time - playerHealth.LastDamageTime >= 2f)
+                        {
+                            float healAmount = playerHealth.MaxHealth * healPercentPerSecond * dt;
+                            playerHealth.Heal(healAmount);
+                        }
+                    }
+
+                    // UD: refill a percentage-per-second (percentage is 0-100)
+                    if (playerUniqueDeployable != null)
+                    {
+                        playerUniqueDeployable.RefillUDMeter(udPercentPerSecond * dt);
+                    }
+
+                    // Gadgets and grenades: refill fractional progress (they expose FillChunkAmmo which expects fraction as 0-1 or image fill)
+                    if (playerGadgets == null || playerGadgets.Length == 0)
+                        playerGadgets = GameObject.FindObjectsByType<GadgetController>(FindObjectsSortMode.None);
+                    foreach (var g in playerGadgets)
+                    {
+                        if (g == null) continue;
+                        g.FillChunkAmmo(gadgetFracPerSecond * dt);
+                    }
+
+                    if (playerGrenades == null || playerGrenades.Length == 0)
+                        playerGrenades = GameObject.FindObjectsByType<GrenadeController>(FindObjectsSortMode.None);
+                    foreach (var gr in playerGrenades)
+                    {
+                        if (gr == null) continue;
+                        gr.FillChunkAmmo(grenadeFracPerSecond * dt);
+                    }
+
+                    // AMMO: chunk-based refills. accumulate a separate timer and when it reaches chunktime give one chunk to all guns
+                    chunkTimer += dt;
+                    if (chunkTimer >= chunktime)
+                    {
+                        chunkTimer = 0f;
+                        if (playerGuns == null || playerGuns.Length == 0)
+                            playerGuns = GameObject.FindObjectsByType<GunController>(FindObjectsSortMode.None);
+                        foreach (var gun in playerGuns)
+                        {
+                            if (gun == null) continue;
+                            gun.ReplenishAmmo(ammoChunkPercent);
+                        }
+                    }
                 }
             }
         }

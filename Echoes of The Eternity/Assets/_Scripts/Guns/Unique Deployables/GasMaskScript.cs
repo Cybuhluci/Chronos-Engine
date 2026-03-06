@@ -23,6 +23,21 @@ public class GasMaskScript : UniqueDeployableMainScript
         ToggleUniqueDeploy();
     }
 
+    public override void RefillUDMeter(float percentage)
+    {
+        // example implementation: increase a meter value (0..100). When meter reaches 100, convert to a chunk
+        // This class currently tracks chargesRemaining, so we'll use a simple meter internal to refill and add chunks.
+        // For now, implement a simple behaviour: add percentage to an internal meter, when >=100 add 1 charge and subtract 100.
+        meterProgress += percentage;
+        while (meterProgress >= 100f)
+        {
+            meterProgress -= 100f;
+            chargesRemaining = Mathf.Min(chargesRemaining + 1, gasMaskData.maxChunks);
+        }
+    }
+
+    private float meterProgress = 0f;
+
     public void ToggleUniqueDeploy()
     {
         if (_isGasMaskActive)
@@ -58,5 +73,20 @@ public class GasMaskScript : UniqueDeployableMainScript
     void Update()
     {
         ChargesText.text = chargesRemaining.ToString();
+    }
+
+    public void RefillUD(float percentage)
+    {
+        // fills the chunkImage, when the image is full, adds 1 ammo.
+        if (gasMaskCooldown != null)
+        {
+            if (chargesRemaining >= gasMaskData.maxChunks) return; // Don't fill if already at max charges
+            gasMaskCooldown.fillAmount += percentage;
+            if (gasMaskCooldown.fillAmount >= 1f)
+            {
+                gasMaskCooldown.fillAmount = 0f;
+                chargesRemaining++;
+            }
+        }
     }
 }

@@ -156,7 +156,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -188,9 +188,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f89f54feb11c5d4b810ddcaf17edb30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SupportBagSD
+  deployableData: {fileID: 0}
   rb: {fileID: -3638464959260207303}
   pickupDist: {fileID: 647229357500371701}
   bagCollider: {fileID: 7928388896159341539}
   _isBagDeployed: 0
   _isGrounded: 0
   groundCheck: 0.2
+  AmmoCounter: {fileID: 0}
+  currentAmmo: 0
+  playerHealth: {fileID: 0}
+  playerGuns: []
+  playerUniqueDeployable: {fileID: 0}
+  chunktime: 2.5
+  chunkTimer: 0
+  healPercentPerSecond: 0.02
+  udPercentPerSecond: 1
+  gadgetFracPerSecond: 0.02
+  grenadeFracPerSecond: 0.02
+  ammoChunkPercent: 20
