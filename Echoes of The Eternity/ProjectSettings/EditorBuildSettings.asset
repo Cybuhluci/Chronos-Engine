@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Heist1.unity
     guid: 9913e16f3e67fe042944479b03354d72
+  - enabled: 1
+    path: Assets/Scenes/BankHeist.unity
+    guid: 4faf225c9608e5a4190f68be73a17b18
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

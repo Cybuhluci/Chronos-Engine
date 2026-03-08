@@ -368,7 +368,6 @@ GameObject:
   m_Component:
   - component: {fileID: 24428723}
   - component: {fileID: 24428725}
-  - component: {fileID: 24428728}
   - component: {fileID: 24428729}
   - component: {fileID: 24428730}
   m_Layer: 8
@@ -415,18 +414,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &24428728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 24428722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &24428729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,7 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -452,12 +438,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 24428722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &27109910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1105,6 @@ GameObject:
   m_Component:
   - component: {fileID: 78655236}
   - component: {fileID: 78655238}
-  - component: {fileID: 78655241}
   - component: {fileID: 78655242}
   - component: {fileID: 78655243}
   m_Layer: 8
@@ -1135,18 +1151,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &78655241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78655235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &78655242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,7 +1163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -1172,12 +1175,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 78655235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 78655242}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &83004417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,9 +1222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 83004418}
   - component: {fileID: 83004420}
-  - component: {fileID: 83004423}
   - component: {fileID: 83004424}
-  - component: {fileID: 83004425}
   m_Layer: 8
   m_Name: Monitor1
   m_TagString: Untagged
@@ -1235,18 +1267,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &83004423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83004417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &83004424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,25 +1279,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
---- !u!114 &83004425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83004417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
-  isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
 --- !u!1 &90331043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,6 +2184,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180886973}
   m_CullTransparentMesh: 1
+--- !u!1 &185725988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 185725990}
+  - component: {fileID: 185725989}
+  m_Layer: 0
+  m_Name: astronavCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &185725989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185725988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &185725990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185725988}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1.95, y: 1.855, z: -0.038}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &191696661
 GameObject:
   m_ObjectHideFlags: 0
@@ -2327,7 +2406,6 @@ GameObject:
   m_Component:
   - component: {fileID: 215658591}
   - component: {fileID: 215658593}
-  - component: {fileID: 215658592}
   - component: {fileID: 215658594}
   - component: {fileID: 215658595}
   m_Layer: 8
@@ -2353,18 +2431,6 @@ Transform:
   - {fileID: 1139143417}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0.588, y: 40.072, z: -72.053}
---- !u!114 &215658592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215658590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &215658593
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2398,7 +2464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -2411,12 +2476,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 215658590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 215658594}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &216423155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,7 +2660,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224692721}
   - component: {fileID: 224692723}
-  - component: {fileID: 224692726}
   - component: {fileID: 224692727}
   - component: {fileID: 224692728}
   m_Layer: 8
@@ -2611,18 +2706,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &224692726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 224692720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &224692727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2635,7 +2718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -2648,12 +2730,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 224692720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 224692727}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &232746280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2664,7 +2777,6 @@ GameObject:
   m_Component:
   - component: {fileID: 232746281}
   - component: {fileID: 232746283}
-  - component: {fileID: 232746286}
   - component: {fileID: 232746287}
   - component: {fileID: 232746288}
   m_Layer: 8
@@ -2711,18 +2823,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &232746286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232746280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &232746287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2735,7 +2835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -2748,12 +2847,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 232746280}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 232746287}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &240746535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2764,7 +2894,6 @@ GameObject:
   m_Component:
   - component: {fileID: 240746536}
   - component: {fileID: 240746538}
-  - component: {fileID: 240746541}
   - component: {fileID: 240746542}
   - component: {fileID: 240746543}
   m_Layer: 8
@@ -2813,18 +2942,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &240746541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240746535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &240746542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2837,7 +2954,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -2850,12 +2966,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 240746535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 240746542}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &250143146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3277,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253250477}
   m_CullTransparentMesh: 1
+--- !u!1 &256878051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 256878053}
+  - component: {fileID: 256878052}
+  m_Layer: 0
+  m_Name: telepathicCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &256878052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256878051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &256878053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256878051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.32973683, y: -0.47027275, z: 0.19506878, w: 0.79502547}
+  m_LocalPosition: {x: 1.6324606, y: 1.853097, z: -0.9514866}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &269564080
 GameObject:
   m_ObjectHideFlags: 0
@@ -3140,7 +3362,6 @@ GameObject:
   m_Component:
   - component: {fileID: 269564081}
   - component: {fileID: 269564083}
-  - component: {fileID: 269564082}
   - component: {fileID: 269564084}
   - component: {fileID: 269564085}
   m_Layer: 8
@@ -3166,18 +3387,6 @@ Transform:
   - {fileID: 668840035}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: 150, z: -75}
---- !u!114 &269564082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269564080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &269564083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3211,7 +3420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -3224,12 +3432,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 269564080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 269564084}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &280072412
 GameObject:
   m_ObjectHideFlags: 0
@@ -3384,7 +3623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &301210160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3392,13 +3631,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301210159}
-  m_LocalRotation: {x: 0, y: 0, z: 0.92387956, w: 0.38268343}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1622343131}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 135}
+  m_Father: {fileID: 502916447}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3424,14 +3663,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cba084ac01af5674c91ab0c5ab0b9f0f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b9be2b24f75146f4bbe90bef882b921d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 1
+  m_FillOrigin: 2
   m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &301210162
@@ -3452,7 +3691,6 @@ GameObject:
   m_Component:
   - component: {fileID: 304738343}
   - component: {fileID: 304738345}
-  - component: {fileID: 304738348}
   - component: {fileID: 304738349}
   - component: {fileID: 304738350}
   m_Layer: 8
@@ -3499,18 +3737,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &304738348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 304738342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &304738349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3523,7 +3749,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -3536,12 +3761,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 304738342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 304738349}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &316458921
 GameObject:
   m_ObjectHideFlags: 0
@@ -3552,7 +3808,6 @@ GameObject:
   m_Component:
   - component: {fileID: 316458922}
   - component: {fileID: 316458924}
-  - component: {fileID: 316458923}
   - component: {fileID: 316458925}
   - component: {fileID: 316458926}
   m_Layer: 8
@@ -3578,18 +3833,6 @@ Transform:
   - {fileID: 605556115}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: 330, z: -66.901}
---- !u!114 &316458923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 316458921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &316458924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3623,7 +3866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -3636,12 +3878,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 316458921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
-  isactive: 1
-  itemName: Thing
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
   isHoldInteract: 1
+  promptText: Interact
+  holdDuration: 3
+  isactive: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 316458925}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &326675840
 GameObject:
   m_ObjectHideFlags: 0
@@ -4004,26 +4265,13 @@ GameObject:
   - component: {fileID: 347060520}
   - component: {fileID: 347060519}
   - component: {fileID: 347060518}
-  - component: {fileID: 347060517}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &347060517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347060516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f78eeb29d2459e45ab8dd22de36ff5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.tardisdoorscript
+  m_IsActive: 0
 --- !u!65 &347060518
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4127,7 +4375,6 @@ GameObject:
   m_Component:
   - component: {fileID: 353923634}
   - component: {fileID: 353923636}
-  - component: {fileID: 353923639}
   - component: {fileID: 353923640}
   - component: {fileID: 353923641}
   m_Layer: 8
@@ -4174,18 +4421,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &353923639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353923633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &353923640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4198,7 +4433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -4211,12 +4445,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 353923633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 353923640}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &355991442
 GameObject:
   m_ObjectHideFlags: 0
@@ -4354,6 +4619,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355991442}
   m_CullTransparentMesh: 1
+--- !u!1 &358465565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 358465567}
+  - component: {fileID: 358465566}
+  m_Layer: 0
+  m_Name: doorCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &358465566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358465565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &358465567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358465565}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.06082347, y: 1.7121515, z: 5.348153}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &362375639
 GameObject:
   m_ObjectHideFlags: 0
@@ -4364,7 +4704,6 @@ GameObject:
   m_Component:
   - component: {fileID: 362375640}
   - component: {fileID: 362375642}
-  - component: {fileID: 362375641}
   - component: {fileID: 362375643}
   - component: {fileID: 362375644}
   m_Layer: 8
@@ -4390,18 +4729,6 @@ Transform:
   - {fileID: 1670285929}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: 150, z: -75}
---- !u!114 &362375641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362375639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &362375642
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4435,7 +4762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -4448,12 +4774,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 362375639}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 362375643}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &381942237
 GameObject:
   m_ObjectHideFlags: 0
@@ -4601,7 +4958,6 @@ GameObject:
   m_Component:
   - component: {fileID: 395217512}
   - component: {fileID: 395217514}
-  - component: {fileID: 395217513}
   m_Layer: 7
   m_Name: Telepathic Circuit (1)
   m_TagString: Untagged
@@ -4624,18 +4980,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240746536}
   m_LocalEulerAnglesHint: {x: 59.288, y: 360, z: 0}
---- !u!114 &395217513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395217511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &395217514
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4921,6 +5265,81 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &413284504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413284506}
+  - component: {fileID: 413284505}
+  m_Layer: 0
+  m_Name: throttleCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &413284505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413284504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &413284506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413284504}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.39002967, y: 0.0037449293, z: -0.0016059771, w: -0.9207933}
+  m_LocalPosition: {x: -0.01151225, y: 1.9835501, z: -1.903079}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &418311335
 GameObject:
   m_ObjectHideFlags: 0
@@ -5068,7 +5487,6 @@ GameObject:
   m_Component:
   - component: {fileID: 423966161}
   - component: {fileID: 423966163}
-  - component: {fileID: 423966166}
   - component: {fileID: 423966167}
   - component: {fileID: 423966168}
   m_Layer: 8
@@ -5115,18 +5533,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &423966166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423966160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &423966167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5139,7 +5545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -5152,12 +5557,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 423966160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 423966167}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &428156993
 GameObject:
   m_ObjectHideFlags: 0
@@ -5168,7 +5604,6 @@ GameObject:
   m_Component:
   - component: {fileID: 428156994}
   - component: {fileID: 428156996}
-  - component: {fileID: 428156995}
   - component: {fileID: 428156997}
   - component: {fileID: 428156998}
   m_Layer: 8
@@ -5194,18 +5629,6 @@ Transform:
   - {fileID: 1855135313}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: 150, z: -75}
---- !u!114 &428156995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 428156993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &428156996
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5239,7 +5662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -5252,12 +5674,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 428156993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 428156997}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &429586896
 GameObject:
   m_ObjectHideFlags: 0
@@ -5494,7 +5947,6 @@ Transform:
   m_Children:
   - {fileID: 761664009}
   - {fileID: 2115418746}
-  - {fileID: 1065204984}
   - {fileID: 1846098868}
   - {fileID: 78655236}
   - {fileID: 737153820}
@@ -5505,16 +5957,11 @@ Transform:
   - {fileID: 598229292}
   - {fileID: 240746536}
   - {fileID: 1275261573}
-  - {fileID: 861730091}
-  - {fileID: 1468579554}
   - {fileID: 727672503}
-  - {fileID: 83004418}
-  - {fileID: 1619542784}
   - {fileID: 988250492}
   - {fileID: 24428723}
   - {fileID: 1351269749}
   - {fileID: 1389321290}
-  - {fileID: 863344015}
   - {fileID: 304738343}
   - {fileID: 269564081}
   - {fileID: 1803754358}
@@ -5526,10 +5973,16 @@ Transform:
   - {fileID: 423966161}
   - {fileID: 362375640}
   - {fileID: 428156994}
-  - {fileID: 316458922}
   - {fileID: 1229588132}
   - {fileID: 1972484447}
   - {fileID: 1876243005}
+  - {fileID: 1065204984}
+  - {fileID: 83004418}
+  - {fileID: 1619542784}
+  - {fileID: 861730091}
+  - {fileID: 1468579554}
+  - {fileID: 863344015}
+  - {fileID: 316458922}
   m_Father: {fileID: 543450651620182581}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &461642001
@@ -5766,6 +6219,121 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468513779}
   m_CullTransparentMesh: 1
+--- !u!1 &479612796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 479612798}
+  - component: {fileID: 479612797}
+  m_Layer: 0
+  m_Name: communicatorCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &479612797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479612796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &479612798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479612796}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.30743676, y: -0.46305653, z: 0.17516105, w: -0.8126377}
+  m_LocalPosition: {x: -1.7354345, y: 1.9835243, z: -1.0110154}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &502916446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 502916447}
+  m_Layer: 5
+  m_Name: Cursors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &502916447
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502916446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1725890948}
+  - {fileID: 1880101863}
+  - {fileID: 2052762726}
+  - {fileID: 301210160}
+  - {fileID: 833227203}
+  m_Father: {fileID: 1622343131}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 61, y: 61}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &529595924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5774,6 +6342,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8872785883987782961, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5854,11 +6426,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: -7510347403349173198, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6188208914020590580, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5911882057386897386, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5910077259942248044, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5743350618785959237, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -5872,19 +6456,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3003826468720296304, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.18224855
+      value: 0.0007908045
       objectReference: {fileID: 0}
     - target: {fileID: -3003826468720296304, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18224855
+      value: -0.0007910727
       objectReference: {fileID: 0}
     - target: {fileID: -3003826468720296304, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6832171
+      value: 0.7071064
       objectReference: {fileID: 0}
     - target: {fileID: -3003826468720296304, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.6832169
+      value: 0.70710635
       objectReference: {fileID: 0}
     - target: {fileID: -3003826468720296304, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5892,7 +6476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3003826468720296304, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -150.128
+      value: -180.128
       objectReference: {fileID: 0}
     - target: {fileID: -2828343006896434924, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5930,7 +6514,15 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.6801
       objectReference: {fileID: 0}
+    - target: {fileID: -2570393033474449673, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -2380621794838363280, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -99310592610101706, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -5946,6 +6538,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3907091372267947420, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166650764306360653, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5656252370610282566, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5957,6 +6557,82 @@ PrefabInstance:
     - target: {fileID: 6295266146248969358, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.874
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.716
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.50000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.49999973
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.49999973
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295553643847484030, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485501642484584854, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.874
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.716
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.50000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.49999973
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.49999973
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989262216910461989, guid: d2b3f0b260c9dec478c6c3fae6158b78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6179,6 +6855,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541871677}
   m_CullTransparentMesh: 1
+--- !u!1 &554492689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 554492691}
+  - component: {fileID: 554492690}
+  m_Layer: 0
+  m_Name: scannerCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &554492690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554492689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &554492691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554492689}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.18620077, y: -0.8064137, z: 0.3316485, w: 0.45280856}
+  m_LocalPosition: {x: 1.6676188, y: 1.8531542, z: 0.9636874}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &559404526
 GameObject:
   m_ObjectHideFlags: 0
@@ -6567,7 +7318,6 @@ GameObject:
   m_Component:
   - component: {fileID: 598229292}
   - component: {fileID: 598229294}
-  - component: {fileID: 598229297}
   - component: {fileID: 598229298}
   - component: {fileID: 598229299}
   m_Layer: 8
@@ -6614,18 +7364,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &598229297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598229291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &598229298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6638,7 +7376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -6651,12 +7388,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 598229291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Epsilon Circuit
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 598229298}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &605556114
 GameObject:
   m_ObjectHideFlags: 0
@@ -6769,7 +7537,6 @@ GameObject:
   m_Component:
   - component: {fileID: 635727031}
   - component: {fileID: 635727033}
-  - component: {fileID: 635727036}
   - component: {fileID: 635727037}
   - component: {fileID: 635727038}
   m_Layer: 8
@@ -6816,18 +7583,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &635727036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635727030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &635727037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6840,7 +7595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -6853,12 +7607,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 635727030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 635727037}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &636394501
 GameObject:
   m_ObjectHideFlags: 0
@@ -7108,7 +7893,6 @@ GameObject:
   m_Component:
   - component: {fileID: 671811333}
   - component: {fileID: 671811335}
-  - component: {fileID: 671811334}
   - component: {fileID: 671811336}
   - component: {fileID: 671811337}
   m_Layer: 8
@@ -7134,18 +7918,6 @@ Transform:
   - {fileID: 1061230415}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: 150, z: -75}
---- !u!114 &671811334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 671811332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &671811335
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7179,7 +7951,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -7192,12 +7963,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 671811332}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 671811336}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &673535503
 GameObject:
   m_ObjectHideFlags: 0
@@ -7335,6 +8137,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &685992045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 685992047}
+  - component: {fileID: 685992046}
+  m_Layer: 0
+  m_Name: frontCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &685992046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685992045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 1
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &685992047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685992045}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0036471474, y: -0.9123718, z: 0.40926653, w: -0.008086672}
+  m_LocalPosition: {x: -0.010127708, y: 1.9834919, z: 1.896985}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &695331265
 GameObject:
   m_ObjectHideFlags: 0
@@ -7732,7 +8609,6 @@ GameObject:
   m_Component:
   - component: {fileID: 727672503}
   - component: {fileID: 727672505}
-  - component: {fileID: 727672508}
   - component: {fileID: 727672509}
   - component: {fileID: 727672510}
   m_Layer: 8
@@ -7779,18 +8655,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &727672508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727672502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &727672509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7803,7 +8667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -7816,12 +8679,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 727672502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Door Control
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 727672509}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &737153819
 GameObject:
   m_ObjectHideFlags: 0
@@ -7832,7 +8726,6 @@ GameObject:
   m_Component:
   - component: {fileID: 737153820}
   - component: {fileID: 737153822}
-  - component: {fileID: 737153825}
   - component: {fileID: 737153826}
   - component: {fileID: 737153827}
   m_Layer: 8
@@ -7879,18 +8772,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &737153825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737153819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &737153826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7903,7 +8784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -7916,12 +8796,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 737153819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 737153826}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &755950851
 GameObject:
   m_ObjectHideFlags: 0
@@ -8065,8 +8976,8 @@ GameObject:
   m_Component:
   - component: {fileID: 761664009}
   - component: {fileID: 761664006}
-  - component: {fileID: 761664010}
-  - component: {fileID: 761664011}
+  - component: {fileID: 761664013}
+  - component: {fileID: 761664012}
   m_Layer: 8
   m_Name: Throttle
   m_TagString: Untagged
@@ -8111,7 +9022,7 @@ Transform:
   - {fileID: 1998967016}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: -64.506}
---- !u!114 &761664010
+--- !u!114 &761664012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8120,10 +9031,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 761664005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &761664011
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Throttle
+  holdDuration: 3
+  isactive: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 761664013}
+        m_TargetAssemblyTypeName: Throttle, Assembly-CSharp
+        m_MethodName: PressInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 761664013}
+        m_TargetAssemblyTypeName: Throttle, Assembly-CSharp
+        m_MethodName: PressInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &761664013
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8132,13 +9077,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 761664005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
+  m_Script: {fileID: 11500000, guid: 15bfa5478e2b02d4884070e561eeed3c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
-  buttonSounds:
-  - {fileID: 8300000, guid: d0e2a9e13e316de4dbb0da470abcc6f7, type: 3}
-  audioSource: {fileID: 461642001}
+  m_EditorClassIdentifier: Assembly-CSharp::Throttle
+  _MissionSelect: {fileID: 1571614011}
 --- !u!1 &762985366
 GameObject:
   m_ObjectHideFlags: 0
@@ -8241,6 +9183,50 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &770973889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 770973891}
+  - component: {fileID: 770973890}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &770973890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770973889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a381233564a51840a944c6e719db3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageManager
+--- !u!4 &770973891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770973889}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.11886, y: -0.24574, z: 3.61445}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &771185423
 GameObject:
   m_ObjectHideFlags: 0
@@ -8840,6 +9826,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &833227202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 833227203}
+  - component: {fileID: 833227205}
+  - component: {fileID: 833227204}
+  m_Layer: 5
+  m_Name: interactionTextImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &833227203
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833227202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 903968420}
+  m_Father: {fileID: 502916447}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 184, y: 0}
+  m_SizeDelta: {x: 307, y: 61}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &833227204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833227202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7019608}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &833227205
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833227202}
+  m_CullTransparentMesh: 1
 --- !u!1 &838671573
 GameObject:
   m_ObjectHideFlags: 0
@@ -9098,7 +10160,6 @@ GameObject:
   m_Component:
   - component: {fileID: 840786803}
   - component: {fileID: 840786805}
-  - component: {fileID: 840786808}
   - component: {fileID: 840786809}
   - component: {fileID: 840786810}
   m_Layer: 8
@@ -9145,18 +10206,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &840786808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840786802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &840786809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9169,7 +10218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -9182,12 +10230,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 840786802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 840786809}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &861730090
 GameObject:
   m_ObjectHideFlags: 0
@@ -9198,7 +10277,6 @@ GameObject:
   m_Component:
   - component: {fileID: 861730091}
   - component: {fileID: 861730093}
-  - component: {fileID: 861730096}
   - component: {fileID: 861730097}
   - component: {fileID: 861730098}
   m_Layer: 8
@@ -9245,18 +10323,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &861730096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861730090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &861730097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9269,7 +10335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -9282,12 +10347,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 861730090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
-  isactive: 1
-  itemName: Thing
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
   isHoldInteract: 1
+  promptText: Interact
+  holdDuration: 3
+  isactive: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 861730097}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &863344014
 GameObject:
   m_ObjectHideFlags: 0
@@ -9298,7 +10382,6 @@ GameObject:
   m_Component:
   - component: {fileID: 863344015}
   - component: {fileID: 863344017}
-  - component: {fileID: 863344016}
   - component: {fileID: 863344018}
   - component: {fileID: 863344019}
   m_Layer: 8
@@ -9324,18 +10407,6 @@ Transform:
   - {fileID: 8637308}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: 150, z: -75}
---- !u!114 &863344016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863344014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &863344017
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9369,7 +10440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -9382,12 +10452,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 863344014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
-  isactive: 1
-  itemName: Thing
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
   isHoldInteract: 1
+  promptText: Interact
+  holdDuration: 3
+  isactive: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 863344018}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &873699115
 GameObject:
   m_ObjectHideFlags: 0
@@ -9527,6 +10616,97 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873699115}
   m_CullTransparentMesh: 1
+--- !u!1 &884741550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 884741553}
+  - component: {fileID: 884741552}
+  - component: {fileID: 884741551}
+  m_Layer: 7
+  m_Name: Interactor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &884741551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884741550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 3afd1f70520838d4b8b771a6984d108e, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &884741552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884741550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eccb35eb6ddfe840ad71e8ba09e0bcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.TardisInteractionScript
+  playerCamera: {fileID: 9156347145507161204}
+  interactionRange: 5
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  interactionCircle: {fileID: 301210161}
+  cursorParent: {fileID: 502916446}
+  InteractionTextImage: {fileID: 833227204}
+  InteractionTextText: {fileID: 903968421}
+  normalCursor: {fileID: 1725890947}
+  interactCursor: {fileID: 1880101862}
+  propCursor: {fileID: 2052762725}
+  cursorPosition: {x: 0, y: 0}
+  playerInput: {fileID: 884741551}
+  uiCanvas: {fileID: 1622343130}
+--- !u!4 &884741553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884741550}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0036471474, y: -0.9123718, z: 0.40926653, w: -0.008086672}
+  m_LocalPosition: {x: -0.010127708, y: 1.9834919, z: 1.896985}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1040240332}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &896767108
 GameObject:
   m_ObjectHideFlags: 0
@@ -9663,6 +10843,143 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896767108}
+  m_CullTransparentMesh: 1
+--- !u!1 &903968419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903968420}
+  - component: {fileID: 903968422}
+  - component: {fileID: 903968421}
+  m_Layer: 5
+  m_Name: interactionTextText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &903968420
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903968419}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 833227203}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 30, y: 0}
+  m_SizeDelta: {x: 61, y: 61}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &903968421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903968419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Telepathic Circuits
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 5, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &903968422
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903968419}
   m_CullTransparentMesh: 1
 --- !u!1 &922049504
 GameObject:
@@ -10117,7 +11434,6 @@ GameObject:
   m_Component:
   - component: {fileID: 988250492}
   - component: {fileID: 988250494}
-  - component: {fileID: 988250497}
   - component: {fileID: 988250498}
   - component: {fileID: 988250499}
   m_Layer: 8
@@ -10164,18 +11480,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &988250497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988250491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &988250498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10188,7 +11492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -10201,12 +11504,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 988250491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Door Lock
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 988250498}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1019524310
 GameObject:
   m_ObjectHideFlags: 0
@@ -10616,6 +11950,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035308480}
   m_CullTransparentMesh: 1
+--- !u!1 &1040240331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1040240332}
+  - component: {fileID: 1040240333}
+  m_Layer: 0
+  m_Name: _42ConsoleNavigator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1040240332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040240331}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0036471474, y: 0.9123718, z: -0.40926653, w: -0.008086672}
+  m_LocalPosition: {x: -0.10404604, y: -0.15437287, z: 1.1602682}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 884741553}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1040240333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040240331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aec836129fff5d4ea3d8ce9982437e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_42ConsoleNavigator
+  playerInput: {fileID: 884741551}
+  mainCamera: {fileID: 9156347145507161204}
+  frontCamera: {fileID: 685992046}
+  scannerCamera: {fileID: 554492690}
+  telepathicCamera: {fileID: 256878052}
+  throttleCamera: {fileID: 413284505}
+  communicatorCamera: {fileID: 479612797}
+  helmicCamera: {fileID: 1764283949}
+  monitor1Camera: {fileID: 1669616094}
+  monitor2Camera: {fileID: 1267190164}
+  astronavCamera: {fileID: 185725989}
+  doorFacingCamera: {fileID: 358465566}
+  currentCamera: {fileID: 0}
 --- !u!1 &1043447951
 GameObject:
   m_ObjectHideFlags: 0
@@ -11004,8 +12395,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1065204984}
   - component: {fileID: 1065204986}
-  - component: {fileID: 1065204989}
   - component: {fileID: 1065204990}
+  - component: {fileID: 1065204991}
   m_Layer: 8
   m_Name: Astronav
   m_TagString: Untagged
@@ -11021,9 +12412,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065204983}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.09260565, y: -0.96147645, z: 0.024813622, w: 0.25762692}
-  m_LocalPosition: {x: 0.8239, y: 1.8473, z: -0.4706}
-  m_LocalScale: {x: 0.1, y: 0.4, z: 0.7}
+  m_LocalRotation: {x: -0.09587236, y: -0.99539363, z: 0.00000018998978, w: 0.00000017881392}
+  m_LocalPosition: {x: 0.94881773, y: 1.8473008, z: 0.0043962}
+  m_LocalScale: {x: 0.100000024, y: 0.4000001, z: 0.7000001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 96302890}
@@ -11050,18 +12441,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1065204989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065204983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1065204990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11074,6 +12453,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810a809f578e95c4cad74754827f7f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AstronavCU
+  astronavUI: {fileID: 1571614009}
+  playerInput: {fileID: 884741551}
+--- !u!114 &1065204991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065204983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 1
+  promptText: Interact
+  holdDuration: 1
+  isactive: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1065204990}
+        m_TargetAssemblyTypeName: AstronavCU, Assembly-CSharp
+        m_MethodName: OpenAstronav
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1065204990}
+        m_TargetAssemblyTypeName: AstronavCU, Assembly-CSharp
+        m_MethodName: OpenAstronav
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1069703893
 GameObject:
   m_ObjectHideFlags: 0
@@ -11793,7 +13220,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1229588132}
   - component: {fileID: 1229588134}
-  - component: {fileID: 1229588133}
   - component: {fileID: 1229588135}
   - component: {fileID: 1229588136}
   m_Layer: 8
@@ -11819,18 +13245,6 @@ Transform:
   - {fileID: 1601503882}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: -33.643}
---- !u!114 &1229588133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1229588131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1229588134
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11864,7 +13278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -11877,12 +13290,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1229588131}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1229588135}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1258846026
 GameObject:
   m_ObjectHideFlags: 0
@@ -11995,7 +13439,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1263945466}
   - component: {fileID: 1263945468}
-  - component: {fileID: 1263945471}
   - component: {fileID: 1263945472}
   - component: {fileID: 1263945473}
   m_Layer: 8
@@ -12042,18 +13485,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1263945471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263945465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1263945472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12066,7 +13497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -12079,12 +13509,118 @@ MonoBehaviour:
   m_GameObject: {fileID: 1263945465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1263945472}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &1267190163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1267190165}
+  - component: {fileID: 1267190164}
+  m_Layer: 0
+  m_Name: monitor2Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1267190164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267190163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &1267190165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267190163}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0029165694, y: -0.9754007, z: -0.013009195, w: -0.22003606}
+  m_LocalPosition: {x: -1.0257859, y: 1.7797296, z: 1.9185467}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1275261572
 GameObject:
   m_ObjectHideFlags: 0
@@ -12095,7 +13631,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1275261573}
   - component: {fileID: 1275261575}
-  - component: {fileID: 1275261574}
   - component: {fileID: 1275261576}
   - component: {fileID: 1275261577}
   m_Layer: 8
@@ -12121,18 +13656,6 @@ Transform:
   - {fileID: 102112389}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: 150, z: -75}
---- !u!114 &1275261574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1275261572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1275261575
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12166,7 +13689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -12179,12 +13701,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1275261572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1275261576}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1317150344
 GameObject:
   m_ObjectHideFlags: 0
@@ -12719,7 +14272,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1351269749}
   - component: {fileID: 1351269751}
-  - component: {fileID: 1351269754}
   - component: {fileID: 1351269755}
   - component: {fileID: 1351269756}
   m_Layer: 8
@@ -12766,18 +14318,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1351269754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1351269748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1351269755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12790,7 +14330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -12803,12 +14342,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1351269748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1351269755}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1351988505
 GameObject:
   m_ObjectHideFlags: 0
@@ -13093,7 +14663,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1365220387}
   - component: {fileID: 1365220389}
-  - component: {fileID: 1365220392}
   - component: {fileID: 1365220393}
   - component: {fileID: 1365220394}
   m_Layer: 8
@@ -13140,18 +14709,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1365220392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1365220386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1365220393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13164,7 +14721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -13177,12 +14733,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1365220386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1365220393}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1371521225
 GameObject:
   m_ObjectHideFlags: 0
@@ -13467,7 +15054,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1378073185}
   - component: {fileID: 1378073187}
-  - component: {fileID: 1378073186}
   m_Layer: 7
   m_Name: Telepathic Circuit (2)
   m_TagString: Untagged
@@ -13490,18 +15076,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240746536}
   m_LocalEulerAnglesHint: {x: 119.287994, y: 360, z: 0}
---- !u!114 &1378073186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378073184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1378073187
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13533,7 +15107,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1389321290}
   - component: {fileID: 1389321292}
-  - component: {fileID: 1389321295}
   - component: {fileID: 1389321296}
   - component: {fileID: 1389321297}
   m_Layer: 8
@@ -13580,18 +15153,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1389321295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1389321289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1389321296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13604,7 +15165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -13617,12 +15177,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1389321289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Zeta Circuit
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1389321296}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1389780447
 GameObject:
   m_ObjectHideFlags: 0
@@ -14111,7 +15702,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1468579554}
   - component: {fileID: 1468579556}
-  - component: {fileID: 1468579559}
   - component: {fileID: 1468579560}
   - component: {fileID: 1468579561}
   m_Layer: 8
@@ -14158,18 +15748,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1468579559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468579553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1468579560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14182,7 +15760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -14195,12 +15772,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1468579553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
-  isactive: 1
-  itemName: Thing
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
   isHoldInteract: 1
+  promptText: Console Power
+  holdDuration: 3
+  isactive: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1468579560}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1476930663
 GameObject:
   m_ObjectHideFlags: 0
@@ -15031,9 +16627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1619542784}
   - component: {fileID: 1619542786}
-  - component: {fileID: 1619542785}
   - component: {fileID: 1619542787}
-  - component: {fileID: 1619542788}
   m_Layer: 8
   m_Name: Monitor2
   m_TagString: Untagged
@@ -15057,18 +16651,6 @@ Transform:
   - {fileID: 933935186}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0.226, y: -298.609, z: 7.326}
---- !u!114 &1619542785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619542783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1619542786
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15102,25 +16684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
---- !u!114 &1619542788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619542783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
-  isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
 --- !u!1 &1622343127
 GameObject:
   m_ObjectHideFlags: 0
@@ -15215,10 +16781,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1725890948}
-  - {fileID: 1880101863}
-  - {fileID: 2052762726}
-  - {fileID: 301210160}
+  - {fileID: 502916447}
   - {fileID: 2028996111}
   - {fileID: 1571614010}
   m_Father: {fileID: 0}
@@ -15608,6 +17171,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664462933}
   m_CullTransparentMesh: 1
+--- !u!1 &1669616093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1669616095}
+  - component: {fileID: 1669616094}
+  m_Layer: 0
+  m_Name: monitor1Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1669616094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669616093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &1669616095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669616093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.032326967, y: -0.33557424, z: -0.011542337, w: -0.94138813}
+  m_LocalPosition: {x: -1.1971407, y: 1.7162673, z: -1.5777426}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1670285928
 GameObject:
   m_ObjectHideFlags: 0
@@ -16257,12 +17895,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725890947}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1622343131}
+  m_Father: {fileID: 502916447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16444,6 +18082,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735423419}
   m_CullTransparentMesh: 1
+--- !u!1 &1764283948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1764283950}
+  - component: {fileID: 1764283949}
+  m_Layer: 0
+  m_Name: helmicCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1764283949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764283948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &1764283950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764283948}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.2007071, y: -0.7900494, z: 0.33603805, w: -0.47182328}
+  m_LocalPosition: {x: -1.6354637, y: 1.9834976, z: 0.90692043}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1803754357
 GameObject:
   m_ObjectHideFlags: 0
@@ -16454,7 +18167,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1803754358}
   - component: {fileID: 1803754360}
-  - component: {fileID: 1803754363}
   - component: {fileID: 1803754364}
   - component: {fileID: 1803754365}
   m_Layer: 8
@@ -16501,18 +18213,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1803754363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803754357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1803754364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16525,7 +18225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -16538,12 +18237,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1803754357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1803754364}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1843262771
 GameObject:
   m_ObjectHideFlags: 0
@@ -16693,7 +18423,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1846098868}
   - component: {fileID: 1846098870}
-  - component: {fileID: 1846098873}
   - component: {fileID: 1846098874}
   - component: {fileID: 1846098875}
   m_Layer: 8
@@ -16740,18 +18469,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1846098873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1846098867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1846098874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16764,7 +18481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -16777,12 +18493,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1846098867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1846098874}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1855135312
 GameObject:
   m_ObjectHideFlags: 0
@@ -17302,7 +19049,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1876243005}
   - component: {fileID: 1876243007}
-  - component: {fileID: 1876243010}
   - component: {fileID: 1876243011}
   - component: {fileID: 1876243012}
   m_Layer: 8
@@ -17349,18 +19095,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1876243010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876243004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1876243011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17373,7 +19107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -17386,12 +19119,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1876243004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Wibbly
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1876243011}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1880101862
 GameObject:
   m_ObjectHideFlags: 0
@@ -17417,12 +19181,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880101862}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1622343131}
+  m_Father: {fileID: 502916447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17997,7 +19761,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1972484447}
   - component: {fileID: 1972484449}
-  - component: {fileID: 1972484448}
   - component: {fileID: 1972484450}
   - component: {fileID: 1972484451}
   m_Layer: 8
@@ -18023,18 +19786,6 @@ Transform:
   - {fileID: 1084124031}
   m_Father: {fileID: 461642000}
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: -75}
---- !u!114 &1972484448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1972484446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1972484449
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18068,7 +19819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: 73045c885a38519409958064d5cb0fd6, type: 3}
   audioSource: {fileID: 461642001}
@@ -18081,12 +19831,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1972484446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec34b4982fc56442823483c4a24e1f9, type: 3}
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.PropScript
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Interact
+  holdDuration: 3
   isactive: 1
-  itemName: Thing
-  isHoldInteract: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1972484450}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1974629744
 GameObject:
   m_ObjectHideFlags: 0
@@ -18921,12 +20702,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052762725}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1622343131}
+  m_Father: {fileID: 502916447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19623,8 +21404,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2115418746}
   - component: {fileID: 2115418748}
-  - component: {fileID: 2115418751}
   - component: {fileID: 2115418752}
+  - component: {fileID: 2115418753}
   m_Layer: 8
   m_Name: Handbrake
   m_TagString: Untagged
@@ -19669,18 +21450,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2115418751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115418745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1309aae895688ca49bffa86d2f718ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2115418752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19693,10 +21462,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7e99e648f031a45be8fd15b575e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TardisSoundButton
-  buttonName: Button
   buttonSounds:
   - {fileID: 8300000, guid: edcbbcf3d464c9b47a9099d35e70d98f, type: 3}
   audioSource: {fileID: 461642001}
+--- !u!114 &2115418753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115418745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35b21d05dae74f4e9d56626d81aaa37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Luci.Interactions.ButtonScript
+  isHoldInteract: 0
+  promptText: Handbrake
+  holdDuration: 3
+  isactive: 1
+  RegularInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2115418752}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ModifierInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 24428729}
+        m_TargetAssemblyTypeName: TardisSoundButton, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2119945744
 GameObject:
   m_ObjectHideFlags: 0
@@ -19947,7 +21761,6 @@ GameObject:
   - component: {fileID: 9156347145507161204}
   - component: {fileID: 9156347145507161203}
   - component: {fileID: 9156347145507161205}
-  - component: {fileID: 9156347145507161206}
   - component: {fileID: 9156347145507161207}
   m_Layer: 7
   m_Name: Camera
@@ -19964,13 +21777,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9156347145507161201}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -5}
+  m_LocalRotation: {x: -0.0036471474, y: -0.9123718, z: 0.40926653, w: -0.008086672}
+  m_LocalPosition: {x: -0.010127708, y: 1.9834919, z: 1.896985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 42.21, y: 0, z: 0}
 --- !u!81 &9156347145507161203
 AudioListener:
   m_ObjectHideFlags: 0
@@ -20012,7 +21825,7 @@ Camera:
     height: 1
   near clip plane: 0.2
   far clip plane: 500
-  field of view: 75
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -20074,18 +21887,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &9156347145507161206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9156347145507161201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e2254538e9427046934a0e1142e1871, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9156347145507161207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20124,9 +21925,21 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 9156347145507161202}
+  - {fileID: 884741553}
   - {fileID: 832575519}
   - {fileID: 543450651620182581}
   - {fileID: 1622343131}
   - {fileID: 529595924}
   - {fileID: 534558993}
   - {fileID: 347060521}
+  - {fileID: 256878053}
+  - {fileID: 554492691}
+  - {fileID: 685992047}
+  - {fileID: 1764283950}
+  - {fileID: 479612798}
+  - {fileID: 413284506}
+  - {fileID: 1669616095}
+  - {fileID: 1267190165}
+  - {fileID: 185725990}
+  - {fileID: 358465567}
+  - {fileID: 770973891}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 301733480976926428}
   - component: {fileID: 53272657545023833}
   - component: {fileID: 6821347074994612265}
-  - component: {fileID: 2196870439049157689}
+  - component: {fileID: 3526648923559610372}
   m_Layer: 5
   m_Name: FlightEventMark
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6821347074994612265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2196870439049157689
+--- !u!114 &3526648923559610372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,9 +112,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5003555201338106531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 314268e910040f24280d8ad9dacb660c, type: 3}
+  m_Script: {fileID: 11500000, guid: 24237775c938a354594256386859acde, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::LookTowardsMainCam
+  faceAwayFromCamera: 1
 --- !u!1 &7240194011817934680
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,8 +208,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.3
-  m_fontSizeBase: 0.3
+  m_fontSize: 0.2
+  m_fontSizeBase: 0.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -218,6 +219,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
