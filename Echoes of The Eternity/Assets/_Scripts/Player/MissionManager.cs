@@ -64,16 +64,6 @@ public class MissionManager : MonoBehaviour
         bagcounter.text = $"Bags Secured: {bagsCollected}";
         assaulPhaseText.text = $"{currentHeistStage}";
 
-        if (!maskedUp)
-        {
-            if (_PlayerInput.actions["Quicknade"].WasPressedThisFrame())
-            {
-                maskedUp = true;
-                _GunMainScript.MaskUp();
-                currentPlayerState = PlayerState.Masked;
-            }
-        }
-
         ManagePhases();
 
         // spherecast to check for the nearest enemy and check the susmeter to put onto the sustext tmptext.
