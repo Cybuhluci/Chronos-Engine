@@ -7,7 +7,7 @@ public class MissionSelect : MonoBehaviour
 
     public enum MissionLocation
     {
-        BankHeist,
+        Test,
         Heist1, // placeholder
         Heist3,
         Heist4,

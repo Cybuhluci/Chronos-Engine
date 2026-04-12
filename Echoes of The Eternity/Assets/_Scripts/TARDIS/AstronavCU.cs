@@ -11,12 +11,17 @@ public class AstronavCU : MonoBehaviour
     {
         if (playerInput.actions["Cancel"].WasPressedThisFrame() && astronavUI.activeSelf)
         {
-            astronavUI.SetActive(false);
+            CloseAstronav();
         }
     }
 
     public void OpenAstronav()
     {
         astronavUI.SetActive(true);
+    }
+
+    public void CloseAstronav()
+    {
+        astronavUI.SetActive(false);
     }
 }

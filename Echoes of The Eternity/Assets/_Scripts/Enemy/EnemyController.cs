@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(EnemyHealth))]
@@ -18,18 +17,8 @@ public class EnemyController : MonoBehaviour
     private enum State { Idle, Patrol, Investigate, Chase, Attack, Dead }
     private State _state = State.Idle;
 
-    private enum AlertLevel { Unaware, Suspicious, Alerted }
-    private AlertLevel _alertLevel = AlertLevel.Unaware;
-    private float _susMeter = 0f;
-    private float _susThreshold = 100f;
-
-    // expose suspicion for UI/other systems
-    public float GetSuspicion() => _susMeter;
-
-    [Header("Patrol")]
-    [SerializeField] private GameObject PatrolParent;
-    [SerializeField] private Transform[] PatrolPoints;
-    private int _patrolIndex = 0;
+    private enum AlertLevel { none, caution, danger }
+    private AlertLevel _alertLevel = AlertLevel.none;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -45,12 +34,6 @@ public class EnemyController : MonoBehaviour
     [Range(10f, 180f)] public float viewAngle = 90f;
 
     [Header("Suspicion Settings")]
-    // Public is not changeable in-editor, this is because it should  be 0 nonetheless.
-    private float susRatePublic = 0f;
-    [SerializeField] private float susRatePrivate = 10f;
-    [SerializeField] private float susRateSecure = 25f;
-    [SerializeField] private float susDecayRate = 10f;
-
     // Investigation
     private bool _isInvestigating = false;
     private Vector3 _investigatePoint;
@@ -79,25 +62,14 @@ public class EnemyController : MonoBehaviour
 
         if (_playerHealth == null)
         {
-            _playerHealth = FindObjectOfType<PlayerHealth>();
+            _playerHealth = FindAnyObjectByType<PlayerHealth>();
             if (_playerHealth != null && _player == null) _player = _playerHealth.transform;
-        }
-
-        // Setup patrol points from parent if assigned
-        if (PatrolParent != null)
-        {
-            int count = PatrolParent.transform.childCount;
-            PatrolPoints = new Transform[count];
-            for (int i = 0; i < count; i++)
-            {
-                PatrolPoints[i] = PatrolParent.transform.GetChild(i);
-            }
         }
     }
 
     private void Start()
     {
-        _missionManager = FindObjectOfType<MissionManager>();
+        _missionManager = FindAnyObjectByType<MissionManager>();
         _missionManager = MissionManager.Instance;
     }
 
@@ -106,273 +78,28 @@ public class EnemyController : MonoBehaviour
         if (!_health.IsAlive) return;
         if (_player == null) return;
 
-        var stage = _missionManager != null ? _missionManager.GetHeistStage() : MissionManager.HeistStage.Assault;
-        float dist = Vector3.Distance(transform.position, _player.position);
-
-        if (stage == MissionManager.HeistStage.Stealth)
+        // Lobotomised behavior: disable both stealth and loud behaviors so the enemy just stands still.
+        // Ensure the agent is stopped, clear any investigation/suspicion and stay idle.
+        if (_agent != null)
         {
-            HandleStealth(dist);
-        }
-        else
-        {
-            HandleLoud(dist);
-        }
-    }
-
-    #region Stealth behavior
-    private void HandleStealth(float distToPlayer)
-    {
-        bool sees = CanSeePlayer(distToPlayer);
-
-        // determine suspicion increase rate based on player state and location
-        float susIncrease = susRatePublic;
-        if (_missionManager != null)
-        {
-            var playerState = _missionManager.GetPlayerState();
-            if (playerState == MissionManager.PlayerState.Masked)
-            {
-                susIncrease = susRateSecure;
-            }
-            else
-            {
-                switch (_missionManager.currentPlayerLocation)
-                {
-                    case MissionManager.PlayerLocation.Public:
-                        susIncrease = susRatePublic;
-                        break;
-                    case MissionManager.PlayerLocation.Private:
-                        susIncrease = susRatePrivate;
-                        break;
-                    case MissionManager.PlayerLocation.Secure:
-                        susIncrease = susRateSecure;
-                        break;
-                    default:
-                        susIncrease = susRatePublic;
-                        break;
-                }
-            }
-        }
-
-        if (sees)
-        {
-            _susMeter += susIncrease * Time.deltaTime;
-            if (_alertLevel == AlertLevel.Unaware && _susMeter > 0f) _alertLevel = AlertLevel.Suspicious;
-        }
-        else
-        {
-            _susMeter = Mathf.Max(0f, _susMeter - susDecayRate * Time.deltaTime);
-            if (_susMeter <= 0f) _alertLevel = AlertLevel.Unaware;
-        }
-
-        _susMeter = Mathf.Clamp(_susMeter, 0f, _susThreshold);
-
-        if (_susMeter >= _susThreshold)
-        {
-            _alertLevel = AlertLevel.Alerted;
-            _missionManager?.PullAlarm();
-        }
-        else if (_susMeter >= _susThreshold * 0.5f)
-        {
-            if (sees)
-            {
-                _investigatePoint = _player.position;
-            }
-
-            if (!_isInvestigating)
-            {
-                _isInvestigating = true;
-                _investigateTimer = 0f;
-                _state = State.Investigate;
-                _agent.isStopped = false;
-                _agent.speed = Stats != null ? Stats.WalkSpeed : 2.5f;
-                _agent.SetDestination(_investigatePoint);
-            }
-
-            if (_isInvestigating && !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
-            {
-                _investigateTimer += Time.deltaTime;
-                if (_investigateTimer > 5f)
-                {
-                    // return to patrol with slight heightened senses
-                    _isInvestigating = false;
-                    _susMeter = 0f;
-                    StartCoroutine(TemporaryHeightenedSenses());
-                    StartPatrol();
-                }
-            }
-        }
-        else
-        {
-            // Regular patrol/idle
-            if (PatrolPoints != null && PatrolPoints.Length > 0)
-            {
-                if (_state != State.Patrol)
-                    StartPatrol();
-
-                if (_state == State.Patrol)
-                    PatrolUpdate();
-            }
-        }
-    }
-
-    private IEnumerator TemporaryHeightenedSenses()
-    {
-        float original = viewRadius;
-        viewRadius = original * 1.5f;
-        yield return new WaitForSeconds(8f);
-        viewRadius = original;
-    }
-
-    private bool CanSeePlayer(float distToPlayer)
-    {
-        if (distToPlayer > viewRadius) return false;
-        Vector3 dirToPlayer = (_player.position - transform.position).normalized;
-        if (Vector3.Angle(transform.forward, dirToPlayer) > viewAngle * 0.5f) return false;
-        return HasLineOfSight();
-    }
-    #endregion
-
-    #region Loud behavior
-    private void HandleLoud(float distToPlayer)
-    {
-        // In loud/assault, enemies actively chase and engage the player.
-        bool hasLOS = HasLineOfSight();
-        float attackRange = Stats != null ? Stats.AttackRange : 10f;
-
-        if (_isReloading)
-        {
-            // fall back a bit while reloading
-            Vector3 away = (transform.position - _player.position).normalized;
-            _agent.isStopped = false;
-            _agent.speed = Stats != null ? Stats.WalkSpeed : 2.5f;
-            _agent.SetDestination(transform.position + away * 3f);
-            return;
-        }
-
-        if (distToPlayer > attackRange || !hasLOS)
-        {
-            // move closer
-            _agent.isStopped = false;
-            _agent.speed = Stats != null ? Stats.RunSpeed : 4.5f;
-            _agent.SetDestination(_player.position);
-            _state = State.Chase;
-        }
-        else
-        {
-            // in range - stop and shoot
             _agent.isStopped = true;
-            _state = State.Attack;
-
-            // rotate towards player smoothly
-            Vector3 look = _player.position - transform.position;
-            look.y = 0f;
-            if (look.sqrMagnitude > 0.001f)
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 6f);
-
-            if (Time.time - _lastAttackTime >= (Stats != null ? 1f / Stats.AttackRate : 1f))
-            {
-                _lastAttackTime = Time.time;
-                DoAttack();
-            }
-        }
-    }
-
-    private void StartPatrol()
-    {
-        _state = State.Patrol;
-        _agent.isStopped = false;
-        _agent.speed = Stats != null ? Stats.WalkSpeed : 2.5f;
-        if (PatrolPoints != null && PatrolPoints.Length > 0)
-        {
-            _patrolIndex = _patrolIndex % PatrolPoints.Length;
-            _agent.SetDestination(PatrolPoints[_patrolIndex].position);
-        }
-    }
-
-    private void PatrolUpdate()
-    {
-        if (PatrolPoints == null || PatrolPoints.Length == 0) return;
-        if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
-        {
-            _patrolIndex = (_patrolIndex + 1) % PatrolPoints.Length;
-            _agent.SetDestination(PatrolPoints[_patrolIndex].position);
-        }
-    }
-
-    private bool HasLineOfSight()
-    {
-        if (_player == null) return false;
-        Vector3 origin = transform.position + Vector3.up * 1.6f;
-        Vector3 target = _player.position + Vector3.up * 1.0f;
-        Vector3 dir = (target - origin).normalized;
-        if (Physics.Raycast(origin, dir, out RaycastHit hit, Mathf.Infinity))
-        {
-            return hit.collider.gameObject == _player.gameObject || hit.collider.transform.IsChildOf(_player);
-        }
-        return false;
-    }
-
-    private IEnumerator ReloadRoutine()
-    {
-        _isReloading = true;
-        // optional reload sound
-        yield return new WaitForSeconds(2.0f);
-        _currentAmmo = Stats != null ? Stats.ammoCount : 6;
-        _isReloading = false;
-    }
-
-    private void DoAttack()
-    {
-        if (_player == null) return;
-
-        if (_isReloading) return;
-        if (_currentAmmo <= 0)
-        {
-            StartCoroutine(ReloadRoutine());
-            return;
+            _agent.SetDestination(transform.position);
+            // try to zero velocity to be safe
+            _agent.velocity = Vector3.zero;
         }
 
-        Vector3 eye = transform.position + Vector3.up * 1.6f;
-        Vector3 targetPos = _player.position + Vector3.up * 1.0f;
-        Vector3 dir = (targetPos - eye).normalized;
-
-        if (Physics.Raycast(eye, dir, out RaycastHit hit, Mathf.Infinity, ~0, QueryTriggerInteraction.Ignore))
-        {
-            bool hitPlayer = hit.collider != null && (hit.collider.gameObject == _player.gameObject || hit.collider.transform.IsChildOf(_player));
-            if (hitPlayer)
-            {
-                if (_playerHealth != null)
-                    _playerHealth.TakeDamage(Stats.AttackDamage);
-                else
-                    _player.gameObject.SendMessage("TakeDamage", Stats.AttackDamage, SendMessageOptions.DontRequireReceiver);
-            }
-        }
-
-        _currentAmmo--;
-
-        if (audioSource != null)
-        {
-            var pool = (_player != null && Vector3.Distance(transform.position, _player.position) < 10f) ? attackSoundsClose : attackSoundsFar;
-            if (pool != null && pool.Length > 0)
-                audioSource.PlayOneShot(pool[Random.Range(0, pool.Length)]);
-        }
+        _state = State.Idle;
+        _isInvestigating = false;
+        return;
     }
 
     public void OnDeath()
     {
         _state = State.Dead;
-        _agent.isStopped = true;
-        StartCoroutine(DeathRoutine());
-    }
-
-    private IEnumerator DeathRoutine()
-    {
-        if (audioSource != null && deathSounds != null && deathSounds.Length > 0)
-            audioSource.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)]);
-
-        float delay = (Stats != null) ? Stats.DeathDelay : 5f;
-        Destroy(gameObject);
-        yield return new WaitForSeconds(delay);
+        if (audioSource != null && deathSounds.Length > 0)
+        {
+            AudioClip clip = deathSounds[Random.Range(0, deathSounds.Length)];
+            audioSource.PlayOneShot(clip);
+        }
     }
 }
-#endregion

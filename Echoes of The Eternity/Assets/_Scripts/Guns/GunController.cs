@@ -9,6 +9,7 @@ public class GunController : MonoBehaviour
 
     public int currentAmmo;
     public int reserveAmmo;
+    public string ammoType = ""; // e.g. "HP", "AP", "SLG", "+P", etc. for display purposes; no functional effect in this demo
     public float fireCooldown = 0f;
     public bool isBursting = false;
     public bool triggerReleasedSinceLastShot = true;
@@ -16,17 +17,17 @@ public class GunController : MonoBehaviour
     [SerializeField] private AudioSource audioSource; // Assign in inspector
     [SerializeField] private AudioClip[] fireSounds; // Assign in inspector
 
-    [SerializeField] private TMP_Text primaryAmmo, primaryAmmoReserve; // technically "held weapon ammo"
+    [SerializeField] private TMP_Text gunAmmo, gunAmmoType; // technically "held weapon ammo"
 
     public void UpdateAmmoUI()
     {
-        if (primaryAmmo != null)
+        if (gunAmmo != null)
         {
-            primaryAmmo.text = $"{currentAmmo}";
+            gunAmmo.text = $"{currentAmmo}/{reserveAmmo}";
         }
-        if (primaryAmmoReserve != null)
+        if (gunAmmoType != null)
         {
-            primaryAmmoReserve.text = $"/{reserveAmmo}";
+            gunAmmoType.text = $"/{reserveAmmo}";
         }
     }
 
@@ -110,8 +111,8 @@ public class GunController : MonoBehaviour
     public void StartGun()
     {
         playerCameraTransform = GameObject.FindWithTag("CinemachineTarget")?.transform; ; // doesnt work, as it is the par
-        primaryAmmo = GameObject.FindWithTag("PrimaryAmmoMagazine")?.GetComponent<TMP_Text>();
-        primaryAmmoReserve = GameObject.FindWithTag("PrimaryAmmoReserve")?.GetComponent<TMP_Text>();
+        gunAmmo = GameObject.FindWithTag("GunAmmo")?.GetComponent<TMP_Text>();
+        gunAmmoType = GameObject.FindWithTag("GunAmmoType")?.GetComponent<TMP_Text>();
 
         if (gunData != null)
         {

@@ -139,11 +139,30 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 881fdc5bbc5951441a90a56d3b6d81e1, type: 2}
   currentAmmo: 0
   reserveAmmo: 0
+  ammoType: 
   fireCooldown: 0
   isBursting: 0
   triggerReleasedSinceLastShot: 1
-  audioSource: {fileID: 0}
-  fireSound: {fileID: 0}
+  audioSource: {fileID: -6924404197380606738}
+  fireSounds:
+  - {fileID: 8300000, guid: ec6defdebb0f92348bc10c064ccb149c, type: 3}
+  gunAmmo: {fileID: 0}
+  gunAmmoType: {fileID: 0}
+  range: 200
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  muzzleFlash: {fileID: 0}
+  recoilTarget: {fileID: 1870169316430174375}
+  recoilStrength: 2.5
+  recoilRecoverSpeed: 8
+  verticalRecoilMultiplier: 1
+  horizontalRecoilMultiplier: 0.15
+  adsRecoilMultiplier: 0.5
+  maxRecoilAngle: 25
+  recoilAngleScale: 1
+  baselineVerticalDegrees: 2
+  baselineHorizontalFraction: 0.15
 --- !u!82 &-6924404197380606738
 AudioSource:
   m_ObjectHideFlags: 0

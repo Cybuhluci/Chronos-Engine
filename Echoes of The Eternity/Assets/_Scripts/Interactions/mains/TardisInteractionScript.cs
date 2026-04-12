@@ -5,6 +5,28 @@ using UnityEngine.UI;
 
 namespace Luci.Interactions
 {
+    public enum TardisInteractionType // actually just what text the type will be, doesnt actually change much
+    {
+        Press,
+        Hold
+    }
+
+    // Simple interactable contract. Any component that wants to be interactable can implement this.
+    public interface TardisInteractable
+    {
+        // Called when player interacts (presses the interact key)
+        void OnInteract(GameObject interactor);
+
+        // Short prompt to display (e.g. "Open Door" / "Pick Lock")
+        string GetInteractionPrompt();
+
+        // Whether this object is a press or hold interaction
+        TardisInteractionType GetInteractionType();
+
+        // Whether this object is a press or hold interaction
+        float GetHoldDuration();
+    }
+
     public class TardisInteractionScript : MonoBehaviour
     // this script is put on the camera, so using transform.forward will be the direction the player is looking at,
     // and transform.position will be the position of the camera.
@@ -30,11 +52,12 @@ namespace Luci.Interactions
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private Canvas uiCanvas; // optional, used to convert screen -> UI canvas coordinates
 
-        [SerializeField] private IInteractable currentInteractable;
+        [SerializeField] private TardisInteractable currentInteractable;
         private float _holdTimer = 0f;
         private bool _holdInProgress = false;
         private bool _holdCompleted = false;
         // no instantiation UI; we use the cursorParent UI instead
+
 
         private void Update()
         {
@@ -94,12 +117,12 @@ namespace Luci.Interactions
             // If we have a hit from raycast or overlap, try to get IInteractable
             if (found)
             {
-                IInteractable interactable = null;
+                TardisInteractable interactable = null;
                 Collider usedCollider = null;
 
                 usedCollider = hit.collider;
                 if (usedCollider != null)
-                    interactable = usedCollider.GetComponent<IInteractable>();
+                    interactable = usedCollider.GetComponent<TardisInteractable>();
 
                 if (interactable != null)
                 {
@@ -138,11 +161,11 @@ namespace Luci.Interactions
                         }
 
                         // select cursor sprite based on interaction type
-                        var itype = InteractionType.Press;
-                        try { itype = currentInteractable.GetInteractionType(); } catch { itype = InteractionType.Press; }
+                        var itype = TardisInteractionType.Press;
+                        try { itype = currentInteractable.GetInteractionType(); } catch { itype = TardisInteractionType.Press; }
                         if (normalCursor != null) normalCursor.SetActive(false);
-                        if (interactCursor != null) interactCursor.SetActive(itype == InteractionType.Press);
-                        if (propCursor != null) propCursor.SetActive(itype == InteractionType.Hold);
+                        if (interactCursor != null) interactCursor.SetActive(itype == TardisInteractionType.Press);
+                        if (propCursor != null) propCursor.SetActive(itype == TardisInteractionType.Hold);
 
                         if (InteractionTextText != null)
                         {
@@ -176,13 +199,13 @@ namespace Luci.Interactions
             if (currentInteractable == null) return;
 
             // determine interaction type
-            InteractionType type = InteractionType.Press;
-            try { type = currentInteractable.GetInteractionType(); } catch { type = InteractionType.Press; }
+            TardisInteractionType type = TardisInteractionType.Press;
+            try { type = currentInteractable.GetInteractionType(); } catch { type = TardisInteractionType.Press; }
 
             // Input System action if present
             var hasInputSystem = playerInput != null && playerInput.actions["ClickInteract"] != null;
 
-            if (type == InteractionType.Press)
+            if (type == TardisInteractionType.Press)
             {
                 bool interactPressed = false;
                 if (hasInputSystem)
@@ -290,7 +313,7 @@ namespace Luci.Interactions
         }
 
         // Try to detect a common pattern for an "isActive" flag on the interactable MonoBehaviour.
-        private bool IsInteractableActive(IInteractable interactable)
+        private bool IsInteractableActive(TardisInteractable interactable)
         {
             var mb = interactable as MonoBehaviour;
             if (mb == null) return true;

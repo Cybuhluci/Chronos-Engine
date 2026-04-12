@@ -8,8 +8,6 @@ namespace Luci.Interactions
         public bool isactive = true;
         public string itemName;
         public PlayerInventory playerInventory;
-        public bool isHoldInteract = false;
-        public float holdDuration = 0f; // Only relevant if interactionType is Hold
 
         public void PressInteract()
         {
@@ -44,13 +42,7 @@ namespace Luci.Interactions
         // Whether this object is a press or hold interaction
         public InteractionType GetInteractionType()
         {
-            return isHoldInteract ? InteractionType.Hold : InteractionType.Press;
-        }
-
-        // If interaction type is Hold, how long to hold (seconds)
-        public float GetHoldDuration()
-        {
-            return holdDuration; // Replace with actual hold duration if needed
+            return InteractionType.Interact;
         }
 
         public void ToggleInteract(bool isActive)

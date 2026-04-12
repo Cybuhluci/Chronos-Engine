@@ -620,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8575373539296799941
 Transform:
   m_ObjectHideFlags: 0
@@ -651,8 +651,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunController
   gunData: {fileID: 11400000, guid: d6fec2ea8a4eb2b448782364c3f6d6af, type: 2}
-  currentAmmo: 0
-  reserveAmmo: 0
+  currentAmmo: 7
+  reserveAmmo: 64
+  ammoType: 
   fireCooldown: 0
   isBursting: 0
   triggerReleasedSinceLastShot: 1
@@ -663,8 +664,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0a4f3a8931da5704f94d8b38b4329d79, type: 3}
   - {fileID: 8300000, guid: afb9c7eafe5f1bb4495e795f76671ca1, type: 3}
   - {fileID: 8300000, guid: ebaf64e68daace448a07f5d3f5cf3c4a, type: 3}
-  primaryAmmo: {fileID: 0}
-  primaryAmmoReserve: {fileID: 0}
+  gunAmmo: {fileID: 0}
+  gunAmmoType: {fileID: 0}
   range: 200
   hitMask:
     serializedVersion: 2

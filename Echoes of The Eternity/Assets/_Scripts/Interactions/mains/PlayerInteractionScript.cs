@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,10 +5,16 @@ using UnityEngine.UI;
 
 namespace Luci.Interactions
 {
-    public enum InteractionType
+    public enum InteractionType // actually just what text the type will be, doesnt actually change much
     {
-        Press,
-        Hold,
+        Interact,
+        Open,
+        Collect,
+        Kill,
+        Pick,
+        Talk,
+        Pickpocket,
+        None
     }
 
     // Simple interactable contract. Any component that wants to be interactable can implement this.
@@ -23,9 +28,6 @@ namespace Luci.Interactions
 
         // Whether this object is a press or hold interaction
         InteractionType GetInteractionType();
-
-        // If interaction type is Hold, how long to hold (seconds)
-        float GetHoldDuration();
     }
 
     public class PlayerInteractionScript : MonoBehaviour
@@ -38,9 +40,9 @@ namespace Luci.Interactions
         [SerializeField] private float interactionRange = 2f;
         [SerializeField] private LayerMask interactableLayer;
 
-        [SerializeField] private GameObject instantiateInteractionPromt; // a prefab which should be instantiated above the interactable object
-        [SerializeField] private Image interactionCircle; // child of instantiateInteractionPromt
-        [SerializeField] private TMP_Text interactionText; // child of instantiateInteractionPromt
+        [SerializeField] private Image interactionCircle; 
+        [SerializeField] private TMP_Text interactionText; 
+        [SerializeField] private TMP_Text interactionType; 
 
         [Header("Prompt Positioning")]
         [Tooltip("Offset from the interactable's transform position where the prompt will be spawned (world space).")]
@@ -52,7 +54,7 @@ namespace Luci.Interactions
         private float _holdTimer = 0f;
         private bool _holdInProgress = false;
         private bool _holdCompleted = false;
-        private GameObject _spawnedPrompt;
+        // no longer using instantiated world prompts; UI text fields on HUD are used instead
 
         private void Update()
         {
@@ -76,13 +78,10 @@ namespace Luci.Interactions
                         {
                             currentInteractable = null;
                             ResetHoldState();
-                            if (_spawnedPrompt != null)
-                            {
-                                Destroy(_spawnedPrompt);
-                                _spawnedPrompt = null;
-                            }
-                            interactionCircle = null;
-                            interactionText = null;
+                            // clear HUD prompts
+                            if (interactionText != null) interactionText.text = "";
+                            if (interactionType != null) interactionType.text = "";
+                            if (interactionCircle != null) interactionCircle.fillAmount = 0f;
                         }
                         return;
                     }
@@ -91,48 +90,18 @@ namespace Luci.Interactions
                     {
                         // New target: reset any hold state
                         ResetHoldState();
-                        // Clean up existing prompt if any
-                        if (_spawnedPrompt != null)
-                        {
-                            Destroy(_spawnedPrompt);
-                            _spawnedPrompt = null;
-                        }
-
                         currentInteractable = interactable;
 
-                        // instantiate prompt prefab (if provided) and try to find the Image inside
-                        if (instantiateInteractionPromt != null)
+                        // Populate HUD texts (no instantiation). Use the provided TMP_Text fields on the HUD.
+                        if (interactionText != null)
                         {
-                            // Determine spawn position using configurable offset relative to the interactable's transform
-                            Vector3 spawnPos;
-                            if (hit.collider != null)
-                                spawnPos = hit.collider.transform.position + promptOffset;
-                            else
-                                spawnPos = hit.point + promptOffset;
-
-                            _spawnedPrompt = Instantiate(instantiateInteractionPromt, spawnPos, Quaternion.identity);
-                            if (hit.collider != null)
-                            {
-                                // parent so the prompt follows the object; keep world position
-                                _spawnedPrompt.transform.SetParent(hit.collider.transform, true);
-                            }
-
-                            // Find an Image in the instantiated prefab to use as the interaction circle
-                            var img = _spawnedPrompt.GetComponentInChildren<Image>();
-                            if (img != null)
-                            {
-                                interactionCircle = img;
-                                interactionCircle.fillAmount = 0f;
-                            }
-                            // Find a TMP_Text in the instantiated prefab to use as the interaction prompt text
-                            var tmp = _spawnedPrompt.GetComponentInChildren<TMP_Text>();
-                            if (tmp != null)
-                            {
-                                interactionText = tmp;
-                                // initialize text from the interactable
-                                try { interactionText.text = currentInteractable.GetInteractionPrompt(); } catch { interactionText.text = ""; }
-                            }
+                            try { interactionText.text = currentInteractable.GetInteractionPrompt(); } catch { interactionText.text = ""; }
                         }
+                        if (interactionType != null)
+                        {
+                            try { interactionType.text = currentInteractable.GetInteractionType().ToString(); } catch { interactionType.text = ""; }
+                        }
+                        if (interactionCircle != null) interactionCircle.fillAmount = 0f;
                     }
                     return;
                 }
@@ -144,13 +113,10 @@ namespace Luci.Interactions
                 currentInteractable = null;
                 // TODO: clear UI prompt
                 ResetHoldState();
-                if (_spawnedPrompt != null)
-                {
-                    Destroy(_spawnedPrompt);
-                    _spawnedPrompt = null;
-                }
-                interactionCircle = null;
-                interactionText = null;
+                // clear HUD prompts
+                if (interactionText != null) interactionText.text = "";
+                if (interactionType != null) interactionType.text = "";
+                if (interactionCircle != null) interactionCircle.fillAmount = 0f;
             }
         }
 
@@ -159,23 +125,17 @@ namespace Luci.Interactions
             if (currentInteractable == null) return;
 
             // determine interaction type
-            InteractionType type = InteractionType.Press;
-            try { type = currentInteractable.GetInteractionType(); } catch { type = InteractionType.Press; }
+            InteractionType type = InteractionType.Interact;
+            try { type = currentInteractable.GetInteractionType(); } catch { type = InteractionType.Interact; }
 
             // Input System action if present
             var hasInputSystem = playerInput != null && playerInput.actions["Interact"] != null;
 
-            if (type == InteractionType.Press)
+            if (type == InteractionType.Interact)
             {
                 bool interactPressed = false;
-                if (hasInputSystem)
-                {
-                    interactPressed = playerInput.actions["Interact"].WasPressedThisFrame();
-                }
-                else
-                {
-                    interactPressed = Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F);
-                }
+
+                interactPressed = playerInput.actions["Interact"].WasPressedThisFrame();
 
                 if (interactPressed)
                 {
@@ -184,56 +144,7 @@ namespace Luci.Interactions
             }
             else // Hold
             {
-                bool isPressed = false;
-                bool wasReleased = false;
-                if (hasInputSystem)
-                {
-                    var action = playerInput.actions["Interact"];
-                    isPressed = action.IsPressed();
-                    wasReleased = action.WasReleasedThisFrame();
-                    // note: WasPressedThisFrame could be used to start, but IsPressed covers that.
-                }
-                else
-                {
-                    isPressed = Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.F);
-                    wasReleased = Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.F);
-                }
 
-                if (isPressed && !_holdCompleted)
-                {
-                    if (!_holdInProgress)
-                    {
-                        _holdInProgress = true;
-                        _holdTimer = 0f;
-                        // show UI start
-                        if (interactionCircle != null) interactionCircle.fillAmount = 0f;
-                    }
-
-                    _holdTimer += Time.deltaTime;
-                    float required = 1f;
-                    try { required = currentInteractable.GetHoldDuration(); } catch { required = 1f; }
-                    if (interactionCircle != null) interactionCircle.fillAmount = Mathf.Clamp01(_holdTimer / required);
-
-                    if (_holdTimer >= required)
-                    {
-                        // complete
-                        currentInteractable.OnInteract(gameObject);
-                        _holdCompleted = true;
-                        _holdInProgress = false;
-                    }
-                }
-
-                // if released before completion, cancel
-                if (wasReleased && !_holdCompleted)
-                {
-                    ResetHoldState();
-                }
-
-                // reset when fully released after completion
-                if (wasReleased && _holdCompleted)
-                {
-                    ResetHoldState();
-                }
             }
         }
 
@@ -258,25 +169,27 @@ namespace Luci.Interactions
             {
                 return (bool)f.GetValue(mb);
             }
-            f = t.GetField("isActive");
-            if (f != null && f.FieldType == typeof(bool))
-            {
-                return (bool)f.GetValue(mb);
-            }
 
-            var p = t.GetProperty("isActive");
-            if (p != null && p.PropertyType == typeof(bool))
-            {
-                return (bool)p.GetValue(mb);
-            }
-            p = t.GetProperty("IsActive");
-            if (p != null && p.PropertyType == typeof(bool))
-            {
-                return (bool)p.GetValue(mb);
-            }
+            // commented out, but keep just in case they somehow make it work.
+            //f = t.GetField("isActive");
+            //if (f != null && f.FieldType == typeof(bool))
+            //{
+            //    return (bool)f.GetValue(mb);
+            //}
 
-            // default: treat as active
-            return true;
+            //var p = t.GetProperty("isActive");
+            //if (p != null && p.PropertyType == typeof(bool))
+            //{
+            //    return (bool)p.GetValue(mb);
+            //}
+            //p = t.GetProperty("IsActive");
+            //if (p != null && p.PropertyType == typeof(bool))
+            //{
+            //    return (bool)p.GetValue(mb);
+            //}
+
+            // default: treat as inactive
+            return false;
         }
 
         // Useful debug visualization in the editor

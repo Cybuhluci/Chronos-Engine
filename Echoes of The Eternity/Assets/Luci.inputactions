@@ -61,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Primary",
+                    "name": "1",
                     "type": "Button",
                     "id": "2776c80d-3c14-4091-8c56-d04ced07a2b0",
                     "expectedControlType": "",
@@ -70,7 +70,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Secondary",
+                    "name": "2",
                     "type": "Button",
                     "id": "b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba",
                     "expectedControlType": "",
@@ -79,7 +79,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Gadget1",
+                    "name": "3",
                     "type": "Button",
                     "id": "02ce0c85-5a23-4c66-925e-e1832cea6305",
                     "expectedControlType": "",
@@ -88,7 +88,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Gadget2",
+                    "name": "4",
                     "type": "Button",
                     "id": "eb3af229-a75b-4232-ada4-7561843ce7e6",
                     "expectedControlType": "",
@@ -97,9 +97,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Grenade",
+                    "name": "5",
                     "type": "Button",
                     "id": "eb42ddad-6642-436e-bf01-456e5e583712",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "6",
+                    "type": "Button",
+                    "id": "6f961b80-9d17-4516-81b3-c8d0f6bee8f8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "7",
+                    "type": "Button",
+                    "id": "c76a115b-76d8-46c6-be8f-1fff36a74957",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "8",
+                    "type": "Button",
+                    "id": "f51e67df-a9a2-426b-9f4e-cbd734e3e8ad",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -142,36 +169,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Melee",
-                    "type": "Button",
-                    "id": "b624ddbf-eb08-4454-8f31-a61f4b602743",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Signature",
-                    "type": "Button",
-                    "id": "6fe9a199-443d-4845-b708-29e75348867d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ThrowBag",
-                    "type": "Button",
-                    "id": "5b70f68c-3398-416a-b936-617b47289c18",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Quicknade",
                     "type": "Button",
                     "id": "e835bfea-2901-469a-b9f2-f2eeefcc1e3d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Bash",
+                    "type": "Button",
+                    "id": "79299b28-1a4d-4a33-938c-5d0f11abfae8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -281,7 +290,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Secondary",
+                    "action": "2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -292,18 +301,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Gadget1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c71b0848-3260-4c20-800d-0182668f96f9",
-                    "path": "<Mouse>/backButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Gadget1",
+                    "action": "3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -314,18 +312,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Gadget2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1b7472a0-7f0b-45a8-a4d9-f35aa243e794",
-                    "path": "<Mouse>/forwardButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Gadget2",
+                    "action": "4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -358,7 +345,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Primary",
+                    "action": "1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -468,40 +455,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Grenade",
+                    "action": "5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "7dab88d0-c7a1-4795-b7b1-77bda29aec7e",
-                    "path": "<Keyboard>/f",
+                    "id": "7fa10f4d-e050-4b22-9238-fb9f2449d5fc",
+                    "path": "<Keyboard>/6",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Melee",
+                    "action": "6",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "a0586cf7-e91b-4a06-a499-37a0a2fb0e7b",
-                    "path": "<Keyboard>/x",
+                    "id": "bd1bfeda-6bc4-46ae-9bb2-c102dc67d6b1",
+                    "path": "<Keyboard>/7",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Signature",
+                    "action": "7",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "a08ccb73-eca1-4334-b38e-e507f076d847",
-                    "path": "<Keyboard>/q",
+                    "id": "9567c9e1-f392-4cd9-86a2-63fe740887f1",
+                    "path": "<Keyboard>/8",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "ThrowBag",
+                    "action": "8",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -513,6 +500,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Quicknade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "245725ec-bbae-40c5-8d65-63fbc67d1221",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Bash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

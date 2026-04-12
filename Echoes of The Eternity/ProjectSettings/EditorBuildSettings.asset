@@ -16,8 +16,8 @@ EditorBuildSettings:
     guid: 36d21bfe92aec3f418b8d5e5085d0421
   - enabled: 1
     path: Assets/Scenes/Test.unity
-    guid: f6a407a9fff206943974989e1fde9661
-  - enabled: 1
+    guid: 23d19696515774540b8d4d3de2a7bef4
+  - enabled: 0
     path: Assets/Scenes/Heist1.unity
     guid: 9913e16f3e67fe042944479b03354d72
   - enabled: 1

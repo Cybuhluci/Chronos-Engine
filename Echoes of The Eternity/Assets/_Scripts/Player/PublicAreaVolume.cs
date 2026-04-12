@@ -12,10 +12,6 @@ namespace Luci.Volumes
             missionManager = MissionManager.Instance;
         }
 
-        private void OnTriggerStay(Collider other)
-        {
-            missionManager.currentPlayerLocation = MissionManager.PlayerLocation.Public;
-        }
     }
 
 }

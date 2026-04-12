@@ -15,15 +15,6 @@ public class PlayerBagScript : MonoBehaviour
     [SerializeField] private GameObject bag1UIPanel;
     [SerializeField] private TMP_Text bag1UIText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (playerInput.actions["ThrowBag"].WasPressedThisFrame())
-        {
-            ThrowBag();
-        }
-    }
-
     public void ThrowBag()
     {
         if (currentBags <= 0)

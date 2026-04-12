@@ -1,12 +1,26 @@
-using TMPro;
 using UnityEngine;
 
 public class Handbrake : MonoBehaviour
 {
-    public TMP_Text tempdebugtext;
+    public bool isActive = true;
 
-    void Update()
+    [SerializeField] private AudioClip _engageSound, _disengageSound;
+
+    public void PressInteract()
     {
+        ToggleHandbrake();
+    }
 
+    private void ToggleHandbrake()
+    {
+        isActive = !isActive;
+        if (isActive)
+        {
+            TardisSoundButton.Instance.PlayButtonSoundFromElsewhere(_engageSound);
+        }
+        else
+        {
+            TardisSoundButton.Instance.PlayButtonSoundFromElsewhere(_disengageSound);
+        }
     }
 }

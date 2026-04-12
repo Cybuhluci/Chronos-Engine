@@ -494,13 +494,10 @@ namespace Luci
 
             if (MovementDisable || _playerState == PlayerState.Downed) return;
 
-            if (!(_MissionManager.GetPlayerState() == MissionManager.PlayerState.Casing))
+            if (_playerInput != null)
             {
-                if (_playerInput != null)
-                {
-                    var a = _playerInput.actions;
-                    if (a["Jump"] != null) jump = a["Jump"].WasPressedThisFrame();
-                }
+                var a = _playerInput.actions;
+                if (a["Jump"] != null) jump = a["Jump"].WasPressedThisFrame();
             }
 
             if (Grounded)

@@ -5,16 +5,10 @@ using UnityEngine.UI;
 public class StaminaUI : MonoBehaviour
 {
     public FirstPersonController personcontrol;
-    public Slider staminaSlider;
+    public Image staminaSlider;
 
-    private void Start()
+    private void Update()
     {
-        staminaSlider.maxValue = personcontrol.MaxStamina;
-    }
-
-    void Update()
-    {
-        float stamina = personcontrol.Stamina;
-        staminaSlider.value = stamina;
+        staminaSlider.fillAmount = Mathf.Clamp01(personcontrol.Stamina / personcontrol.MaxStamina);
     }
 }

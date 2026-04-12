@@ -5,7 +5,8 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
 
-    [SerializeField] private List<string> collectedItems = new List<string>();  // Now visible in Inspector
+    [SerializeField] private List<string> collectedItems = new List<string>();
+    [SerializeField] private int inventoryWeightLimit = 100; // Maximum weight the inventory can hold before overemcumberance
 
     void Awake()
     {

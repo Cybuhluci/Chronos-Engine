@@ -6,17 +6,17 @@ TagManager:
   tags:
   - CinemachineTarget
   - FxTemporaire
-  - PrimaryAmmoMagazine
-  - PrimaryAmmoReserve
-  - SecondaryAmmoMagRes
   - Ground
-  - SignatureDeployAmmo
-  - UDBindHold
-  - Head
+  - NPC
+  - WorldWeapon
+  - WorldArmour
+  - WorldAid
+  - WorldMisc
   - Loot
-  - ThermalLance
-  - Gadget3
-  - WeaponInstantHUD
+  - UDBindHold
+  - GunAmmo
+  - GunAmmoType
+  - Head
   layers:
   - Default
   - TransparentFX
@@ -29,7 +29,7 @@ TagManager:
   - Interactable
   - Gun
   - Enemy
-  - 
+  - Lootable
   - 
   - 
   - 

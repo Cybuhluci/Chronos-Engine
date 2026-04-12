@@ -17,11 +17,11 @@ MonoBehaviour:
   model: {fileID: 6772441487285836388, guid: dc00984313b607d47ba8d7c471dd66d2, type: 3}
   damage: 35
   headshotMultiplier: 1.5
-  fireRate: 720
-  fireMode: 1
+  fireRate: 300
+  fireMode: 0
   magazineSize: 20
   reserveAmmo: 120
-  bulletsPerShot: 1
+  bulletsPerShot: 7
   equipTime: 0.63
   dequipTime: 0.23
   reloadTime: 3
@@ -29,3 +29,4 @@ MonoBehaviour:
   recoil: 1.06
   spread: 2
   muzzleVelocity: 670
+  soundFalloff: 0
