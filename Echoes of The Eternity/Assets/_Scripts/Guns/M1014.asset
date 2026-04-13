@@ -26,7 +26,7 @@ MonoBehaviour:
   dequipTime: 0.23
   reloadTime: 3
   ADSTime: 0.25
-  recoil: 1.06
-  spread: 2
+  recoil: 1000
+  spread: 2.5
   muzzleVelocity: 670
   soundFalloff: 0

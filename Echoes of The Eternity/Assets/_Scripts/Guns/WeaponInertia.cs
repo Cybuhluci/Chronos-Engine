@@ -2,15 +2,7 @@ using UnityEngine;
 
 public class WeaponInertia : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // very simple-ish script.
+    // bascially, it just makes the weapon lag behind the camera a little bit, to give it a sense of weight and inertia.
+    // told you it was simple.
 }

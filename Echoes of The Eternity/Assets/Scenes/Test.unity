@@ -1268,6 +1268,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2095162899886879780, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 910551300}
+    - targetCorrespondingSourceObject: {fileID: 2095162899886879780, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
       insertIndex: -1
       addedObject: {fileID: 910551292}
     - targetCorrespondingSourceObject: {fileID: 9141652568584346219, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
@@ -1299,6 +1302,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   collectedItems: []
   inventoryWeightLimit: 100
+--- !u!114 &910551300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295580723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce0aad0571893640b2326e2b548402d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCameraBob
+  playerController: {fileID: 0}
+  theBobber: {fileID: 0}
+  smoothSpeed: 8
+  minSpeedThreshold: 0.1
+  walkFrequency: 6
+  sprintFrequency: 9
+  walkAmplitude: 0.3
+  sprintAmplitude: 0.6
+  crouchMultiplier: 0.5
+  downedMultiplier: 0.15
+  rotAmplitudeX: 0.6
+  rotAmplitudeY: 0.6
+  rotAmplitudeZ: 0.8
 --- !u!1 &926470657 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9141652568584346219, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}

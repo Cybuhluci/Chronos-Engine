@@ -156,10 +156,11 @@ MonoBehaviour:
   recoilTarget: {fileID: 1870169316430174375}
   recoilStrength: 2.5
   recoilRecoverSpeed: 8
+  recoilRecoveryDelay: 0.15
   verticalRecoilMultiplier: 1
   horizontalRecoilMultiplier: 0.15
   adsRecoilMultiplier: 0.5
-  maxRecoilAngle: 25
+  maxRecoilAngle: 85
   recoilAngleScale: 1
   baselineVerticalDegrees: 2
   baselineHorizontalFraction: 0.15
