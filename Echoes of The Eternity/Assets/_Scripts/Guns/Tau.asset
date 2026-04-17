@@ -9,21 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4bc224b8613f2344b489c940bbced3b, type: 3}
-  m_Name: Tau Cannon
-  m_EditorClassIdentifier: Assembly-CSharp::GadgetDataSO
-  gadgetType: 3
-  weaponName: TAU Cannon
+  m_Script: {fileID: 11500000, guid: 1a147a70f5d8d104187022dcabd8f3be, type: 3}
+  m_Name: Tau
+  m_EditorClassIdentifier: Assembly-CSharp::MainGunDataSO
+  gunType: 1
+  weaponName: Tau Cannon
   model: {fileID: 834474034353824050, guid: 56934e61d9f4ad348886d6a243cd2cb4, type: 3}
-  damage: 500
+  damage: 250
   headshotMultiplier: 1.5
   fireRate: 50
   fireMode: 0
-  ammoStart: 3
-  ammoMax: 5
-  equipTime: 1.5
-  dequipTime: 0.5
-  reloadTime: 5
-  ADSTime: 1
-  recoil: 5
+  ammoType: {fileID: 11400000, guid: 556181ac3f2eea54aa3965ae2b96ebd1, type: 2}
+  magazineSize: 5
+  burstAmount: 0
+  equipTime: 0.63
+  dequipTime: 0.23
+  reloadTime: 3
+  ADSTime: 0.25
+  recoil: 350
+  spread: 2
   muzzleVelocity: 2500
+  soundFalloff: 0

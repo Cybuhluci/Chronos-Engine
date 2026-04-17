@@ -1,13 +1,15 @@
+using Luci;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class GunController : MonoBehaviour
 {
     public MainGunDataSO gunData; // Assign in prefab or at runtime
     public InventoryManager inventoryManager; // Assign in inspector or at runtime
+    public FirstPersonController playerController;
 
+    public int overallAmmo;
     public int currentAmmo;
     public int reserveAmmo;
     public string ammoType = ""; // e.g. "HP", "AP", "SLG", "+P", etc. for display purposes; no functional effect in this demo
@@ -28,7 +30,7 @@ public class GunController : MonoBehaviour
         }
         if (gunAmmoType != null)
         {
-            gunAmmoType.text = $"/{ammoType}";
+            gunAmmoType.text = $"{gunData.ammoType.name}";
         }
     }
 
@@ -48,18 +50,41 @@ public class GunController : MonoBehaviour
 
     // Recoil removed: starting fresh. Weapon will still fire but no positional/rotational recoil is applied here.
     private bool isAiming = false;
+    [Header("Sprinting Animation")]
+    [Tooltip("Enable sprinting weapon pose")]
+    public bool enableSprintingPose = true;
+    [Tooltip("Local position offset applied to weapon while sprinting (relative to original local position)")]
+    public Vector3 sprintLocalPosition = new Vector3(0f, -0.15f, -0.2f);
+    [Tooltip("Local euler rotation applied to weapon while sprinting")]
+    public Vector3 sprintLocalEuler = new Vector3(-25f, 0f, 0f);
+    [Tooltip("How quickly the weapon blends to/from sprint pose")]
+    public float sprintBlendSpeed = 8f;
 
-    public void StartGun()
+    // runtime original transforms for blending
+    private Vector3 _originalLocalPosForSprint;
+    private Quaternion _originalLocalRotForSprint;
+    private bool _sprintTransformsInitialized = false;
+
+    public void StartGun(GunMainScript gms)
     {
         // find HUD elements
-        gunAmmo = GameObject.FindWithTag("GunAmmo")?.GetComponent<TMP_Text>();
-        gunAmmoType = GameObject.FindWithTag("GunAmmoType")?.GetComponent<TMP_Text>();
+        gunAmmo = gms.gunAmmo;
+        gunAmmoType = gms.gunAmmoType;
+
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
+        playerController = FindAnyObjectByType<FirstPersonController>();
 
         if (gunData != null)
         {
+            overallAmmo = inventoryManager.GetAmmoTypeAmount(gunData.ammoType);
             currentAmmo = gunData.magazineSize;
-            reserveAmmo = gunData.reserveAmmo;
+            reserveAmmo = overallAmmo - gunData.magazineSize;
         }
+
+        // cache original local transform for sprinting animation
+        _originalLocalPosForSprint = transform.localPosition;
+        _originalLocalRotForSprint = transform.localRotation;
+        _sprintTransformsInitialized = true;
     }
 
     // Update is called once per frame
@@ -72,6 +97,7 @@ public class GunController : MonoBehaviour
         triggerReleasedSinceLastShot = true;
 
         UpdateAmmoUI();
+        SprintingAnimation();
     }
 
     // Allow other systems to set aiming state
@@ -129,7 +155,7 @@ public class GunController : MonoBehaviour
     private IEnumerator BurstFire()
     {
         isBursting = true;
-        int burstCount = gunData.bulletsPerShot > 1 ? gunData.bulletsPerShot : 3; // Default to 3-round burst if not set
+        int burstCount = gunData.burstAmount > 1 ? gunData.burstAmount : 3; // Default to 3-round burst if not set
         float burstDelay = 60f / Mathf.Max(0.0001f, gunData.fireRate);
 
         for (int i = 0; i < burstCount; i++)
@@ -164,7 +190,7 @@ public class GunController : MonoBehaviour
     {
         if (gunData == null) return;
 
-        int pellets = Mathf.Max(1, gunData.bulletsPerShot);
+        int pellets = Mathf.Max(1, gunData.ammoType.bulletsPerShot);
         Camera cam = Camera.main;
         Vector3 origin = (cam != null) ? cam.transform.position : transform.position;
         Vector3 forward = (cam != null) ? cam.transform.forward : transform.forward;
@@ -227,6 +253,31 @@ public class GunController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        // this reset doesnt work.
+        transform.localPosition = transform.localPosition;
+        transform.localRotation = transform.localRotation;
+    }
+
+    public void SprintingAnimation()
+    {
+        if (!enableSprintingPose || !_sprintTransformsInitialized) return;
+
+        Vector3 targetPos = _originalLocalPosForSprint;
+        Quaternion targetRot = _originalLocalRotForSprint;
+
+        if (playerController != null && playerController.isSprinting)
+        {
+            targetPos = _originalLocalPosForSprint + sprintLocalPosition;
+            targetRot = _originalLocalRotForSprint * Quaternion.Euler(sprintLocalEuler);
+        }
+
+        // blend towards target smoothly
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, Time.deltaTime * sprintBlendSpeed);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRot, Time.deltaTime * sprintBlendSpeed);
+    }
+
     public int GetCurrentAmmo() => currentAmmo;
     public int GetMaxAmmo() => gunData != null ? gunData.magazineSize : 0;
     public int GetReserveAmmo() => reserveAmmo;
@@ -241,12 +292,5 @@ public class GunController : MonoBehaviour
             currentAmmo += toReload;
             reserveAmmo -= toReload;
         }
-    }
-
-    public void ReplenishAmmo(int percentage)
-    {
-        if (gunData == null) return;
-        int amount = Mathf.CeilToInt(gunData.reserveAmmo * (percentage / 100f));
-        reserveAmmo = Mathf.Min(reserveAmmo + amount, gunData.reserveAmmo);
     }
 }

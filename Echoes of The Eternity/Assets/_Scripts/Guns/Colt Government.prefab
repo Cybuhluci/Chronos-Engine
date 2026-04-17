@@ -651,6 +651,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunController
   gunData: {fileID: 11400000, guid: d6fec2ea8a4eb2b448782364c3f6d6af, type: 2}
+  inventoryManager: {fileID: 0}
+  playerController: {fileID: 0}
+  overallAmmo: 0
   currentAmmo: 7
   reserveAmmo: 64
   ammoType: 
@@ -671,17 +674,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   muzzleFlash: {fileID: 0}
-  recoilTarget: {fileID: 8575373539296799941}
-  recoilStrength: 2.5
-  recoilRecoverSpeed: 8
-  recoilRecoveryDelay: 0.15
-  verticalRecoilMultiplier: 1
-  horizontalRecoilMultiplier: 0.15
-  adsRecoilMultiplier: 0.5
-  maxRecoilAngle: 85
-  recoilAngleScale: 1
-  baselineVerticalDegrees: 2
-  baselineHorizontalFraction: 0.15
+  enableSprintingPose: 1
+  sprintLocalPosition: {x: 0, y: -0.05, z: 0}
+  sprintLocalEuler: {x: -25, y: -90, z: 0}
+  sprintBlendSpeed: 8
 --- !u!82 &-470541102671558384
 AudioSource:
   m_ObjectHideFlags: 0

@@ -8,10 +8,19 @@ namespace Luci
     public class FirstPersonController : MonoBehaviour
     {
         [SerializeField] MissionManager _MissionManager;
+        [SerializeField] PDAManager _PDAManager;
         public enum PlayerState { Standing, Crouching, Downed }
         public PlayerState _playerState = PlayerState.Standing;
         public bool CameraDisable = false;
+        public bool CameraHybridDisable = false;
+        // when true, camera is a limbo state - as in it can move, but player input is ignored so it won't rotate based on mouse/gamepad input.
+        // Useful for things like cutscenes where you want to control the camera but not have it snap back to the player's look direction.
         public bool MovementDisable = false;
+
+        [Header("counted stuff")]
+        public Vector3 playerVelocity;
+        public Vector2 inputMove;
+        public Vector2 inputLook;
 
         [Header("Player")]
         public bool noclipEnabled = false;
@@ -40,11 +49,14 @@ namespace Luci
         public float BottomClamp = -90.0f;
 
         [Header("Stamina System")]
+        public bool isSprinting;
         public float Stamina = 100f;
         public float MaxStamina = 100f;
         public float StaminaDrainRate = 20f;
         public float StaminaRegenRate = 15f;
         public float MinSprintStamina = 10f;
+        // when true, sprint input is ignored until the sprint button is released
+        private bool _sprintLocked = false;
 
         [Header("Crouch Settings")]
         public float CrouchSpeedMultiplier = 0.5f;
@@ -67,6 +79,8 @@ namespace Luci
         private float smoothPitchVelocity;
         private float targetYaw;
         private float targetPitch;
+        [Tooltip("Blend speed used when CameraHybridDisable is active to look at the hybrid target")]
+        public float hybridBlendSpeed = 6f;
 
         [Header("Collision")]
         public float CapsuleCastSkin = 0.05f; // small gap to prevent immediate collision
@@ -173,6 +187,9 @@ namespace Luci
 
             Move();
             DeveloperConsoleBind();
+            PDABind();
+
+            playerVelocity = _controller.velocity;
         }
 
         void DeveloperConsoleBind()
@@ -182,6 +199,27 @@ namespace Luci
             {
                 consoleManager.ToggleConsole();
                 if (consoleManager.consoleActive)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    ToggleDisableCamera(true);
+                    ToggleDisableMovement(true);
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    ToggleDisableCamera(false);
+                    ToggleDisableMovement(false);
+                }
+            }
+        }
+
+        void PDABind()
+        {
+            var consoleEnabled = _PDAManager.PDAActive;
+            if (_playerInput != null && _playerInput.actions["PDA"] != null && _playerInput.actions["PDA"].WasPressedThisFrame())
+            {
+                _PDAManager.TogglePDA();
+                if (_PDAManager.PDAActive)
                 {
                     Cursor.lockState = CursorLockMode.None;
                     ToggleDisableCamera(true);
@@ -223,6 +261,7 @@ namespace Luci
                 crouchPressed = Input.GetKeyDown(KeyCode.C);
                 sprintHeld = Input.GetKey(KeyCode.LeftShift);
             }
+
             // stance handling
             if (crouchPressed)
             {
@@ -269,65 +308,112 @@ namespace Luci
 
         private void HandleStamina()
         {
-            bool sprint = false;
+            bool sprintHeld = false;
             Vector2 move = Vector2.zero;
             if (_playerInput != null)
             {
                 var a = _playerInput.actions;
-                if (a["Sprint"] != null) sprint = a["Sprint"].IsPressed();
+                if (a["Sprint"] != null) sprintHeld = a["Sprint"].IsPressed();
                 if (a["Move"] != null) move = a["Move"].ReadValue<Vector2>();
             }
             else
             {
-                sprint = Input.GetKey(KeyCode.LeftShift);
+                sprintHeld = Input.GetKey(KeyCode.LeftShift);
                 move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             }
-            if (sprint && move != Vector2.zero && Stamina > 0f)
+
+            // unlock sprint when the player releases the sprint button
+            if (!sprintHeld)
             {
+                _sprintLocked = false;
+            }
+
+            // determine whether sprint should be active (locked prevents new sprint until button release)
+            bool wantSprint = sprintHeld && !_sprintLocked;
+
+            if (wantSprint && move != Vector2.zero && Stamina > 0f)
+            {
+                // draining stamina while sprinting
                 Stamina -= StaminaDrainRate * Time.deltaTime;
-                if (Stamina < 0f) Stamina = 0f;
+                isSprinting = true;
+                if (Stamina <= 0f)
+                {
+                    Stamina = 0f;
+                    // lock sprint until player releases and presses again
+                    _sprintLocked = true;
+                    isSprinting = false;
+                }
             }
             else
             {
+                // not sprinting: regen stamina
+                isSprinting = false;
                 Stamina += StaminaRegenRate * Time.deltaTime;
                 if (Stamina > MaxStamina) Stamina = MaxStamina;
             }
         }
 
+        private Transform lookAtTargetHybridCamera;
+
         private void CameraRotation()
         {
-            if (CameraDisable) return;
-            Vector2 look = Vector2.zero;
-            if (_playerInput != null)
+            if (CameraDisable) return; // total camera lockout, no rotation at all, no input read.
+            // If hybrid mode active, ignore player look input and smoothly move toward the hybrid look target
+            if (CameraHybridDisable && lookAtTargetHybridCamera != null)
             {
-                var action = _playerInput.actions["Look"];
-                if (action != null) look = action.ReadValue<Vector2>();
+                // compute desired rotation to look at target
+                Vector3 origin = (CinemachineCameraTarget != null) ? CinemachineCameraTarget.transform.position : transform.position;
+                Vector3 dir = lookAtTargetHybridCamera.position - origin;
+                if (dir.sqrMagnitude > 0.000001f)
+                {
+                    Quaternion lookRot = Quaternion.LookRotation(dir.normalized);
+                    float desiredYaw = lookRot.eulerAngles.y;
+                    float desiredPitch = lookRot.eulerAngles.x;
+                    if (desiredPitch > 180f) desiredPitch -= 360f;
+
+                    // blend towards desired yaw/pitch using hybridBlendSpeed
+                    targetYaw = Mathf.LerpAngle(targetYaw, desiredYaw, Time.deltaTime * hybridBlendSpeed);
+                    targetPitch = Mathf.Lerp(targetPitch, desiredPitch, Time.deltaTime * hybridBlendSpeed);
+                }
+                // continue to clamp/smooth/apply below
             }
             else
             {
-                look = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            }
+                // camera can use inputs, so read them as normal
+                Vector2 look = Vector2.zero;
+                if (_playerInput != null)
+                {
+                    var action = _playerInput.actions["Look"];
+                    if (action != null) look = action.ReadValue<Vector2>();
+                }
+                else
+                {
+                    look = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+                }
 
-            bool isMouse = IsCurrentDeviceMouse();
+                bool isMouse = IsCurrentDeviceMouse();
 
-            float deltaX, deltaY;
-            if (isMouse)
-            {
-                // Look action provides mouse delta which is already frame-dependent in the input system (when using "delta")
-                // Scale directly by sensitivity
-                deltaX = look.x * MouseSensitivity;
-                deltaY = look.y * MouseSensitivity;
-            }
-            else
-            {
-                // Gamepad / joystick axes should be scaled per second for frame-rate independence
-                deltaX = look.x * GamepadSensitivity * Time.deltaTime;
-                deltaY = look.y * GamepadSensitivity * Time.deltaTime;
-            }
+                float deltaX, deltaY;
+                if (isMouse)
+                {
+                    // Look action provides mouse delta which is already frame-dependent in the input system (when using "delta")
+                    // Scale directly by sensitivity
+                    deltaX = look.x * MouseSensitivity;
+                    deltaY = look.y * MouseSensitivity;
+                }
+                else
+                {
+                    // Gamepad / joystick axes should be scaled per second for frame-rate independence
+                    deltaX = look.x * GamepadSensitivity * Time.deltaTime;
+                    deltaY = look.y * GamepadSensitivity * Time.deltaTime;
+                }
 
-            // accumulate target rotations (apply rotation speed multiplier)
-            targetYaw += deltaX * RotationSpeed;
-            targetPitch -= deltaY * RotationSpeed;
+                inputLook = look;
+
+                // accumulate target rotations (apply rotation speed multiplier)
+                targetYaw += deltaX * RotationSpeed;
+                targetPitch -= deltaY * RotationSpeed;
+            }
 
             // clamp pitch
             targetPitch = ClampAngle(targetPitch, BottomClamp, TopClamp);
@@ -351,17 +437,15 @@ namespace Luci
                 MoveNoclip();
                 return;
             }
-            bool sprint = false;
+            bool sprint = isSprinting;
             Vector2 move = Vector2.zero;
             if (_playerInput != null)
             {
                 var a = _playerInput.actions;
-                if (a["Sprint"] != null) sprint = a["Sprint"].IsPressed();
                 if (a["Move"] != null) move = a["Move"].ReadValue<Vector2>();
             }
             else
             {
-                sprint = Input.GetKey(KeyCode.LeftShift);
                 move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             }
 
@@ -408,6 +492,8 @@ namespace Luci
 
             Vector3 safe = ComputeSafeDisplacement(totalDisplacement);
             _controller.Move(safe);
+
+            inputMove = move;
         }
 
         // Noclip movement: ignores collisions and gravity, moves in camera look direction so "look up and walk" works
@@ -587,6 +673,12 @@ namespace Luci
         public void ToggleDisableCamera(bool set)
         {
             CameraDisable = set;
+        }
+
+        public void ToggleDisableCameraHybrid(bool set, Transform lookAt)
+        {
+            CameraHybridDisable = set;
+            lookAtTargetHybridCamera = lookAt;
         }
 
         public void ToggleDisableMovement(bool set)

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 75523761794885837}
-  - component: {fileID: -7908839893672891636}
+  - component: {fileID: -1919359873476578438}
   - component: {fileID: 3521893433413807740}
   m_Layer: 9
   m_Name: Tau Cannon
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 115075847759866892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7908839893672891636
+--- !u!114 &-1919359873476578438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,16 +45,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 834474034353824050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 453bc1cbdacdd0542b75f342b4738fc7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a5b56b7ee16d6f42a4580169c81fa53, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GadgetController
-  gadgetData: {fileID: 11400000, guid: 7a7a44db471d6c545a4e7f805ac3de74, type: 2}
-  currentAmmo: 0
-  chunkImage: {fileID: 0}
-  gadgetAmmo: {fileID: 0}
-  UIInstanceGadget3: {fileID: 7553428274174279342, guid: 7b6dd6359811ab94698af04badda6c8f, type: 3}
-  UIInstanceGadget4: {fileID: 8421631059730643242, guid: fc9d99cc9831d8842bfb37101b9d2c54, type: 3}
-  UIInstanceContainer: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::GunController
+  gunData: {fileID: 11400000, guid: fc804d249a1dcff4c8493bf6bf5982be, type: 2}
+  inventoryManager: {fileID: 0}
+  playerController: {fileID: 0}
+  overallAmmo: 0
+  currentAmmo: 20
+  reserveAmmo: 120
+  ammoType: 
+  fireCooldown: 0.083333336
+  isBursting: 0
+  triggerReleasedSinceLastShot: 1
+  audioSource: {fileID: 3521893433413807740}
+  fireSounds:
+  - {fileID: 8300000, guid: 857fa7328b418cb40a0b049d69c8b0fc, type: 3}
+  gunAmmo: {fileID: 0}
+  gunAmmoType: {fileID: 0}
+  range: 200
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  muzzleFlash: {fileID: 0}
+  enableSprintingPose: 1
+  sprintLocalPosition: {x: 0.25, y: -0.01, z: 0}
+  sprintLocalEuler: {x: 0, y: -90, z: 0}
+  sprintBlendSpeed: 8
 --- !u!82 &3521893433413807740
 AudioSource:
   m_ObjectHideFlags: 0

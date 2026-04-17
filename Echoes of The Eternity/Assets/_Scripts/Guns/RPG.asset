@@ -9,21 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4bc224b8613f2344b489c940bbced3b, type: 3}
-  m_Name: RPG7
-  m_EditorClassIdentifier: Assembly-CSharp::GadgetDataSO
-  gadgetType: 0
+  m_Script: {fileID: 11500000, guid: 1a147a70f5d8d104187022dcabd8f3be, type: 3}
+  m_Name: RPG
+  m_EditorClassIdentifier: Assembly-CSharp::MainGunDataSO
+  gunType: 3
   weaponName: RPG-7
   model: {fileID: 5099328952773561342, guid: 25dc5154cb2f1304dbadb1ec08a362f5, type: 3}
   damage: 1000
   headshotMultiplier: 1.5
-  fireRate: 50
+  fireRate: 1000
   fireMode: 0
-  ammoStart: 3
-  ammoMax: 5
-  equipTime: 1.5
-  dequipTime: 0.5
-  reloadTime: 5
-  ADSTime: 1
-  recoil: 5
+  ammoType: {fileID: 11400000, guid: c871e7b6a76de5f4988faef5d8274c99, type: 2}
+  magazineSize: 1
+  burstAmount: 0
+  equipTime: 0.63
+  dequipTime: 0.23
+  reloadTime: 3
+  ADSTime: 0.25
+  recoil: 500
+  spread: 2
   muzzleVelocity: 2000
+  soundFalloff: 0

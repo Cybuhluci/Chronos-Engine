@@ -11,6 +11,6 @@ public class ViewmodelBob : MonoBehaviour
         Xiland // a stylized bobbing style inspired by the B42 Fallout New Vegas mod series & Hit's Locomotion mod, with distinct full-range movements.
     }
 
-        // unlike inertia, this is a script to make the weapon "bob" up and down, left and right as if someone was actually holding it.
-        // the complex part is really just making it look nice, as well as making it player-velocity based, and state based (i.e. walking, running, crouching, jumping/falling, etc.)
+    // unlike inertia, this is a script to make the weapon "bob" up and down, left and right as if someone was actually holding it.
+    // the complex part is really just making it look nice, as well as making it player-velocity based, and state based (i.e. walking, running, crouching, jumping/falling, etc.)
 }

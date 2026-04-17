@@ -144,7 +144,14 @@ namespace Luci.Interactions
             }
             else // Hold
             {
+                bool interactPressed = false;
 
+                interactPressed = playerInput.actions["Interact"].WasPressedThisFrame();
+
+                if (interactPressed)
+                {
+                    currentInteractable.OnInteract(gameObject);
+                }
             }
         }
 

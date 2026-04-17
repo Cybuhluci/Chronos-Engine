@@ -227,23 +227,7 @@ public class CommandGenerator : MonoBehaviour
             Description = "Give the player full ammo for current weapons.",
             Execute = args =>
             {
-                if (PlayerPrefs.GetInt("sv_cheats", 0) == 0)
-                {
-                    string err = "Cheats are disabled.";
-                    Debug.LogWarning(err);
-                    consoleManager.AppendOutput(err);
-                    return;
-                }
-                var guns = GameObject.FindObjectsByType<GunController>(FindObjectsSortMode.None);
-                int changed = 0;
-                foreach (var g in guns)
-                {
-                    if (g == null || g.gunData == null) continue;
-                    g.currentAmmo = g.gunData.magazineSize;
-                    g.reserveAmmo = g.gunData.reserveAmmo;
-                    changed++;
-                }
-                string msg = $"Refilled ammo for {changed} weapons.";
+                string msg = $"This function is changing soon, sorry.";
                 Debug.Log(msg);
                 consoleManager.AppendOutput(msg);
             }

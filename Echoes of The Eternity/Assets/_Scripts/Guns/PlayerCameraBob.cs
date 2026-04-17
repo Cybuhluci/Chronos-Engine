@@ -1,14 +1,8 @@
 using Luci;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerCameraBob))]
 public class PlayerCameraBob : MonoBehaviour
 {
-    // to add:
-    // stop bobbing when player is in air (jumping or falling)
-    // add some subtle rotation bob for extra immersion (probably just a slight roll and pitch, no yaw)
-
-    // Camera bob tied to player velocity and state. Smooth, pleasant bobbing for the main camera.
     public FirstPersonController playerController; // assign in inspector
     public Transform theBobber; // camera or parent transform that will be offset
 
@@ -23,15 +17,15 @@ public class PlayerCameraBob : MonoBehaviour
     public float sprintFrequency = 9f;
 
     [Header("Amplitude")]
-    public float walkAmplitude = 0.03f;
-    public float sprintAmplitude = 0.06f;
+    public float walkAmplitude = 0.1f;
+    public float sprintAmplitude = 0.25f;
     public float crouchMultiplier = 0.5f;
     public float downedMultiplier = 0.15f;
 
-    [Header("Rotation Bob")]
+    [Header("Movement Rotation Bob")]
+    // for walking or sprinting, how much rotation bob to apply based on player wasd movement.
     public float rotAmplitudeX = 0.6f; // pitch
     public float rotAmplitudeY = 0.6f; // yaw
-    public float rotAmplitudeZ = 0.8f; // roll
 
     // internal
     private Vector3 _originalLocalPos;
@@ -46,7 +40,7 @@ public class PlayerCameraBob : MonoBehaviour
     {
         // try to auto-assign the player controller and bob transform
         if (playerController == null)
-            playerController = FindObjectOfType<FirstPersonController>();
+            playerController = FindAnyObjectByType<FirstPersonController>();
 
         // If using Cinemachine, prefer the camera target on the player controller
         if (playerController != null && playerController.CinemachineCameraTarget != null)
@@ -101,9 +95,7 @@ public class PlayerCameraBob : MonoBehaviour
         }
 
         // decide frequency and amplitude by whether sprinting or not
-        bool sprinting = false;
-        // infer sprinting from current speed relative to configured sprint move speed
-        if (playerController.SprintSpeed > 0f) sprinting = speed > (playerController.MoveSpeed + 0.25f);
+        bool sprinting = playerController.isSprinting;
 
         float freq = sprinting ? sprintFrequency : walkFrequency;
         float amp = sprinting ? sprintAmplitude : walkAmplitude;
@@ -111,8 +103,15 @@ public class PlayerCameraBob : MonoBehaviour
         freq *= stateFreqMult;
         amp *= stateAmpMult;
 
+        // If player is in air (jumping/falling), stop bobbing and decay timer toward zero
+        bool isAirborne = !playerController.Grounded || Mathf.Abs(playerController.playerVelocity.y) > 0.1f;
+        if (isAirborne)
+        {
+            _timer = Mathf.Lerp(_timer, 0f, Time.deltaTime * smoothSpeed * 0.5f);
+            _targetOffset = Vector3.zero;
+        }
         // when standing still, slow down timer and lerp offsets back to zero
-        if (speed < minSpeedThreshold)
+        else if (speed < minSpeedThreshold)
         {
             // gently return to rest
             _timer = Mathf.Lerp(_timer, 0f, Time.deltaTime * smoothSpeed * 0.5f);

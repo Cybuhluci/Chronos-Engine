@@ -36,6 +36,12 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public int GetAmmoTypeAmount(AmmoTypesSO ammoType)
+    {
+        int amount = 100;
+        return amount;
+    }
+
     public void PrintInventory()
     {
         Debug.Log("Inventory: " + string.Join(", ", collectedItems));

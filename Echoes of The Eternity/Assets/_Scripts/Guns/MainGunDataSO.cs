@@ -11,10 +11,10 @@ public class MainGunDataSO : ScriptableObject
     public float headshotMultiplier = 1.5f;
     public float fireRate; // Rounds per minute
     public FireMode fireMode;
+    public AmmoTypesSO ammoType;
 
     public int magazineSize;
-    public int reserveAmmo;
-    public int bulletsPerShot;
+    public int burstAmount;
 
     public float equipTime; // Time to equip the weapon
     public float dequipTime; // Time to unequip the weapon
@@ -41,5 +41,5 @@ public class MainGunDataSO : ScriptableObject
         SemiAuto,
         FullAuto,
         Burst
-    }
+    }  
 }

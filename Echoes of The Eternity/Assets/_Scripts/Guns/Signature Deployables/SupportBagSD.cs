@@ -211,7 +211,7 @@ public class SupportBagSD : MonoBehaviour
                         foreach (var gun in playerGuns)
                         {
                             if (gun == null) continue;
-                            gun.ReplenishAmmo(ammoChunkPercent);
+                            //gun.ReplenishAmmo(ammoChunkPercent);
                         }
                     }
                 }

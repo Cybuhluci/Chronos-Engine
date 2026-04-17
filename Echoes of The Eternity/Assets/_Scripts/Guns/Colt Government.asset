@@ -19,9 +19,9 @@ MonoBehaviour:
   headshotMultiplier: 1.5
   fireRate: 600
   fireMode: 0
+  ammoType: {fileID: 11400000, guid: e6a31d6440307444c8bf38c08b723f77, type: 2}
   magazineSize: 7
-  reserveAmmo: 64
-  bulletsPerShot: 1
+  burstAmount: 0
   equipTime: 0.27
   dequipTime: 0.12
   reloadTime: 2
@@ -29,3 +29,4 @@ MonoBehaviour:
   recoil: 167
   spread: 1
   muzzleVelocity: 350
+  soundFalloff: 0

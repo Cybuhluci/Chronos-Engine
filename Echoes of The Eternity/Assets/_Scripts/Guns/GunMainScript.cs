@@ -1,9 +1,12 @@
+using Luci;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GunMainScript : MonoBehaviour
 {
+    public TMP_Text gunAmmo, gunAmmoType;
+
     [SerializeField] private bool isHolstered = false;
     bool lastEquippedGunWasEquipNowRatherThanBind = false;
     // used to determine whether to update the current slot when equipping a weapon directly (e.g. from pickup) vs equipping from the fixed inventory binds
@@ -23,12 +26,20 @@ public class GunMainScript : MonoBehaviour
     }
 
     public InventoryManager inventoryManager;
+    public FirstPersonController playerController;
 
     // Fixed 8-slot inventory
-    public MainGunDataSO[] inventory = new MainGunDataSO[8];
+    public MainGunDataSO[] inventory;
 
     public PlayerInput playerInput;
     public GameObject weaponHolder; // assign in inspector
+
+
+    [Header("Holster")]
+    [Tooltip("Hold Reload this many seconds to toggle holster instead of reloading")]
+    public float holsterHoldTime = 1f;
+    private bool _reloadHeld = false;
+    private float _reloadHoldTimer = 0f;
 
     [Header("Starting Loadout")]
     public MainGunDataSO[] StartingPrimary;
@@ -36,6 +47,7 @@ public class GunMainScript : MonoBehaviour
     // currentSlot is a 0-based index into the fixed 8-slot inventory.
     // A value of -1 means a non-bound (transient) weapon is currently equipped.
     public int currentSlot = 0;
+    public GameObject currentlyEquippedWeapon;
 
     // runtime instances of bound weapon models (keeps instantiated GameObjects separate from the SO.model prefab reference)
     private GameObject[] _inventoryModelInstances;
@@ -65,7 +77,7 @@ public class GunMainScript : MonoBehaviour
     // temp method for storing bound guns in a file
     public void SaveInventoryToFile()
     {
-        string path = Application.persistentDataPath + "/inventory.txt";
+        string path = Application.persistentDataPath + "/Save/PlayerGunBinds.txt";
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
         for (int i = 0; i < inventory.Length; i++)
         {
@@ -78,7 +90,7 @@ public class GunMainScript : MonoBehaviour
     // method to load bound guns from file
     public void LoadInventoryFromFile()
     {
-        string path = Application.persistentDataPath + "/inventory.txt";
+        string path = Application.persistentDataPath + "/Save/PlayerGunBinds.txt";
         if (!System.IO.File.Exists(path))
         {
             Debug.LogWarning($"Inventory file not found at {path}");
@@ -130,7 +142,7 @@ public class GunMainScript : MonoBehaviour
             foreach (var c in controllers)
             {
                 if (c == null) continue;
-                c.StartGun();
+                c.StartGun(this);
             }
         }
         else
@@ -152,8 +164,6 @@ public class GunMainScript : MonoBehaviour
         ShowOnlyCurrentWeaponModel();
         GiveControllersBulletHolePrefabs();
 
-
-        // initialize HUD and controllers for guns, gadgets and grenade
         StartGuns();
 
         SaveInventoryToFile();
@@ -163,27 +173,32 @@ public class GunMainScript : MonoBehaviour
     {
         if (playerInput != null)
         {
+            if (playerController.CameraDisable) return; // don't allow any weapon input when camera is fully disabled (e.g. during PDA interaction)
+            if (playerController.CameraHybridDisable && playerController.MovementDisable) return; 
+            // don't allow weapon switching or firing when camera and movement is disabled (e.g. during dialogue or cutscene)
+
             // weapon slot switching
             if (playerInput.actions["1"].WasPressedThisFrame())
-                EquipWeaponFromBind(1);
+                SwitchToBindSlot(1);
             else if (playerInput.actions["2"].WasPressedThisFrame())
-                EquipWeaponFromBind(2);
+                SwitchToBindSlot(2);
             else if (playerInput.actions["3"].WasPressedThisFrame())
-                EquipWeaponFromBind(3);
+                SwitchToBindSlot(3);
             else if (playerInput.actions["4"].WasPressedThisFrame())
-                EquipWeaponFromBind(4);
+                SwitchToBindSlot(4);
             else if (playerInput.actions["5"].WasPressedThisFrame())
-                EquipWeaponFromBind(5);
+                SwitchToBindSlot(5);
             else if (playerInput.actions["6"].WasPressedThisFrame())
-                EquipWeaponFromBind(6);
+                SwitchToBindSlot(6);
             else if (playerInput.actions["7"].WasPressedThisFrame())
-                EquipWeaponFromBind(7);
+                SwitchToBindSlot(7);
             else if (playerInput.actions["8"].WasPressedThisFrame())
-                EquipWeaponFromBind(8);
+                SwitchToBindSlot(8);
 
             // Shooting
             if (playerInput != null && playerInput.actions["Fire"] != null && playerInput.actions["Fire"].IsPressed())
             {
+                if (isHolstered || playerController.isSprinting) return; // don't allow firing when holstered or while sprinting.
                 var gunController = GetCurrentWeaponModel()?.GetComponent<GunController>();
                 if (gunController != null)
                 {
@@ -194,18 +209,65 @@ public class GunMainScript : MonoBehaviour
             }
 
             // Reloading + holstering (same button)
-            // pressing "Reload" will reload the weapon, holding will toggle the global holster state (which setactives the weapon model(s))
-            if (playerInput != null && playerInput.actions["Reload"] != null && playerInput.actions["Reload"].WasPressedThisFrame())
+            // pressing "Reload" will reload the weapon, holding will toggle the global holster state
+            var reloadAction = playerInput.actions["Reload"];
+            if (reloadAction != null)
             {
-                var gunController = GetCurrentWeaponModel()?.GetComponent<GunController>();
-                gunController?.Reload();
+                if (reloadAction.WasPressedThisFrame())
+                {
+                    _reloadHeld = true;
+                    _reloadHoldTimer = 0f;
+                }
+
+                if (_reloadHeld && reloadAction.IsPressed())
+                {
+                    _reloadHoldTimer += Time.deltaTime;
+                    if (_reloadHoldTimer >= holsterHoldTime)
+                    {
+                        ToggleHolster();
+                        // consume the hold so we don't immediately fire reload on release
+                        _reloadHeld = false;
+                        _reloadHoldTimer = 0f;
+                    }
+                }
+
+                if (reloadAction.WasReleasedThisFrame())
+                {
+                    // short press -> reload
+                    if (_reloadHoldTimer < holsterHoldTime)
+                    {
+                        var gunController = GetCurrentWeaponModel()?.GetComponent<GunController>();
+                        gunController?.Reload();
+                    }
+                    _reloadHeld = false;
+                    _reloadHoldTimer = 0f;
+                }
             }
         }
     }
 
     private void ShowOnlyCurrentWeaponModel()
     {
-        // Hide all bound instances
+        // If holstered, hide everything
+        if (isHolstered)
+        {
+            if (_inventoryModelInstances != null)
+            {
+                for (int i = 0; i < _inventoryModelInstances.Length; i++)
+                {
+                    if (_inventoryModelInstances[i] != null)
+                        _inventoryModelInstances[i].SetActive(false);
+                }
+            }
+
+            if (_transientEquippedInstance != null)
+                _transientEquippedInstance.SetActive(false);
+
+            currentlyEquippedWeapon = null;
+            return;
+        }
+
+        // Hide all bound instances, show only current
         for (int i = 0; i < inventory.Length; i++)
         {
             if (_inventoryModelInstances != null && _inventoryModelInstances.Length > i && _inventoryModelInstances[i] != null)
@@ -219,14 +281,56 @@ public class GunMainScript : MonoBehaviour
         {
             _transientEquippedInstance.SetActive(currentSlot == -1);
         }
+
+        // update currentlyEquippedWeapon reference
+        if (currentSlot == -1)
+        {
+            currentlyEquippedWeapon = _transientEquippedInstance;
+        }
+        else if (currentSlot >= 0 && _inventoryModelInstances != null && currentSlot < _inventoryModelInstances.Length)
+        {
+            currentlyEquippedWeapon = _inventoryModelInstances[currentSlot];
+        }
+        else
+        {
+            currentlyEquippedWeapon = null;
+        }
     }
 
-    public void SwitchToSlot(int slot)
+    public void ToggleHolster()
+    {
+        isHolstered = !isHolstered;
+        ShowOnlyCurrentWeaponModel();
+    }
+
+    public void SwitchToBindSlot(int slot)
     {
         // different version of equipfrombind which instead just setactive-falses the current weapon and setactive-trues the new bind slot weapon.
         // however, if the current weapon was equipped via equipnow (transient), then it will be deleted and the new weapon will be shown from the inventory binds as usual.
 
+        // if the old weapon was a transient equip, delete it since it's not part of the inventory binds and won't be needed anymore
+        if (_transientEquippedInstance != null)
+        {
+            Destroy(_transientEquippedInstance);
+            _transientEquippedInstance = null;
+        }
 
+        // then switch to the chosen slot, by making the slot-to-be active. if the slot is empty, do nothing.
+
+        int idx = ToIndex(slot);
+        if (inventory == null || idx < 0 || idx >= inventory.Length) return;
+        if (inventory[idx] == null)
+        {
+            Debug.LogWarning($"Attempted to equip empty slot {slot}");
+            return;
+        }
+
+        currentSlot = idx;
+        ShowOnlyCurrentWeaponModel();
+
+        //// Initialize controllers for this weapon if present
+        //var controller = GetCurrentWeaponModel()?.GetComponent<GunController>();
+        //controller?.StartGun();
     }
 
     public void EquipWeaponNow(MainGunDataSO data, GameObject model)
@@ -282,32 +386,14 @@ public class GunMainScript : MonoBehaviour
             // indicate it's a transient equip so it can be deleted on unequip if necessary
             lastEquippedGunWasEquipNowRatherThanBind = true;
             currentSlot = -1;
+
+            GunController controller2 = instance.GetComponent<GunController>();
+            controller2?.StartGun(this);
+            controller2?.SetBulletHolePrefabs(WoodPrefab, MetalPrefab, ConcretePrefab);
+            controller2?.UpdateAmmoUI();
         }
 
         ShowOnlyCurrentWeaponModel();
-
-        // Update ammo UI/controllers for the newly equipped weapon
-        var controller = GetCurrentWeaponModel()?.GetComponent<GunController>();
-        controller?.UpdateAmmoUI();
-    }
-
-    public void EquipWeaponFromBind(int slot)
-    {
-        // equips the weapon from the fixed-slot inventory into the player's hands, used for PDA equipping for bound weapons.
-        int idx = ToIndex(slot);
-        if (inventory == null || idx < 0 || idx >= inventory.Length) return;
-        if (inventory[idx] == null)
-        {
-            Debug.LogWarning($"Attempted to equip empty slot {slot}");
-            return;
-        }
-
-        currentSlot = idx;
-        ShowOnlyCurrentWeaponModel();
-
-        // Initialize controllers for this weapon if present
-        var controller = GetCurrentWeaponModel()?.GetComponent<GunController>();
-        controller?.StartGun();
     }
 
     public void AddWeaponToBindSlot(int slot, MainGunDataSO data, GameObject model)
@@ -364,7 +450,7 @@ public class GunMainScript : MonoBehaviour
     }
 
     // Get the current weapon's model GameObject
-    public GameObject GetCurrentWeaponModel()
+    public GameObject GetCurrentWeaponModel() // this works, but not well, instead it will just be held in "currentlyequippedweapon"
     {
         if (inventory == null) return null;
         if (currentSlot == -1)
