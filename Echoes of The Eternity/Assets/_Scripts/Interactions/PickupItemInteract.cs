@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 namespace Luci.Interactions
@@ -7,24 +6,13 @@ namespace Luci.Interactions
     {
         public bool isactive = true;
         public string itemName;
-        public PlayerInventory playerInventory;
+        public InventoryManager playerInventory;
+        public InventoryItemSO itemSO;
 
         public void PressInteract()
         {
-            playerInventory.AddItemToInventory(this);
+            playerInventory.AddItem(itemSO);
             Destroy(gameObject);
-        }
-
-        private void Update()
-        {
-            if (playerInventory.GetInventory().Contains(itemName))
-            {
-                isactive = false;
-            }
-            else 
-            {                 
-                isactive = true;
-            }
         }
 
         // Called when player interacts (presses the interact key)
@@ -42,7 +30,7 @@ namespace Luci.Interactions
         // Whether this object is a press or hold interaction
         public InteractionType GetInteractionType()
         {
-            return InteractionType.Interact;
+            return InteractionType.Collect;
         }
 
         public void ToggleInteract(bool isActive)

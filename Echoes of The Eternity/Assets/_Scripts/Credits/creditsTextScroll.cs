@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class creditsTextScroll : MonoBehaviour
@@ -24,7 +25,10 @@ public class creditsTextScroll : MonoBehaviour
 
     public bool creditsStarted = false;
     public GameObject[] spawnedCredits; // To store instantiated credits
+
+    [Header("Audio")]
     public AudioSource creditsMusic; // Music to play during credits
+    public AudioClip[] musics; // Array of music clips to choose from
 
     void Start()
     {
@@ -48,7 +52,25 @@ public class creditsTextScroll : MonoBehaviour
         }
 
         creditsMusic.Play(); // Start playing the credits music
+        checkforsongend = true; // Flag to check for music end in Update
         StartCoroutine(ShowTheEnd());
+    }
+
+    bool checkforsongend = false;
+
+    private void Update()
+    {
+        if (checkforsongend)
+        {
+            // when the music ends, go to the next song in the array.
+            if (!creditsMusic.isPlaying)
+            {
+                int currentIndex = Array.IndexOf(musics, creditsMusic.clip);
+                int nextIndex = (currentIndex + 1) % musics.Length; // Loop back to start
+                creditsMusic.clip = musics[nextIndex];
+                creditsMusic.Play();
+            }
+        }
     }
 
     IEnumerator ShowTheEnd()

@@ -9,6 +9,9 @@ namespace Luci
     {
         [SerializeField] MissionManager _MissionManager;
         [SerializeField] PDAManager _PDAManager;
+        [SerializeField] GunMainScript _GMS;
+        [SerializeField] FTPpausescript _FTPpause;
+
         public enum PlayerState { Standing, Crouching, Downed }
         public PlayerState _playerState = PlayerState.Standing;
         public bool CameraDisable = false;
@@ -167,6 +170,11 @@ namespace Luci
 
         private void Update()
         {
+            if (_playerInput.actions["Pause"].WasPressedThisFrame())
+            {
+                _FTPpause.TogglePause();
+            }
+
             // Keep original ground check values
             GroundedRadius = _originalGroundedRadius;
             GroundedOffset = _originalGroundedOffset;
@@ -176,6 +184,7 @@ namespace Luci
             HandleStamina();
             JumpAndGravity();
             GroundedCheck();
+
             // sync noclip state if CharacterController was toggled externally
             if (_controller != null)
             {
@@ -461,7 +470,17 @@ namespace Luci
                     break;
             }
 
-            float targetSpeed = (sprint && Stamina > MinSprintStamina) ? SprintSpeed : MoveSpeed;
+            float sprintspeed2;
+            if (_GMS.IsHolstered || _GMS.currentSlot == -2)
+            {
+                sprintspeed2 = SprintSpeed * 1.1f;
+            }
+            else
+            {
+                sprintspeed2 = SprintSpeed;
+            }
+            
+            float targetSpeed = (sprint && Stamina > MinSprintStamina) ? sprintspeed2 : MoveSpeed;
             targetSpeed *= stateSpeedMultiplier;
             if (move == Vector2.zero) targetSpeed = 0.0f;
 

@@ -8,6 +8,9 @@ public class GunMainScript : MonoBehaviour
     public TMP_Text gunAmmo, gunAmmoType;
 
     [SerializeField] private bool isHolstered = false;
+
+    public bool IsHolstered => isHolstered;
+
     bool lastEquippedGunWasEquipNowRatherThanBind = false;
     // used to determine whether to update the current slot when equipping a weapon directly (e.g. from pickup) vs equipping from the fixed inventory binds
     // mainly so the gun can be delted after unequipping it, since if it was an equipNow it should be deleted, but if it was from a bind slot it should stay in the slot but just be hidden
@@ -43,9 +46,12 @@ public class GunMainScript : MonoBehaviour
 
     [Header("Starting Loadout")]
     public MainGunDataSO[] StartingPrimary;
+    public InvWeaponSO[] startingPrimary;
 
     // currentSlot is a 0-based index into the fixed 8-slot inventory.
     // A value of -1 means a non-bound (transient) weapon is currently equipped.
+    // A value of -2 means unarmed (no weapon equipped)
+    public const int UnarmedSlot = -2;
     public int currentSlot = 0;
     public GameObject currentlyEquippedWeapon;
 
@@ -155,11 +161,13 @@ public class GunMainScript : MonoBehaviour
     private void Start()
     {
         LoadInventoryFromFile();
+
         // initialize instance array to match inventory length
+        // note this is temporary, and will change somehow in the future.
         _inventoryModelInstances = new GameObject[inventory.Length];
-        AddWeaponToBindSlot(1, StartingPrimary[0], StartingPrimary[0].model);
-        AddWeaponToBindSlot(2, StartingPrimary[1], StartingPrimary[1].model);
-        AddWeaponToBindSlot(3, StartingPrimary[2], StartingPrimary[2].model);
+        InventoryManager.Instance.AddItem(startingPrimary[0]);
+        InventoryManager.Instance.AddItem(startingPrimary[1]);
+        InventoryManager.Instance.AddItem(startingPrimary[2]);
 
         ShowOnlyCurrentWeaponModel();
         GiveControllersBulletHolePrefabs();
@@ -199,6 +207,7 @@ public class GunMainScript : MonoBehaviour
             if (playerInput != null && playerInput.actions["Fire"] != null && playerInput.actions["Fire"].IsPressed())
             {
                 if (isHolstered || playerController.isSprinting) return; // don't allow firing when holstered or while sprinting.
+                if (currentSlot == UnarmedSlot) return; // can't fire when unarmed
                 var gunController = GetCurrentWeaponModel()?.GetComponent<GunController>();
                 if (gunController != null)
                 {
@@ -287,6 +296,10 @@ public class GunMainScript : MonoBehaviour
         {
             currentlyEquippedWeapon = _transientEquippedInstance;
         }
+        else if (currentSlot == UnarmedSlot)
+        {
+            currentlyEquippedWeapon = null;
+        }
         else if (currentSlot >= 0 && _inventoryModelInstances != null && currentSlot < _inventoryModelInstances.Length)
         {
             currentlyEquippedWeapon = _inventoryModelInstances[currentSlot];
@@ -295,18 +308,65 @@ public class GunMainScript : MonoBehaviour
         {
             currentlyEquippedWeapon = null;
         }
+
+        // Update HUD: if unarmed, clear ammo displays
+        if (currentlyEquippedWeapon == null)
+        {
+            if (gunAmmo != null) gunAmmo.text = "";
+            if (gunAmmoType != null) gunAmmoType.text = "";
+            if (primaryAmmo != null) primaryAmmo.text = "";
+        }
+        else
+        {
+            // try to update the equipped weapon's ammo UI if it has a controller
+            var gc = currentlyEquippedWeapon.GetComponent<GunController>();
+            if (gc != null)
+                gc.UpdateAmmoUI();
+        }
     }
 
     public void ToggleHolster()
     {
-        isHolstered = !isHolstered;
-        ShowOnlyCurrentWeaponModel();
+        // Only allow holstering if we're actually holding a weapon (not unarmed)
+        if (currentSlot != UnarmedSlot)
+        {
+            isHolstered = !isHolstered;
+            ShowOnlyCurrentWeaponModel();
+        }
+        else
+        {
+            // if unarmed, allow toggling holster state but it just won't show anything regardless
+            isHolstered = !isHolstered;
+        }
     }
 
     public void SwitchToBindSlot(int slot)
     {
-        // different version of equipfrombind which instead just setactive-falses the current weapon and setactive-trues the new bind slot weapon.
-        // however, if the current weapon was equipped via equipnow (transient), then it will be deleted and the new weapon will be shown from the inventory binds as usual.
+       // when switching to the slot you are already on, move to an unarmed state.
+
+        // map to 0-based index and guard: if the slot is empty, do nothing
+        int idxCheck = ToIndex(slot);
+        if (inventory == null || idxCheck < 0 || idxCheck >= inventory.Length) return;
+        if (inventory[idxCheck] == null)
+        {
+            // slot empty -> ignore input
+            return;
+        }
+
+        // if already on this slot, switch to unarmed instead
+        if (currentSlot == idxCheck)
+        {
+            // go unarmed
+            currentSlot = UnarmedSlot;
+            // destroy transient instance if any
+            if (_transientEquippedInstance != null)
+            {
+                Destroy(_transientEquippedInstance);
+                _transientEquippedInstance = null;
+            }
+            ShowOnlyCurrentWeaponModel();
+            return;
+        }
 
         // if the old weapon was a transient equip, delete it since it's not part of the inventory binds and won't be needed anymore
         if (_transientEquippedInstance != null)
@@ -335,23 +395,54 @@ public class GunMainScript : MonoBehaviour
 
     public void EquipWeaponNow(MainGunDataSO data, GameObject model)
     {
-        // check to see if it's already in the inventory binds, if it is then just switch to that slot,
-        // if not then instantiate it directly in the weapon holder as a transient instance that isn't part of the inventory binds (and will be deleted on unequip)
+        // If attempting to equip the weapon that's already equipped, go unarmed instead
+        // Check bound slot match
+        int found = -1;
+        if (data != null && inventory != null)
+        {
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i] == data)
+                {
+                    found = i;
+                    break;
+                }
+            }
 
+            // if already equipped from a bind slot, unequip -> unarmed
+            if (found >= 0 && currentSlot == found)
+            {
+                // destroy any transient instance
+                if (_transientEquippedInstance != null)
+                {
+                    Destroy(_transientEquippedInstance);
+                    _transientEquippedInstance = null;
+                }
+                currentSlot = UnarmedSlot;
+                ShowOnlyCurrentWeaponModel();
+                return;
+            }
+
+            // if transient equipped and matches the data, unequip -> unarmed
+            if (currentSlot == -1 && _transientEquippedInstance != null)
+            {
+                var tc = _transientEquippedInstance.GetComponent<GunController>();
+                if (tc != null && tc.gunData == data)
+                {
+                    Destroy(_transientEquippedInstance);
+                    _transientEquippedInstance = null;
+                    currentSlot = UnarmedSlot;
+                    ShowOnlyCurrentWeaponModel();
+                    return;
+                }
+            }
+        }
+        // if equipping a gun that is already being held, unequip the gun, and move to an unarmed state instead.
 
 
         // Instantly equips the weapon in the player's hands (non-bound/equipped directly).
         if (data == null) return;
         // If this weapon exists in a bind slot, switch to that slot and show its instance.
-        int found = -1;
-        for (int i = 0; i < inventory.Length; i++)
-        {
-            if (inventory[i] == data)
-            {
-                found = i;
-                break;
-            }
-        }
 
         // clean up any previous transient instance
         if (_transientEquippedInstance != null)
