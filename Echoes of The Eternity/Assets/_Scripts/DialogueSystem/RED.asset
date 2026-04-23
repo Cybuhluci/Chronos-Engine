@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RED
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: RED guy
-  temporaryDialogue: Hi!
+  dialogue: {fileID: 11400000, guid: dd84d72b94caf5d4eb1546e67879e2e0, type: 2}
+  temporaryDialogue: TempText
   temporaryOptionsCount: 2
   temporaryOptions:
-  - Goodbye.
-  - I hate you.
+  - TempOption1
   inventoryItems:
   - {fileID: 11400000, guid: 087f829028b11754dadf34d749418cde, type: 2}

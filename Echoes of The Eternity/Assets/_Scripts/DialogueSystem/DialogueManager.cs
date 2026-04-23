@@ -3,15 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    // ways to make this even better:
-    // create a dialogue system that can be used in multiple games, with a dialogue graph editor and a way to save/load dialogue states - this way there isnt hundreds of indiviual scriptable objects with one line of text in them.
-    // make the dialogue manager both a way to update the ui, and also a way to read given dialogue graphs.
-
     public static DialogueManager Instance { get; private set; }
 
     public enum DialogueType
@@ -21,157 +16,147 @@ public class DialogueManager : MonoBehaviour
     }
     public DialogueType dialogueType = DialogueType.Fallout;
 
-    [Header("Inputs")]
-    public PlayerInput playerInput;
-    [Tooltip("Name of the action to use to advance dialogue/skip wait (case sensitive). Leave empty to disable.")]
-    public string advanceActionName = "Fire";
+    [Header("Core")]
+    [Tooltip("The DialogueRunner that controls the conversation logic.")]
+    public DialogueRunner dialogueRunner;
 
     [Header("UI")]
     public GameObject dialogueUI;
+    public GameObject playerHUD;
     public TMP_Text dialogueText, characterName;
-    public Transform optionsParent;
-    public GameObject optionButtonPrefab;
+    public Transform optionsParentFallout, optionsParentPersona;
+    public GameObject optionButtonPrefabFallout, optionButtonPrefabPersona;
 
-    [Header("Player control")]
+    [Header("Player Control")]
     public FirstPersonController playerController;
 
-    [Header("Timing")]
-    [Tooltip("Delay before showing options (seconds)")]
-    public float initialDialogDelay = 2f;
-
-    private CharacterData currentCharacterData;
     private Transform characterHeadPos;
 
     // internal state
-    private Coroutine waitCoroutine;
     private readonly List<Button> activeOptionButtons = new List<Button>();
     private readonly List<GameObject> spawnedOptionObjects = new List<GameObject>();
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
+        {
             Destroy(gameObject);
+        }
         else
+        {
             Instance = this;
+        }
+
+        if (dialogueRunner == null)
+        {
+            dialogueRunner = FindAnyObjectByType<DialogueRunner>();
+            if (dialogueRunner == null)
+            {
+                Debug.LogError("DialogueManager could not find a DialogueRunner in the scene!");
+                enabled = false;
+                return;
+            }
+        }
+
+        // Subscribe to the runner's events
+        dialogueRunner.onDialogueNodeStart.AddListener(HandleNodeStart);
+        dialogueRunner.onOptionsReady.AddListener(HandleOptionsReady);
+        dialogueRunner.onDialogueEnd.AddListener(HandleDialogueEnd);
     }
 
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
+
+        // Unsubscribe from events
+        if (dialogueRunner != null)
+        {
+            dialogueRunner.onDialogueNodeStart.RemoveListener(HandleNodeStart);
+            dialogueRunner.onOptionsReady.RemoveListener(HandleOptionsReady);
+            dialogueRunner.onDialogueEnd.RemoveListener(HandleDialogueEnd);
+        }
     }
 
     public void BeginDialogue(CharacterData chardata, Transform characterheadpos)
     {
-        // Stop any previous wait coroutine (if a new dialogue is started quickly)
-        if (waitCoroutine != null)
-        {
-            StopCoroutine(waitCoroutine);
-            waitCoroutine = null;
-        }
-
         characterHeadPos = characterheadpos;
 
-        ClearOptionsImmediate();
-
-        if (dialogueUI != null)
-            dialogueUI.SetActive(true);
+        // --- UI & Player Setup ---
+        if (dialogueUI != null) dialogueUI.SetActive(true);
+        if (playerHUD != null) playerHUD.SetActive(false);
 
         if (playerController != null)
         {
             playerController.ToggleDisableCameraHybrid(true, characterHeadPos);
             playerController.ToggleDisableMovement(true);
         }
-
         Cursor.lockState = CursorLockMode.Confined;
 
-        currentCharacterData = chardata;
-
-        if (characterName != null)
-            characterName.text = chardata?.characterName ?? "";
-
-        if (dialogueText != null)
-            dialogueText.text = chardata?.temporaryDialogue ?? "";
-
-        // wait for player input or configured delay, then show options
-        waitCoroutine = StartCoroutine(WaitForPlayerInputOrTime());
+        // --- Start Logic ---
+        dialogueRunner.BeginDialogue(chardata);
     }
 
-    IEnumerator WaitForPlayerInputOrTime()
-    {
-        float timer = 0f;
-        InputAction advanceAction = null;
-        if (!string.IsNullOrEmpty(advanceActionName) && playerInput != null)
-        {
-            try
-            {
-                advanceAction = playerInput.actions[advanceActionName];
-            }
-            catch
-            {
-                advanceAction = null;
-            }
-        }
-
-        while (timer < initialDialogDelay)
-        {
-            if (advanceAction != null && advanceAction.WasPerformedThisFrame())
-                break;
-
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        waitCoroutine = null;
-        ShowOptions();
-    }
-
-    private void ShowOptions()
+    private void HandleNodeStart(DialogueNode node, CharacterData characterData)
     {
         ClearOptionsImmediate();
 
+        if (dialogueText != null)
+            dialogueText.text = node.dialogueText ?? "";
+        if (characterName != null)
+            characterName.text = characterData?.characterName ?? "";
+    }
+
+    private void HandleOptionsReady(List<DialogueChoice> choices)
+    {
+        ClearOptionsImmediate();
+
+        Transform optionsParent;
+        GameObject optionPrefab;
+
         if (dialogueType == DialogueType.Fallout)
         {
-            if (dialogueText != null)
-                dialogueText.text = ""; // clear dialogue text when showing options
+            if (dialogueText != null) dialogueText.text = "";
+            optionsParent = optionsParentFallout;
+            optionPrefab = optionButtonPrefabFallout;
+        }
+        else // Persona
+        {
+            optionsParent = optionsParentPersona;
+            optionPrefab = optionButtonPrefabPersona;
         }
 
-        if (currentCharacterData == null || currentCharacterData.temporaryOptions == null || optionsParent == null || optionButtonPrefab == null)
-            return;
-
-        foreach (var opt in currentCharacterData.temporaryOptions)
+        if (optionsParent == null || optionPrefab == null)
         {
-            var optionText = opt; // capture for closure
-            GameObject optionButtonObj = Instantiate(optionButtonPrefab, optionsParent);
+            Debug.LogWarning("Options parent or prefab is missing for the current dialogue type.");
+            return;
+        }
+
+        foreach (var choice in choices)
+        {
+            var capturedChoice = choice; // Capture for closure
+            GameObject optionButtonObj = Instantiate(optionPrefab, optionsParent);
             spawnedOptionObjects.Add(optionButtonObj);
 
             var tmp = optionButtonObj.GetComponentInChildren<TMP_Text>();
-            if (tmp != null) tmp.text = optionText;
+            if (tmp != null) tmp.text = choice.text;
 
             var btn = optionButtonObj.GetComponent<Button>();
             if (btn != null)
             {
-                btn.onClick.AddListener(() => OnOptionSelected(optionText));
+                btn.onClick.AddListener(() => OnOptionSelected(capturedChoice));
                 activeOptionButtons.Add(btn);
             }
         }
     }
 
-    private void OnOptionSelected(string option)
+    private void OnOptionSelected(DialogueChoice choice)
     {
-        Debug.Log("Selected option: " + option);
-        // handle the option choice here (advance dialogue, call actions, etc.)
-        EndDialogue();
+        // Tell the runner which option was chosen
+        dialogueRunner.SelectOption(choice);
     }
 
-    public void EndDialogue()
+    private void HandleDialogueEnd()
     {
-        // stop waiting coroutine if still running
-        if (waitCoroutine != null)
-        {
-            StopCoroutine(waitCoroutine);
-            waitCoroutine = null;
-        }
-
         if (playerController != null)
         {
             playerController.ToggleDisableCameraHybrid(false, null);
@@ -185,11 +170,10 @@ public class DialogueManager : MonoBehaviour
 
         ClearOptionsImmediate();
 
-        if (dialogueUI != null)
-            dialogueUI.SetActive(false);
+        if (dialogueUI != null) dialogueUI.SetActive(false);
+        if (playerHUD != null) playerHUD.SetActive(true);
     }
 
-    // explicit cleanup for option buttons (removes listeners and destroys objects)
     private void ClearOptionsImmediate()
     {
         foreach (var btn in activeOptionButtons)
@@ -205,16 +189,5 @@ public class DialogueManager : MonoBehaviour
                 Destroy(go);
         }
         spawnedOptionObjects.Clear();
-
-        // fallback: still ensure we remove any leftover children
-        if (optionsParent != null)
-        {
-            for (int i = optionsParent.childCount - 1; i >= 0; --i)
-            {
-                var child = optionsParent.GetChild(i);
-                if (child != null)
-                    Destroy(child.gameObject);
-            }
-        }
     }
 }
