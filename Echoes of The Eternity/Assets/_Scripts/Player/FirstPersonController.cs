@@ -54,7 +54,7 @@ namespace Luci
         [Header("Stamina System")]
         public bool isSprinting;
         public float Stamina = 100f;
-        public float MaxStamina = 100f;
+        public float MaxStamina => PlayerAttributes.Instance != null ? PlayerAttributes.Instance.stamina : 100f;
         public float StaminaDrainRate = 20f;
         public float StaminaRegenRate = 15f;
         public float MinSprintStamina = 10f;
@@ -132,6 +132,8 @@ namespace Luci
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            Stamina = MaxStamina;
         }
 
         private void Start()

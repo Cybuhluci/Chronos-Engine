@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 737896224319129368}
   - component: {fileID: 2685653258805359647}
   - component: {fileID: 461892319210726223}
-  - component: {fileID: 8365710486223449485}
   m_Layer: 5
   m_Name: enemy
   m_TagString: Untagged
@@ -139,24 +138,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8365710486223449485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99070518134087122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8fd5b6e03e64c041b3c8599fc58780d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PDAWeapons
-  weaponButtonPrefab: {fileID: 0}
-  weaponButtonParent: {fileID: 0}
-  gunMainScript: {fileID: 4845513797663224238}
-  inventoryManager: {fileID: 0}
-  inventoryItemParent: {fileID: 0}
-  itemButtonPrefab: {fileID: 0}
 --- !u!1 &173120791557171858
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,7 +2471,6 @@ MonoBehaviour:
   BottomClamp: -80
   isSprinting: 0
   Stamina: 20
-  MaxStamina: 20
   StaminaDrainRate: 5
   StaminaRegenRate: 15
   MinSprintStamina: 0.1
@@ -2500,8 +2480,8 @@ MonoBehaviour:
   CrouchCameraYOffset: -0.5
   DownedHeight: 0.5
   DownedCameraYOffset: -1
-  MouseSensitivity: 75
-  GamepadSensitivity: 120
+  MouseSensitivity: 1
+  GamepadSensitivity: 75
   rotationSmoothTime: 0.03
   hybridBlendSpeed: 6
   CapsuleCastSkin: 0.05
@@ -2666,12 +2646,12 @@ GameObject:
   - component: {fileID: 1087201726056232295}
   - component: {fileID: 7183776078319062788}
   - component: {fileID: 1523362195831632086}
-  - component: {fileID: 9088975851086473102}
   - component: {fileID: 2703160900452864482}
   - component: {fileID: 3514017493315480907}
   - component: {fileID: 8039822534580986458}
   - component: {fileID: 1318869814750898014}
   - component: {fileID: 7871753492152531819}
+  - component: {fileID: 176027379809134078}
   m_Layer: 7
   m_Name: PlayerCameraRoot
   m_TagString: CinemachineTarget
@@ -2755,17 +2735,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e5b582b2dc343438afcb9cbfdb35a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  armourManager: {fileID: 0}
   _isInvulnerable: 0
-  MaxHealth: 100
   CurrentHealth: 100
   MaxArmour: 100
   CurrentArmour: 100
+  selfRevivesLeft: 1
   selfReviveHoldTime: 5
   selfReviveProgressUI: {fileID: 3724922886708967681}
   allowSelfRevive: 1
   IsAlive: 0
   _isDowned: 0
-  _hasSelfRevived: 0
   _reviveTimer: 0
   _playerInput: {fileID: 4000011732992838714}
   _fpc: {fileID: 3890687233482786787}
@@ -2795,26 +2775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a381233564a51840a944c6e719db3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
---- !u!114 &9088975851086473102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095162899886879780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55ac0896cb95fe45995e8baba9c21e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerBagScript
-  playerInput: {fileID: 4000011732992838714}
-  maxBags: 1
-  currentBags: 0
-  heldLoot: {fileID: 0}
-  weaponHolder: {fileID: 627534636420185733}
-  _miscBag: {fileID: 0}
-  bag1UIPanel: {fileID: 0}
-  bag1UIText: {fileID: 0}
 --- !u!114 &2703160900452864482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2887,6 +2847,32 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4c4ca0f39ac11a24b9cb777a38dee779, type: 2}
   - {fileID: 11400000, guid: 7cb530383a418264a86f79a56675cc2d, type: 2}
   playerInput: {fileID: 4000011732992838714}
+--- !u!114 &176027379809134078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095162899886879780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ee969136de7f04e888cc6e785ccb68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttributes
+  sway: 0
+  tenacity: 0
+  rapidity: 0
+  intellect: 0
+  vitality: 0
+  eye: 0
+  luck: 0
+  health: 0
+  stamina: 0
+  carryWeight: 0
+  thirst: 0
+  hunger: 0
+  sleep: 0
+  specialstatus: 0
 --- !u!1 &2123398682018909965
 GameObject:
   m_ObjectHideFlags: 0
@@ -11100,7 +11086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2330043695978335531
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15764,7 +15750,6 @@ GameObject:
   - component: {fileID: 7393761201748676484}
   - component: {fileID: 8133482358996908546}
   - component: {fileID: 8294960971430369606}
-  - component: {fileID: 35660115413245960}
   m_Layer: 5
   m_Name: player
   m_TagString: Untagged
@@ -15830,24 +15815,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &35660115413245960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9008809082847317057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8fd5b6e03e64c041b3c8599fc58780d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PDAWeapons
-  weaponButtonPrefab: {fileID: 0}
-  weaponButtonParent: {fileID: 0}
-  gunMainScript: {fileID: 4845513797663224238}
-  inventoryManager: {fileID: 0}
-  inventoryItemParent: {fileID: 0}
-  itemButtonPrefab: {fileID: 0}
 --- !u!1 &9055881674352816415
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59b9777ba33e33409083e14d5c84812, type: 3}
+  m_Name: EliteRiotHelmet
+  m_EditorClassIdentifier: Assembly-CSharp::ArmourSO
+  armourName: Elite Riot Gear Helmet
+  value: 1500
+  weight: 6
+  _DT: 6
+  _DR: 0
+  effect: {fileID: 11400000, guid: 36d86c2d87ad699459d8143adbbcc4fc, type: 2}
+  armourClass: 0
+  armourType: 0

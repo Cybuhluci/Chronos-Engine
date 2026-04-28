@@ -324,5 +324,42 @@ public class CommandGenerator : MonoBehaviour
                 }
             }
         });
+
+        // set STRIVE stat (for testing stat effects)
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "setav",
+            Description = "Set STRIVE stat. Usage: setav <statName> <value>",
+            Execute = args =>
+            {
+                if (args.Length < 2)
+                {
+                    consoleManager.AppendOutput("Usage: setav <statName> <value>");
+                    return;
+                }
+
+                string statName = args[0];
+                if (int.TryParse(args[1], out int statValue))
+                {
+                    PlayerAttributes.Instance.SetStat(statName, statValue);
+                    consoleManager.AppendOutput($"Set {statName} to {statValue}");
+                }
+                else
+                {
+                    consoleManager.AppendOutput("Invalid value. Please enter a number.");
+                }
+            }
+        });
+
+        // list strive stats
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "liststats",
+            Description = "List all STRIVE stats.",
+            Execute = args =>
+            {
+                PlayerAttributes.Instance.PrintStats();
+            }
+        });
     }
 }

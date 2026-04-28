@@ -9,6 +9,7 @@ public class InventoryItemSO : ScriptableObject
         Weapon,
         Armour,
         Aid,
-        Misc
+        Misc,
+        Ammo
     }
 }

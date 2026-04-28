@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
 using Luci;
 using UnityEngine.UI;
 using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 // Player health and downed/self-revive behaviour
 public class PlayerHealth : MonoBehaviour
 {
+    public ArmourManager armourManager;
+   
     public bool _isInvulnerable = false;
     [Header("Health")]
-    public float MaxHealth = 100f;
+    public float MaxHealth => PlayerAttributes.Instance != null ? PlayerAttributes.Instance.health : 100f;
     public float CurrentHealth = 100f;
     public float MaxArmour = 100f;
     public float CurrentArmour = 100f;
@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
     // Armour is ablative: it absorbs damage until depleted, then health takes damage
 
     [Header("Downed / Self-Revive")]
+    public int selfRevivesLeft = 1;
     [Tooltip("Seconds player must hold Melee to self-revive")]
     public float selfReviveHoldTime = 5f;
     public Image selfReviveProgressUI; // optional UI element to show progress
@@ -31,7 +32,6 @@ public class PlayerHealth : MonoBehaviour
     public bool IsAlive;
 
     [SerializeField] private bool _isDowned = false;
-    [SerializeField] private bool _hasSelfRevived = false;
     [SerializeField] private float _reviveTimer = 0f;
 
     [SerializeField] private PlayerInput _playerInput;
@@ -46,8 +46,8 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!_isDowned) return;
 
-        // Only allow self-revive if allowed and not yet used
-        if (!allowSelfRevive || _hasSelfRevived) return;
+        // Only allow self-revive if there are self-revives left 
+        if (selfRevivesLeft <= 0) return;
 
         bool holding = false;
         if (_playerInput != null && _playerInput.actions["Melee"] != null)
@@ -64,8 +64,6 @@ public class PlayerHealth : MonoBehaviour
             _reviveTimer += Time.deltaTime;
             if (_reviveTimer >= selfReviveHoldTime)
             {
-                // complete self-revive
-                _hasSelfRevived = true;
                 ReviveSelf();
             }
         }
@@ -80,6 +78,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        // to do: add damage resistance and damage treshold using ArmourSO values
+
         if (_isInvulnerable) return;
         if (!_isDowned)
         {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "InvWeaponSO", menuName = "Scriptable Objects/InvWeaponSO")]
+[CreateAssetMenu(fileName = "InvWeaponSO", menuName = "Inventory/InvWeaponSO")]
 public class InvWeaponSO : InventoryItemSO
 {
     public MainGunDataSO gunData;

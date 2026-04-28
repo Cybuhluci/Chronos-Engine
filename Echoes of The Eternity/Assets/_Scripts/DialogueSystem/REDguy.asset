@@ -26,6 +26,9 @@ MonoBehaviour:
       requiredValue: 0
       setFlag: 
       setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
     - text: No.
       targetNodeId: 1
       endsConversation: 0
@@ -33,6 +36,9 @@ MonoBehaviour:
       requiredValue: 0
       setFlag: 
       setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
   - id: 1
     name: RED guy
     dialogueText: Fuck you mean, "No."?
@@ -45,6 +51,9 @@ MonoBehaviour:
       requiredValue: 0
       setFlag: 
       setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
     - text: Allow us to reintroduce ourselves.
       targetNodeId: 1b
       endsConversation: 0
@@ -52,6 +61,9 @@ MonoBehaviour:
       requiredValue: 0
       setFlag: 
       setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
   - id: 1b
     name: RED guy
     dialogueText: Yes, we must reintroduce ourselves.
