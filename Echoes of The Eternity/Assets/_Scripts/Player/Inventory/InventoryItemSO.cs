@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class InventoryItemSO : ScriptableObject
 {
+    public string id;
     public string itemName;
 
     public enum ItemType

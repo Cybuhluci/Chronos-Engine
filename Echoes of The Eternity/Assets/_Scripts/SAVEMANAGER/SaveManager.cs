@@ -10,6 +10,7 @@ namespace Luci.Saving
 
         private static string SkillsPath => Application.persistentDataPath + "/Save/SkillsFile.json";
         private static string PlayerPath => Application.persistentDataPath + "/Save/PlayerFile.json"; // PlayerAttributes.Instance
+        private static string InventoryPath => Application.persistentDataPath + "/Save/InventoryFile.json";
         public static List<SkillEntry> CurrentSkills = new();
 
         public void NewGame()
@@ -27,6 +28,8 @@ namespace Luci.Saving
         public void LoadGame()
         {
             LoadSkills();
+            LoadPlayerStats();
+            LoadInventory();
             Debug.Log("Game Loaded");
         }
 
@@ -34,8 +37,7 @@ namespace Luci.Saving
         {
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
-            LoadSkills();
-            LoadPlayerStats();
+            LoadGame();
         }
 
         public void SaveSTRIVEStats()
@@ -90,6 +92,70 @@ namespace Luci.Saving
             }
         }
 
+        public void SaveInventory(List<InventoryItemSO> inventoryItems)
+        {
+            CreateSaveDirectoryIfNeeded();
+            var saveData = new InventorySaveData();
+            var itemCounts = new Dictionary<string, int>();
+
+            foreach (var item in inventoryItems)
+            {
+                if (itemCounts.ContainsKey(item.id))
+                {
+                    itemCounts[item.id]++;
+                }
+                else
+                {
+                    itemCounts[item.id] = 1;
+                }
+            }
+
+            foreach (var pair in itemCounts)
+            {
+                saveData.items.Add(new InventoryItemEntry { itemID = pair.Key, quantity = pair.Value });
+            }
+
+            string json = JsonUtility.ToJson(saveData, true);
+            File.WriteAllText(InventoryPath, json);
+            Debug.Log("Inventory saved.");
+        }
+
+        public void LoadInventory()
+        {
+            if (!File.Exists(InventoryPath))
+            {
+                Debug.Log("No inventory save file found.");
+                return;
+            }
+
+            string json = File.ReadAllText(InventoryPath);
+            InventorySaveData saveData = JsonUtility.FromJson<InventorySaveData>(json);
+
+            if (InventoryManager.Instance != null && ItemDatabase.IsInitialized)
+            {
+                InventoryManager.Instance.ClearInventory();
+                foreach (var itemEntry in saveData.items)
+                {
+                    if (ItemDatabase.GetItem(itemEntry.itemID, out InventoryItemSO itemSO))
+                    {
+                        for (int i = 0; i < itemEntry.quantity; i++)
+                        {
+                            InventoryManager.Instance.AddItem(itemSO);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Could not find item with ID '{itemEntry.itemID}' in the database.");
+                    }
+                }
+                Debug.Log("Inventory loaded.");
+            }
+            else
+            {
+                Debug.LogWarning("InventoryManager or ItemDatabase not ready. Cannot load inventory.");
+            }
+        }
+
         // Save skills (individual skills' unlock states)
         public static void SaveSkills()
         {
@@ -136,6 +202,19 @@ namespace Luci.Saving
                 Debug.Log("Save directory created");
             }
         }
+    }
+
+    [System.Serializable]
+    public class InventorySaveData
+    {
+        public List<InventoryItemEntry> items = new List<InventoryItemEntry>();
+    }
+
+    [System.Serializable]
+    public class InventoryItemEntry
+    {
+        public string itemID;
+        public int quantity;
     }
 
     [System.Serializable]

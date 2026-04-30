@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e964b96fd01e04482a036221eeaad1, type: 3}
   m_Name: EliteRiotGearHelmet
   m_EditorClassIdentifier: Assembly-CSharp::InvArmourSO
+  id: 0020002
   itemName: Elite Riot Gear Helmet
   armourData: {fileID: 11400000, guid: 2dc16a206c5488d4799f371f8e0afcc3, type: 2}
   itemType: 1

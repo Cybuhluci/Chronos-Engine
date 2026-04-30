@@ -2,18 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PDAWeapons : MonoBehaviour
+public class PDAAmmo : MonoBehaviour
 {
     public GameObject weaponButtonPrefab;
     public Transform weaponButtonParent;
 
-    public GunMainScript gunMainScript;
     public InventoryManager inventoryManager;
-
-    public void EquipWeaponFromSO(MainGunDataSO mainGunDataSO)
-    {
-        gunMainScript.EquipWeaponNow(mainGunDataSO, null);
-    }
 
     private void OnEnable()
     {
@@ -22,12 +16,10 @@ public class PDAWeapons : MonoBehaviour
         // get the items from the inventory, and instantiate them as buttons to equip as guns.
         foreach (InventoryItemSO item in inventoryManager.GetInventoryItems())
         {
-            InvWeaponSO weaponItem = item as InvWeaponSO;
-            if (weaponItem == null) continue;
+            InvAmmoSO ammoItem = item as InvAmmoSO;
+            if (ammoItem == null) continue;
             var button = Instantiate(weaponButtonPrefab, weaponButtonParent);
-            button.GetComponentInChildren<TMP_Text>().text = item.itemName;
-            MainGunDataSO gunData = weaponItem.gunData;
-            button.GetComponent<Button>().onClick.AddListener(() => EquipWeaponFromSO(gunData));
+            button.GetComponentInChildren<TMP_Text>().text = item.itemName + $" ({inventoryManager.GetAmmoTypeAmount(ammoItem.ammoType)})";
         }
     }
 

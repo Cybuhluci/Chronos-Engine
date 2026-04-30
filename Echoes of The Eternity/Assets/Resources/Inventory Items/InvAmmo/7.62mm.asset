@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee077b3fb817bc4fb7beab76fb7bffe, type: 3}
   m_Name: 7.62mm
   m_EditorClassIdentifier: Assembly-CSharp::InvAmmoSO
+  id: 0030001
   itemName: 7.62mm
   ammoType: {fileID: 11400000, guid: 7bc6233a778c74043936afca5dafca55, type: 2}
   itemType: 4

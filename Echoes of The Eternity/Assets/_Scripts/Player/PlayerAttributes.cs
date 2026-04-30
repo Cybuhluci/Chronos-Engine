@@ -23,7 +23,7 @@ public class PlayerAttributes : MonoBehaviour
     public int stamina; // stamina, affects sprinting and melee attacks, if it reaches 0 the player is exhausted and cannot sprint or weapon bash until it regenerates.
     public int carryWeight; // carry weight, affects how much the player can carry before being encumbered, which affects movement speed and stamina regen.
 
-    // statuses; if any reach 1000 the playuer dies, skipping downed state.
+    // statuses; if any reach 1000 the player dies, skipping downed state.
     public int thirst; // thirst, affects stamina regen and health regen.
     public int hunger; // hunger, affects stamina regen and health regen.
     public int sleep; // sleep, affects stamina regen and health regen.
@@ -34,16 +34,7 @@ public class PlayerAttributes : MonoBehaviour
         Instance = this; // set the singleton instance to this script, so it can be accessed from other scripts.
         // Initialize stats to default values foe debugging purposes. These can be changed later on as the player progresses.
         SaveManager.Instance.LoadPlayerStats(); // loads STRIVE stats from the save file, so they can be used in the game.
-        luck = CalculateLuck();
-
-        // things to update based on stats:
-        // sway: nothing right now,
-        // tenacity: carry weight and weapon handling,
-        // rapidity: max SP and SP drain,
-        // intellect: nothing right now,
-        // vitality: max health, limb condition, and aid item hp regen,
-        // eye: nothing right now,
-        // luck: nothing right now.
+        CalculateAllStats();
     }
 
     private int CalculateLuck()
@@ -72,6 +63,15 @@ public class PlayerAttributes : MonoBehaviour
 
     private void CalculateAllStats()
     {
+        // things to update based on stats:
+        // sway: nothing right now,
+        // tenacity: carry weight and weapon handling,
+        // rapidity: max SP and SP drain,
+        // intellect: nothing right now,
+        // vitality: max health, limb condition, and aid item hp regen,
+        // eye: nothing right now,
+        // luck: nothing right now.
+
         luck = CalculateLuck();
         carryWeight = CalculateCarryWeight();
         health = CalculateMaxHealth();

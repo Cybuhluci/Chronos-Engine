@@ -44,10 +44,6 @@ public class GunMainScript : MonoBehaviour
     private bool _reloadHeld = false;
     private float _reloadHoldTimer = 0f;
 
-    [Header("Starting Loadout")]
-    public MainGunDataSO[] StartingPrimary;
-    public InvWeaponSO[] startingPrimary;
-
     // currentSlot is a 0-based index into the fixed 8-slot inventory.
     // A value of -1 means a non-bound (transient) weapon is currently equipped.
     // A value of -2 means unarmed (no weapon equipped)
@@ -165,9 +161,6 @@ public class GunMainScript : MonoBehaviour
         // initialize instance array to match inventory length
         // note this is temporary, and will change somehow in the future.
         _inventoryModelInstances = new GameObject[inventory.Length];
-        InventoryManager.Instance.AddItem(startingPrimary[0]);
-        InventoryManager.Instance.AddItem(startingPrimary[1]);
-        InventoryManager.Instance.AddItem(startingPrimary[2]);
 
         ShowOnlyCurrentWeaponModel();
         GiveControllersBulletHolePrefabs();

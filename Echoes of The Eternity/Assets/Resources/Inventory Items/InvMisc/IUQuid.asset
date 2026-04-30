@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb09adb625512904e9e0bb5429b1d40c, type: 3}
-  m_Name: Misc01
+  m_Name: IUQuid
   m_EditorClassIdentifier: Assembly-CSharp::InvMiscSO
-  itemName: Wheel of Fortune
+  id: 000000f
+  itemName: IntraUniversal Quid
   itemType: 3

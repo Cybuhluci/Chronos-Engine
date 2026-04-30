@@ -1,3 +1,4 @@
+using Luci.Saving;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,8 +33,14 @@ public class InventoryManager : MonoBehaviour
         if (collectedItems.Contains(item))
         {
             collectedItems.Remove(item);
+            SaveInventoryToFile();
             Debug.Log("Item removed from inventory: " + item.itemName);
         }
+    }
+
+    public void ClearInventory()
+    {
+        collectedItems.Clear();
     }
 
     public int GetAmmoTypeAmount(AmmoTypesSO ammoType)
@@ -50,6 +57,21 @@ public class InventoryManager : MonoBehaviour
             //totalWeight += item.weight;
         }
         return totalWeight;
+    }
+
+    public bool IsOverEncumbered()
+    {
+        return GetCurrentWeight() > inventoryWeightLimit;
+    }
+
+    public void SaveInventoryToFile()
+    {
+        SaveManager.Instance.SaveInventory(collectedItems);
+    }
+
+    public void LoadInventoryFromFile()
+    {
+        SaveManager.Instance.LoadInventory();
     }
 
     public List<InventoryItemSO> GetInventoryItems()

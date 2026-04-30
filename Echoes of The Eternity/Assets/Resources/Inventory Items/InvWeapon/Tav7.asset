@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d69725eb543b108438302ac3f10202e4, type: 3}
-  m_Name: Colt Gov
+  m_Name: Tav7
   m_EditorClassIdentifier: Assembly-CSharp::InvWeaponSO
-  itemName: Colt Government
-  gunData: {fileID: 11400000, guid: d6fec2ea8a4eb2b448782364c3f6d6af, type: 2}
+  id: 0010005
+  itemName: Tavor 7
+  gunData: {fileID: 11400000, guid: 06f206df99c702649a2bbba6913f3073, type: 2}
   itemType: 0

@@ -9,8 +9,6 @@ public class PDAArmour : MonoBehaviour
 
     public ArmourManager armourManager;
     public InventoryManager inventoryManager;
-    public GameObject inventoryItemParent;
-    public GameObject itemButtonPrefab;
 
     public void EquipArmourFromSO(ArmourSO Armour)
     {

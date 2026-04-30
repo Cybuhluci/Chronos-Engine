@@ -1,9 +1,10 @@
+using Luci.Saving;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CommandGenerator : MonoBehaviour
 {
-    [SerializeField] private ConsoleManager consoleManager; 
+    [SerializeField] private ConsoleManager consoleManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -359,6 +360,65 @@ public class CommandGenerator : MonoBehaviour
             Execute = args =>
             {
                 PlayerAttributes.Instance.PrintStats();
+            }
+        });
+
+        // save inventory to file (for testing item saving/loading)
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "saveinv",
+            Description = "Save player inventory to file (for testing).",
+            Execute = args =>
+            {
+                InventoryManager.Instance.SaveInventoryToFile();
+            }
+        });
+
+        // load inventory from file (for testing item saving/loading)
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "loadinv",
+            Description = "Load player inventory from file (for testing).",
+            Execute = args =>
+            {
+                InventoryManager.Instance.LoadInventoryFromFile();
+            }
+        });
+
+        // additem to inventory by item ID (for testing item spawning)
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "additem",
+            Description = "Add item to inventory by ID. Usage: additem <itemID> [amount]",
+            Execute = args =>
+            {
+                if (args.Length < 1)
+                {
+                    consoleManager.AppendOutput("Usage: additem <itemID> [amount]");
+                    return;
+                }
+
+                string itemID = args[0];
+                int amount = 1;
+
+                if (args.Length > 1 && !int.TryParse(args[1], out amount))
+                {
+                    consoleManager.AppendOutput($"Invalid amount: {args[1]}. Please enter a whole number.");
+                    return;
+                }
+
+                if (ItemDatabase.GetItem(itemID, out InventoryItemSO item))
+                {
+                    for (int i = 0; i < amount; i++)
+                    {
+                        InventoryManager.Instance.AddItem(item);
+                    }
+                    consoleManager.AppendOutput($"Added {amount} of '{item.itemName}' ({itemID}) to inventory.");
+                }
+                else
+                {
+                    consoleManager.AppendOutput($"Item with ID '{itemID}' not found in database.");
+                }
             }
         });
     }

@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d69725eb543b108438302ac3f10202e4, type: 3}
-  m_Name: RPG
+  m_Name: Colt Gov
   m_EditorClassIdentifier: Assembly-CSharp::InvWeaponSO
-  itemName: RPG-7
-  gunData: {fileID: 11400000, guid: 34139602d6cd0ac4b8573b11404ae3de, type: 2}
+  id: 0010001
+  itemName: Colt Government
+  gunData: {fileID: 11400000, guid: d6fec2ea8a4eb2b448782364c3f6d6af, type: 2}
   itemType: 0
