@@ -1,5 +1,6 @@
 using Luci.Saving;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAttributes : MonoBehaviour
     // the most important script for the player.
@@ -7,6 +8,15 @@ public class PlayerAttributes : MonoBehaviour
     // these are NOT the the variables used for currentplayer[blank], the health in this script is not current health, but instead the maxmimum health.
 {
     public static PlayerAttributes Instance; // singleton instance of the PlayerAttributes script, so it can be accessed from other scripts.
+
+    public enum Difficulty
+    {
+        Tivolian, // easy
+        Sapien, // normal
+        Silurian, // hard
+        TimeLord, // very hard/survival mode
+    }
+    public Difficulty currentDifficulty = Difficulty.Sapien;
 
     // STRIVE stats
     public int sway; // charisma

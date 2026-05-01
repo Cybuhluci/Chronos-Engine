@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2013712925941267378}
-  - component: {fileID: 6020347746809382036}
   - component: {fileID: 7585586747913048113}
   - component: {fileID: 618557204727525067}
   m_Layer: 9
@@ -34,24 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -111.091, y: 90.993, z: -134.007}
---- !u!114 &6020347746809382036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4494365226019394929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1347b655b83c7c4d88b645bad38501f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GrenadeController
-  grenadeData: {fileID: 11400000, guid: 9b7a39cdc86885642b60d3d4094a25f7, type: 2}
-  currentAmmo: 0
-  chunkImage: {fileID: 0}
-  GrenadeAmmo: {fileID: 0}
-  UIInstance: {fileID: 484095547345312602, guid: ec068f658f6178546a9bf24b19e46ff4, type: 3}
-  UIInstanceContainer: {fileID: 0}
 --- !u!33 &7585586747913048113
 MeshFilter:
   m_ObjectHideFlags: 0

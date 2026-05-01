@@ -8,7 +8,8 @@ public class ChemicalGasZone : MonoBehaviour
     [SerializeField] private ParticleSystem gasEffect; // Visual effect for the chemical gas
     [SerializeField] private SphereCollider gasCollider; // Collider representing the gas zone
     [SerializeField] private PlayerHealth _fpc; // Reference to the player's health component
-    [SerializeField] private GasMaskScript _GMS;
+    [SerializeField] private ArmourManager armourManager;
+    [SerializeField] private ArmourEffectSO gasMaskEffect; // The effect that the gas mask provides
 
     public void ToggleGasZone()
     {
@@ -29,14 +30,14 @@ public class ChemicalGasZone : MonoBehaviour
 
     private void Awake()
     {
-        _GMS = FindFirstObjectByType<GasMaskScript>();
+        armourManager = FindFirstObjectByType<ArmourManager>();
         gasCollider.enabled = false; // Ensure the gas collider is initially disabled
         FindGasMask();
     }
 
     void FindGasMask()
     {
-        _GMS = FindFirstObjectByType<GasMaskScript>();
+        armourManager = FindFirstObjectByType<ArmourManager>();
     }
 
     private void Update()
@@ -46,11 +47,11 @@ public class ChemicalGasZone : MonoBehaviour
             // Check if the player is within the gas zone
             if (gasCollider.bounds.Contains(_fpc.transform.position))
             {
-                if (_GMS == null)
+                if (armourManager == null)
                 {
                     FindGasMask();
                 }
-                if (!_GMS.IsGasMaskActive())
+                if (armourManager.currentArmour[1].effect != gasMaskEffect)
                 {
                     // Apply full damage to the player over time
                     _fpc.TakeDamage(damagePerSecond * Time.deltaTime);

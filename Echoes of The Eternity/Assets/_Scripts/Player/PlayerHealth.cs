@@ -13,8 +13,6 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health")]
     public float MaxHealth => PlayerAttributes.Instance != null ? PlayerAttributes.Instance.health : 100f;
     public float CurrentHealth = 100f;
-    public float MaxArmour = 100f;
-    public float CurrentArmour = 100f;
     // Time of last received damage (Time.time). Used by healing logic to wait until player hasn't
     // taken damage for a short duration before starting passive heals.
     public float LastDamageTime { get; private set; } = -999f;
@@ -50,9 +48,9 @@ public class PlayerHealth : MonoBehaviour
         if (selfRevivesLeft <= 0) return;
 
         bool holding = false;
-        if (_playerInput != null && _playerInput.actions["Melee"] != null)
+        if (_playerInput != null && _playerInput.actions["Bash"] != null)
         {
-            holding = _playerInput.actions["Melee"].IsPressed();
+            holding = _playerInput.actions["Bash"].IsPressed();
         }
         else
         {
@@ -81,21 +79,10 @@ public class PlayerHealth : MonoBehaviour
         // to do: add damage resistance and damage treshold using ArmourSO values
 
         if (_isInvulnerable) return;
+
         if (!_isDowned)
         {
-            LastDamageTime = Time.time;
-            if (CurrentArmour > 0f)
-            {
-                float armourDamage = Mathf.Min(CurrentArmour, amount);
-                CurrentArmour -= armourDamage;
-                amount -= armourDamage;
-            }
-            else if (CurrentArmour <= 0f)
-            {
-                CurrentHealth -= amount;
-                CurrentArmour = 0f;
-            }
-
+            CurrentHealth -= amount;
             if (CurrentHealth <= 0f)
             {
                 EnterDownedState();

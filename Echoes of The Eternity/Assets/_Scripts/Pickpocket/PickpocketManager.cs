@@ -49,6 +49,9 @@ public class PickpocketManager : MonoBehaviour
             // Add functionality to item UI, find button and assign transfer method
             var transferToCharacterButton = itemUI.transform.GetComponent<Button>();
             transferToCharacterButton.onClick.AddListener(() => TransferItemToCharacter(item));
+            // make sure that if an item already exists then a new button isnt made,
+            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
+            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
         }
 
         // Populate character inventory UI
@@ -59,6 +62,9 @@ public class PickpocketManager : MonoBehaviour
             // Add functionality to item UI, find button and assign transfer method
             var transferToPlayerButton = itemUI.transform.GetComponent<Button>();
             transferToPlayerButton.onClick.AddListener(() => TransferItemToPlayer(item));
+            // make sure that if an item already exists then a new button isnt made,
+            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
+            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
         }
     }
 
@@ -103,6 +109,9 @@ public class PickpocketManager : MonoBehaviour
             // Add functionality to item UI, find button and assign transfer method
             var transferToCharacterButton = itemUI.transform.GetComponent<Button>();
             transferToCharacterButton.onClick.AddListener(() => TransferItemToCharacter(item));
+            // make sure that if an item already exists then a new button isnt made,
+            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
+            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
         }
 
         // Populate character inventory UI
@@ -113,6 +122,9 @@ public class PickpocketManager : MonoBehaviour
             // Add functionality to item UI, find button and assign transfer method
             var transferToPlayerButton = itemUI.transform.GetComponent<Button>();
             transferToPlayerButton.onClick.AddListener(() => TransferItemToPlayer(item));
+            // make sure that if an item already exists then a new button isnt made,
+            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
+            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
         }
     }
 

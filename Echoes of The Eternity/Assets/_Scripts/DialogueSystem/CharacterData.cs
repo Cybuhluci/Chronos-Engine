@@ -7,9 +7,6 @@ public class CharacterData : ScriptableObject
     public string characterName;
 
     public DialogueSO dialogue;
-    public string temporaryDialogue;
-    public int temporaryOptionsCount;
-    public string[] temporaryOptions;
 
     public InventoryItemSO[] inventoryItems;
  

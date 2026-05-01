@@ -7,7 +7,6 @@ namespace Luci
     [RequireComponent(typeof(PlayerInput))]
     public class FirstPersonController : MonoBehaviour
     {
-        [SerializeField] MissionManager _MissionManager;
         [SerializeField] PDAManager _PDAManager;
         [SerializeField] GunMainScript _GMS;
         [SerializeField] FTPpausescript _FTPpause;
@@ -166,8 +165,6 @@ namespace Luci
                 if (pitch > 180f) pitch -= 360f;
                 targetPitch = pitch;
             }
-
-            _MissionManager = MissionManager.Instance;
         }
 
         private void Update()

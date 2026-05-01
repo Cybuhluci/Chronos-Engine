@@ -12,7 +12,6 @@ public class EnemyController : MonoBehaviour
     private EnemyHealth _health;
     private Transform _player;
     private PlayerHealth _playerHealth;
-    [SerializeField] private MissionManager _missionManager;
 
     private enum State { Idle, Patrol, Investigate, Chase, Attack, Dead }
     private State _state = State.Idle;
@@ -69,8 +68,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        _missionManager = FindAnyObjectByType<MissionManager>();
-        _missionManager = MissionManager.Instance;
+
     }
 
     private void Update()

@@ -9,19 +9,22 @@ namespace Luci.Saving
         public static SaveManager Instance { get; private set; }
 
         private static string SkillsPath => Application.persistentDataPath + "/Save/SkillsFile.json";
-        private static string PlayerPath => Application.persistentDataPath + "/Save/PlayerFile.json"; // PlayerAttributes.Instance
+        private static string PlayerPath => Application.persistentDataPath + "/Save/PlayerFile.json";
         private static string InventoryPath => Application.persistentDataPath + "/Save/InventoryFile.json";
+        private static string FactionReputationsPath => Application.persistentDataPath + "/Save/Factions.json";
         public static List<SkillEntry> CurrentSkills = new();
 
         public void NewGame()
         {
             ResetSkills();
+            // Note: You might want to reset player stats and factions here too
             Debug.Log("New Game Started");
         }
 
         public void ResetGame()
         {
             ResetSkills();
+            // Note: You might want to reset player stats and factions here too
             Debug.Log("Game Reset");
         }
 
@@ -30,6 +33,12 @@ namespace Luci.Saving
             LoadSkills();
             LoadPlayerStats();
             LoadInventory();
+
+            if (global::FactionManager.Instance != null)
+            {
+                global::FactionManager.Instance.ReloadReputations();
+            }
+
             Debug.Log("Game Loaded");
         }
 
@@ -38,6 +47,34 @@ namespace Luci.Saving
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
             LoadGame();
+        }
+
+        public void SaveFactionReputations(Dictionary<string, FactionReputation> reputations)
+        {
+            CreateSaveDirectoryIfNeeded();
+            var saveData = new FactionReputationSaveData();
+            saveData.reputations = new List<FactionReputation>(reputations.Values);
+
+            // Sort the list by factionID numerically/alphabetically before saving
+            saveData.reputations.Sort((a, b) => string.Compare(a.factionID, b.factionID));
+
+            string json = JsonUtility.ToJson(saveData, true);
+            File.WriteAllText(FactionReputationsPath, json);
+            Debug.Log("Faction reputations saved.");
+        }
+
+        public List<FactionReputation> LoadFactionReputations()
+        {
+            if (!File.Exists(FactionReputationsPath))
+            {
+                Debug.Log("No faction reputation save file found.");
+                return null;
+            }
+
+            string json = File.ReadAllText(FactionReputationsPath);
+            FactionReputationSaveData saveData = JsonUtility.FromJson<FactionReputationSaveData>(json);
+            Debug.Log("Faction reputations loaded.");
+            return saveData.reputations;
         }
 
         public void SaveSTRIVEStats()
@@ -239,5 +276,11 @@ namespace Luci.Saving
     public class SkillSaveData
     {
         public List<SkillEntry> unlockedSkills = new();
+    }
+
+    [System.Serializable]
+    public class FactionReputationSaveData
+    {
+        public List<global::FactionReputation> reputations = new();
     }
 }

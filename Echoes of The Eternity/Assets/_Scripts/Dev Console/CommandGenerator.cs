@@ -252,7 +252,6 @@ public class CommandGenerator : MonoBehaviour
                 if (ph != null)
                 {
                     ph.CurrentHealth = ph.MaxHealth;
-                    ph.CurrentArmour = ph.MaxArmour;
                     string msg = "Player health and armour refilled.";
                     Debug.Log(msg);
                     consoleManager.AppendOutput(msg);
@@ -418,6 +417,140 @@ public class CommandGenerator : MonoBehaviour
                 else
                 {
                     consoleManager.AppendOutput($"Item with ID '{itemID}' not found in database.");
+                }
+            }
+        });
+
+        // save reputatations
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "saverep",
+            Description = "Save player reputations to file (for testing).",
+            Execute = args =>
+            {
+                SaveManager.Instance.SaveFactionReputations(FactionManager.Instance.GetAllReputations());
+            }
+        });
+
+        // add postive karma to a faction
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "addkarma+",
+            Description = "Add positive karma to a faction. Usage: addkarma <factionName> <amount>",
+            Execute = args =>
+            {
+                if (args.Length < 2)
+                {
+                    consoleManager.AppendOutput("Usage: addkarma <factionName> <amount>");
+                    return;
+                }
+                string factionName = args[0];
+                if (int.TryParse(args[1], out int amount))
+                {
+                    FactionManager.Instance.AddKarma(factionName, amount, 0);
+                    consoleManager.AppendOutput($"Added {amount} positive karma to faction '{factionName}'.");
+                }
+                else
+                {
+                    consoleManager.AppendOutput($"Invalid amount: {args[1]}. Please enter a whole number.");
+                }
+            }
+        });
+
+        // add negative karma to a faction
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "addkarma-",
+            Description = "Add negative karma to a faction. Usage: addnegkarma <factionName> <amount>",
+            Execute = args =>
+            {
+                if (args.Length < 2)
+                {
+                    consoleManager.AppendOutput("Usage: addnegkarma <factionName> <amount>");
+                    return;
+                }
+                string factionName = args[0];
+                if (int.TryParse(args[1], out int amount))
+                {
+                    FactionManager.Instance.AddKarma(factionName, 0, amount);
+                    consoleManager.AppendOutput($"Added {amount} negative karma to faction '{factionName}'.");
+                }
+                else
+                {
+                    consoleManager.AppendOutput($"Invalid amount: {args[1]}. Please enter a whole number.");
+                }
+            }
+        });
+
+        // get karma of a faction
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "getkarma",
+            Description = "Get karma of a faction. Usage: getkarma <factionName>",
+            Execute = args =>
+            {
+                if (args.Length < 1)
+                {
+                    consoleManager.AppendOutput("Usage: getkarma <factionName>");
+                    return;
+                }
+                string factionName = args[0];
+                var rep = FactionManager.Instance.GetReputation(factionName);
+                if (rep != null)
+                {
+                    consoleManager.AppendOutput($"Faction '{factionName}' has {rep.positiveKarma} positive karma and {rep.negativeKarma} negative karma.");
+                }
+                else
+                {
+                    consoleManager.AppendOutput($"Faction '{factionName}' not found.");
+                }
+            }
+        });
+
+        // gain XP
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "gainxp",
+            Description = "Gain XP. Usage: gainxp <amount>",
+            Execute = args =>
+            {
+                if (args.Length < 1)
+                {
+                    consoleManager.AppendOutput("Usage: gainxp <amount>");
+                    return;
+                }
+                if (float.TryParse(args[0], out float amount))
+                {
+                    PlayerLevelSystem.Instance.GainXP(amount);
+                    consoleManager.AppendOutput($"Gained {amount} XP.");
+                }
+                else
+                {
+                    consoleManager.AppendOutput($"Invalid amount: {args[0]}. Please enter a number.");
+                }
+            }
+        });
+
+        // set player level
+        CommandRegistry.Register(new ConsoleCommand
+        {
+            Name = "setlevel",
+            Description = "Set player level. Usage: setlevel <level>",
+            Execute = args =>
+            {
+                if (args.Length < 1)
+                {
+                    consoleManager.AppendOutput("Usage: setlevel <level>");
+                    return;
+                }
+                if (int.TryParse(args[0], out int level))
+                {
+                    PlayerLevelSystem.Instance.SetLevel(level);
+                    consoleManager.AppendOutput($"Set player level to {level}.");
+                }
+                else
+                {
+                    consoleManager.AppendOutput($"Invalid level: {args[0]}. Please enter a whole number.");
                 }
             }
         });

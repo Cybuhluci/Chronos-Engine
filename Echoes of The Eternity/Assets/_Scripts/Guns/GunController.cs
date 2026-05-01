@@ -77,8 +77,9 @@ public class GunController : MonoBehaviour
         if (gunData != null)
         {
             overallAmmo = inventoryManager.GetAmmoTypeAmount(gunData.ammoType);
-            currentAmmo = gunData.magazineSize;
-            reserveAmmo = overallAmmo - gunData.magazineSize;
+            reserveAmmo = overallAmmo;
+            currentAmmo = Mathf.Min(gunData.magazineSize, reserveAmmo);
+            reserveAmmo -= currentAmmo;
         }
 
         // cache original local transform for sprinting animation
@@ -189,6 +190,9 @@ public class GunController : MonoBehaviour
     private void Attack()
     {
         if (gunData == null) return;
+
+        //remove amount of bullets per shot from current ammo, but ensure it doesn't go negative (for shotguns or multi-pellet weapons)
+        inventoryManager.ConsumeAmmo(gunData.ammoType, gunData.ammoType.bulletsPerShot);
 
         int pellets = Mathf.Max(1, gunData.ammoType.bulletsPerShot);
         Camera cam = Camera.main;

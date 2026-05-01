@@ -45,8 +45,34 @@ public class InventoryManager : MonoBehaviour
 
     public int GetAmmoTypeAmount(AmmoTypesSO ammoType)
     {
-        int amount = 100;
+        int amount = 0;
+
+        // only search for invammoso - get the quantity count held in the inventory for that ammo type
+        foreach (var item in collectedItems)
+        {
+            if (item is InvAmmoSO ammoItem && ammoItem.ammoType == ammoType)
+            {
+                amount++;
+            }
+        }
+
         return amount;
+    }
+
+    public void ConsumeAmmo(AmmoTypesSO ammoType, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            for (int j = 0; j < collectedItems.Count; j++)
+            {
+                if (collectedItems[j] is InvAmmoSO ammoItem && ammoItem.ammoType == ammoType)
+                {
+                    collectedItems.RemoveAt(j);
+                    break;
+                }
+            }
+        }
+        SaveInventoryToFile();
     }
 
     public int GetCurrentWeight()
