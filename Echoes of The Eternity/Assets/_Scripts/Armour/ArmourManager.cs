@@ -6,6 +6,7 @@ public class ArmourManager : MonoBehaviour
     public PlayerHealth playerHealth;
 
     public int overallDT => currentArmour != null ? CalculateOverallDT() : 0;
+    public int overallDR => currentArmour != null ? CalculateOverallDR() : 0;
 
     private int CalculateOverallDT()
     {
@@ -20,9 +21,27 @@ public class ArmourManager : MonoBehaviour
         return totalDT;
     }
 
+    private int CalculateOverallDR()
+    {
+        int totalDR = 0;
+        foreach (var armour in currentArmour)
+        {
+            if (armour != null)
+            {
+                totalDR += armour._DR;
+            }
+        }
+        return totalDR;
+    }
+
     public int getOverallDT()
     {
         return overallDT;
+    }
+
+    public int getOverallDR()
+    {
+        return overallDR;
     }
 
     public void ManageSelectedArmour(ArmourSO Armour)

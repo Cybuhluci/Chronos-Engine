@@ -59,18 +59,24 @@ namespace Luci.Interactions
 
         public void RemoveInventoryItem(InventoryItemSO item)
         {
+            // Find the index of the first matching item to avoid removing identical duplicates
+            int indexToRemove = System.Array.IndexOf(inventoryItemSOs, item);
+            if (indexToRemove < 0) return; // Item not found
+
             // Create a new array with one less element
             InventoryItemSO[] newInventory = new InventoryItemSO[inventoryItemSOs.Length - 1];
-            int index = 0;
-            // Copy all items except the one to remove
+            int destIndex = 0;
+            
+            // Copy all items except the specific matched index
             for (int i = 0; i < inventoryItemSOs.Length; i++)
             {
-                if (inventoryItemSOs[i] != item)
+                if (i != indexToRemove)
                 {
-                    newInventory[index] = inventoryItemSOs[i];
-                    index++;
+                    newInventory[destIndex] = inventoryItemSOs[i];
+                    destIndex++;
                 }
             }
+            
             // Replace the old inventory with the new one
             inventoryItemSOs = newInventory;
         }

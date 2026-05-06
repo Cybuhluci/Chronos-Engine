@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,18 +20,18 @@ public class PDAArmour : MonoBehaviour
     {
         ResetUI();
 
-        // get the items from the inventory, and instantiate them as buttons to equip as guns.
-        foreach (InventoryItemSO item in inventoryManager.GetInventoryItems())
+        // get the items from the inventory, and instantiate them as buttons to equip as armour.
+        var groupedArmour = inventoryManager.GetInventoryItems().OfType<InvArmourSO>().GroupBy(i => i);
+        foreach (var group in groupedArmour)
         {
-            InvArmourSO armourItem = item as InvArmourSO;
-            if (armourItem == null) continue;
+            var armourItem = group.Key;
+            int count = group.Count();
+            
             var button = Instantiate(weaponButtonPrefab, weaponButtonParent);
-            button.GetComponentInChildren<TMP_Text>().text = item.itemName;
+            button.GetComponentInChildren<TMP_Text>().text = count > 1 ? $"{armourItem.itemName} (x{count})" : armourItem.itemName;
+            
             ArmourSO armourData = armourItem.armourData;
             button.GetComponent<Button>().onClick.AddListener(() => EquipArmourFromSO(armourData));
-            // make sure that if an item already exists then a new button isnt made,
-            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
-            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
         }
     }
 

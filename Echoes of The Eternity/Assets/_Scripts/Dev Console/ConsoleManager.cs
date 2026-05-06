@@ -8,6 +8,8 @@ public class ConsoleManager : MonoBehaviour
 {
     public static ConsoleManager instance;
 
+    public GameObject gameHUD;              // Assign in inspector (optional, for toggling HUD visibility)
+
     public TMP_InputField inputField;      // Assign in inspector
     public TMP_Text outputText;            // Assign in inspector
     public Button submitButton;            // Assign in inspector
@@ -35,6 +37,8 @@ public class ConsoleManager : MonoBehaviour
     {
         cursorLockState = Cursor.lockState;
         Cursor.lockState = developerconsole.activeSelf ? cursorLockState : CursorLockMode.None;
+
+        gameHUD.SetActive(developerconsole.activeSelf);
 
         developerconsole.SetActive(!developerconsole.activeSelf);
         if (developerconsole.activeSelf)

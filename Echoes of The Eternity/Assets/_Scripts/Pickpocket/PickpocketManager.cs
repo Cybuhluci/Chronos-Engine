@@ -1,5 +1,6 @@
 using Luci;
 using Luci.Interactions;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -39,33 +40,7 @@ public class PickpocketManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         playerHUD.SetActive(false);
 
-        ResetItems();
-
-        // Populate player inventory UI
-        foreach (InventoryItemSO item in playerInventoryManager.GetInventoryItems())
-        {
-            var itemUI = Instantiate(inventoryItemPrefab, playerInventoryParent);
-            itemUI.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName;
-            // Add functionality to item UI, find button and assign transfer method
-            var transferToCharacterButton = itemUI.transform.GetComponent<Button>();
-            transferToCharacterButton.onClick.AddListener(() => TransferItemToCharacter(item));
-            // make sure that if an item already exists then a new button isnt made,
-            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
-            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
-        }
-
-        // Populate character inventory UI
-        foreach (InventoryItemSO item in currentNPC.inventoryItemSOs)
-        {
-            var itemUI = Instantiate(inventoryItemPrefab, characterInventoryParent);
-            itemUI.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName;
-            // Add functionality to item UI, find button and assign transfer method
-            var transferToPlayerButton = itemUI.transform.GetComponent<Button>();
-            transferToPlayerButton.onClick.AddListener(() => TransferItemToPlayer(item));
-            // make sure that if an item already exists then a new button isnt made,
-            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
-            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
-        }
+        UpdateUI();
     }
 
     public void TransferItemToPlayer(InventoryItemSO item)
@@ -101,30 +76,32 @@ public class PickpocketManager : MonoBehaviour
     {
         ResetItems();
 
-        // Repopulate player inventory UI
-        foreach (var item in playerInventoryManager.GetInventoryItems())
+        // Repopulate player inventory UI with grouped items
+        var groupedPlayerItems = playerInventoryManager.GetInventoryItems().GroupBy(i => i);
+        foreach (var group in groupedPlayerItems)
         {
+            var item = group.Key;
+            int count = group.Count();
+
             var itemUI = Instantiate(inventoryItemPrefab, playerInventoryParent);
-            itemUI.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName;
-            // Add functionality to item UI, find button and assign transfer method
+            itemUI.GetComponentInChildren<TextMeshProUGUI>().text = count > 1 ? $"{item.itemName} (x{count})" : item.itemName;
+            
             var transferToCharacterButton = itemUI.transform.GetComponent<Button>();
             transferToCharacterButton.onClick.AddListener(() => TransferItemToCharacter(item));
-            // make sure that if an item already exists then a new button isnt made,
-            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
-            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
         }
 
-        // Populate character inventory UI
-        foreach (var item in currentNPC.inventoryItemSOs)
+        // Populate character inventory UI with grouped items
+        var groupedNPCItems = currentNPC.inventoryItemSOs.GroupBy(i => i);
+        foreach (var group in groupedNPCItems)
         {
+            var item = group.Key;
+            int count = group.Count();
+
             var itemUI = Instantiate(inventoryItemPrefab, characterInventoryParent);
-            itemUI.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName;
-            // Add functionality to item UI, find button and assign transfer method
+            itemUI.GetComponentInChildren<TextMeshProUGUI>().text = count > 1 ? $"{item.itemName} (x{count})" : item.itemName;
+            
             var transferToPlayerButton = itemUI.transform.GetComponent<Button>();
             transferToPlayerButton.onClick.AddListener(() => TransferItemToPlayer(item));
-            // make sure that if an item already exists then a new button isnt made,
-            // and instead the existing button gets a "(xn)" added to the end of the item name to show how many of that item there are,
-            // and the transfer method is updated to use a new multi-item transfer method that allows the player to choose how many of that item they want to transfer
         }
     }
 

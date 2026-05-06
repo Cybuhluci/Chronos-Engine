@@ -36,13 +36,14 @@ namespace Luci.Interactions
         {
             if (requiresKey)
             {
-                if (PlayerInventory.Instance.HasItem(requiredKeyName))  // Check if player has the key
+                //if (InventoryManager.Instance.HasItem(requiredKeyName))  // Check if player has the key
+                if (true) // Placeholder for key check
                 {
                     Debug.Log("Key found: Opening Key Door.");
                     OpenDoor();
                     if (singleUseKey)
                     {
-                        PlayerInventory.Instance.RemoveItemFromInventory(requiredKeyName);
+                        //InventoryManager.Instance.RemoveItem(requiredKeyName);
                     }
                 }
                 else

@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 // Events to communicate with the UI layer (DialogueManager)
 [Serializable] public class OnDialogueNodeStart : UnityEvent<DialogueNode, CharacterData> { }
 [Serializable] public class OnOptionsReady : UnityEvent<List<DialogueChoice>> { }
+[Serializable] public class OnDialogueEndEvent : UnityEvent<EndNodeType> { }
 
 public class DialogueRunner : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class DialogueRunner : MonoBehaviour
     // --- Events ---
     public OnDialogueNodeStart onDialogueNodeStart;
     public OnOptionsReady onOptionsReady;
-    public UnityEvent onDialogueEnd;
+    public OnDialogueEndEvent onDialogueEnd;
 
     // --- Internal State ---
     private DialogueSO currentDialogueSO;
@@ -89,7 +90,7 @@ public class DialogueRunner : MonoBehaviour
 
         if (!nodeLookup.TryGetValue(nodeId, out currentDialogueNode))
         {
-            Debug.LogWarning($"Dialogue node '{nodeId}' not found in '{currentDialogueSO.name}'. Ending dialogue.");
+            Debug.LogWarning($"Dialogue node '{nodeId}' not found. Ending dialogue.");
             EndDialogue();
             return;
         }
@@ -97,11 +98,62 @@ public class DialogueRunner : MonoBehaviour
         currentNodeId = nodeId;
         advancePressed = false;
 
-        // Notify the UI to display this node's content
-        onDialogueNodeStart.Invoke(currentDialogueNode, currentCharacterData);
+        // Process based on type
+        switch (currentDialogueNode.nodeType)
+        {
+            case NodeType.Start:
+                // Instantly proxy to the next node
+                ShowDialogue(currentDialogueNode.nextDialogueNodeId);
+                break;
 
-        if (waitCoroutine != null) StopCoroutine(waitCoroutine);
-        waitCoroutine = StartCoroutine(WaitForInputOrTime());
+            case NodeType.Dialogue:
+                onDialogueNodeStart.Invoke(currentDialogueNode, currentCharacterData);
+                if (waitCoroutine != null) StopCoroutine(waitCoroutine);
+                waitCoroutine = StartCoroutine(WaitForInputOrTime());
+                break;
+
+            case NodeType.Choice:
+                onDialogueNodeStart.Invoke(currentDialogueNode, currentCharacterData); // show Context string
+                onOptionsReady.Invoke(currentDialogueNode.choices);
+                break;
+
+            case NodeType.Action:
+                Debug.Log($"Dialogue ActionTriggered: {currentDialogueNode.actionType} | ID: '{currentDialogueNode.actionId}' | Value: {currentDialogueNode.actionValue}");
+                
+                switch (currentDialogueNode.actionType)
+                {
+                    case ActionType.Event:
+                        EventManager.Instance.SetEvent(currentDialogueNode.actionId, currentDialogueNode.actionValue);
+                        break;
+                    case ActionType.AddItem:
+                        InventoryManager.Instance.AddItemByID(currentDialogueNode.actionId, currentDialogueNode.actionValue); // Example
+                        break;
+                    case ActionType.RemoveItem:
+                        InventoryManager.Instance.RemoveItemByID(currentDialogueNode.actionId, currentDialogueNode.actionValue); // Example
+                        break;
+                    case ActionType.AddPositiveKarma:
+                        FactionManager.Instance.AddKarma(currentDialogueNode.actionId, currentDialogueNode.actionValue, 0); // Example
+                        break;
+                    case ActionType.AddNegativeKarma:
+                        FactionManager.Instance.AddKarma(currentDialogueNode.actionId, 0, currentDialogueNode.actionValue); // Example
+                        break;
+                }
+                
+                // Immediately transition to the next node (instantly proxies like Start node does)
+                ShowDialogue(currentDialogueNode.nextDialogueNodeId);
+                break;
+
+            case NodeType.Condition:
+                bool conditionResult = EvaluateCondition(currentDialogueNode);
+                Debug.Log($"Dialogue Condition Triggered: {currentDialogueNode.conditionType} | ID: '{currentDialogueNode.conditionId}'. Evaluated to: {conditionResult}");
+                string nextNode = conditionResult ? currentDialogueNode.conditionTrueNodeId : currentDialogueNode.conditionFalseNodeId;
+                ShowDialogue(nextNode);
+                break;
+
+            case NodeType.End:
+                EndDialogue(currentDialogueNode.endNodeType);
+                break;
+        }
     }
 
     private IEnumerator WaitForInputOrTime()
@@ -117,29 +169,57 @@ public class DialogueRunner : MonoBehaviour
         advancePressed = false;
         waitCoroutine = null;
 
-        // If the node has choices, present them
-        if (currentDialogueNode.choices != null && currentDialogueNode.choices.Count > 0)
-        {
-            onOptionsReady.Invoke(currentDialogueNode.choices);
-        }
-        // If there's a next node, automatically advance
-        else if (!string.IsNullOrEmpty(currentDialogueNode.nextDialogueNodeId))
+        // In the new system, choices are on Choice nodes. For linear Dialogue nodes, we just go next.
+        if (!string.IsNullOrEmpty(currentDialogueNode.nextDialogueNodeId))
         {
             ShowDialogue(currentDialogueNode.nextDialogueNodeId);
         }
-        // Otherwise, end the conversation
         else
         {
-            EndDialogue();
+            EndDialogue(EndNodeType.Normal); // Safety fallback
         }
     }
 
-    private void EndDialogue()
+    private void EndDialogue(EndNodeType endType = EndNodeType.Normal)
     {
         IsDialogueActive = false;
         UnregisterAdvanceAction();
         nodeLookup.Clear();
-        onDialogueEnd.Invoke();
+        onDialogueEnd.Invoke(endType);
+    }
+
+    private bool EvaluateCondition(DialogueNode node)
+    {
+        int currentValue = 0;
+
+        // Populate currentValue based on type
+        switch (node.conditionType)
+        {
+            case ConditionType.Event:
+                currentValue = EventManager.Instance.GetEventValue(node.conditionId);
+                break;
+            case ConditionType.FactionPositiveKarma:
+                currentValue = FactionManager.Instance.GetPositiveKarma(node.conditionId);
+                break;
+            case ConditionType.FactionNegativeKarma:
+                currentValue = FactionManager.Instance.GetNegativeKarma(node.conditionId);
+                break;
+            case ConditionType.PlayerHasItem:
+                currentValue = InventoryManager.Instance.GetItemCount(node.conditionId);
+                break;
+        }
+
+        // Compare using Operator
+        switch (node.conditionOperator)
+        {
+            case ConditionOperator.Equals: return currentValue == node.conditionValue;
+            case ConditionOperator.NotEquals: return currentValue != node.conditionValue;
+            case ConditionOperator.GreaterThan: return currentValue > node.conditionValue;
+            case ConditionOperator.LessThan: return currentValue < node.conditionValue;
+            case ConditionOperator.GreaterThanOrEquals: return currentValue >= node.conditionValue;
+            case ConditionOperator.LessThanOrEquals: return currentValue <= node.conditionValue;
+            default: return false;
+        }
     }
 
     #region Input Handling

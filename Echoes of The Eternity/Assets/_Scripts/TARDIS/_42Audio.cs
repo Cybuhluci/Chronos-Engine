@@ -21,6 +21,11 @@ namespace TARDIS.Main
         public AudioSource landingSound2;
 
         [Header("Audio Clips")]
+        public AudioClip takeoffClip;
+        public AudioClip flightloop;
+        public AudioClip landingsound;
+        public AudioClip dingsound;
+
         public AudioClip engineStartClip;
         public AudioClip engineLoopClip;
         public AudioClip ambientClip;
@@ -36,11 +41,12 @@ namespace TARDIS.Main
         }
         public void PlayTakeoffSound()
         {
-            takeoffSound.Play();
+            TardisSoundButton.Instance.PlayButtonSoundFromElsewhere(takeoffClip);
         }
 
         public void PlayFlightLoop()
         {
+            flightLoop.clip = flightloop;
             flightLoop.loop = true;
             flightLoop.Play();
         }
@@ -48,12 +54,12 @@ namespace TARDIS.Main
         public void PlayLandingSound()
         {
             flightLoop.Stop();
-            landingSound.Play();
+            TardisSoundButton.Instance.PlayButtonSoundFromElsewhere(landingsound);
         }
 
         public void PlayLandingNotify()
         {
-            landingSound2.Play();
+            TardisSoundButton.Instance.PlayButtonSoundFromElsewhere(dingsound);
         }
 
         public void PlayEngineStart()

@@ -1,0 +1,277 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057a01684ff425945862c3e0ee656085, type: 3}
+  m_Name: node display
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSO
+  startNodeId: 643eab38-eed9-4e1d-bec5-f188a7f1288e
+  nodes:
+  - id: 643eab38-eed9-4e1d-bec5-f188a7f1288e
+    name: Start
+    nodeType: 0
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 76, y: -193}
+  - id: c158064f-0feb-433d-934f-4f857098ef64
+    name: Dialogue...
+    nodeType: 1
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 198, y: -219}
+  - id: adb148eb-202a-4669-8c1a-442ff01e5a96
+    name: Choice...
+    nodeType: 2
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices:
+    - text: New Choice
+      targetNodeId: 
+      endsConversation: 0
+      requiredFlag: 
+      requiredValue: 0
+      setFlag: 
+      setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
+    - text: New Choice
+      targetNodeId: 
+      endsConversation: 0
+      requiredFlag: 
+      requiredValue: 0
+      setFlag: 
+      setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
+    - text: New Choice
+      targetNodeId: 
+      endsConversation: 0
+      requiredFlag: 
+      requiredValue: 0
+      setFlag: 
+      setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
+    - text: New Choice
+      targetNodeId: 
+      endsConversation: 0
+      requiredFlag: 
+      requiredValue: 0
+      setFlag: 
+      setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
+    position: {x: 316, y: -219}
+  - id: dfe06791-630c-41e3-a3e2-dad37e1cc8b6
+    name: Action
+    nodeType: 4
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 594, y: -214}
+  - id: eb95e244-271b-42a1-af5a-806b3b906aa6
+    name: Action
+    nodeType: 4
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 1
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 594, y: -61}
+  - id: 4a670bcb-1aff-412c-a0f6-455d23ae1d37
+    name: Action
+    nodeType: 4
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 2
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 594, y: 92}
+  - id: ccf75888-5171-4582-9041-8530dd2bbd2a
+    name: Action
+    nodeType: 4
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 3
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 594, y: 245}
+  - id: 04eb7178-8124-47d8-8581-f568a1894c25
+    name: Action
+    nodeType: 4
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 4
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 594, y: 398}
+  - id: 2c174a10-aa92-45c3-8f7a-568de8d6f9fe
+    name: IF...
+    nodeType: 5
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 883, y: -257}
+  - id: 5e221f60-004e-4e67-8884-9fccabba81d2
+    name: IF...
+    nodeType: 5
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 1
+    conditionOperator: 1
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 889, y: -61}
+  - id: 327e6114-99d6-464f-8bb7-2d0b4302eaac
+    name: IF...
+    nodeType: 5
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 2
+    conditionOperator: 2
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 883, y: 135}
+  - id: 0ce7ad7b-67a2-40fa-994d-5d520e0fa4cd
+    name: IF...
+    nodeType: 5
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 3
+    conditionOperator: 5
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 889, y: 331}
+  - id: be837029-39b9-480b-94d9-a5c1142d6ca8
+    name: End
+    nodeType: 3
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionType: 0
+    actionId: 
+    actionValue: 0
+    conditionType: 0
+    conditionOperator: 0
+    conditionId: 
+    conditionValue: 0
+    conditionTrueNodeId: 
+    conditionFalseNodeId: 
+    choices: []
+    position: {x: 1164, y: -229}

@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
    
     public bool _isInvulnerable = false;
     [Header("Health")]
-    public float MaxHealth => PlayerAttributes.Instance != null ? PlayerAttributes.Instance.health : 100f;
+    public float MaxHealth;
     public float CurrentHealth = 100f;
     // Time of last received damage (Time.time). Used by healing logic to wait until player hasn't
     // taken damage for a short duration before starting passive heals.
@@ -37,7 +37,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
+        MaxHealth = PlayerAttributes.Instance != null ? PlayerAttributes.Instance.health : 100f;
         CurrentHealth = MaxHealth;
+    }
+
+    public void UpdateMaxHealth(int newMaxHealth)
+    {
+        MaxHealth = newMaxHealth;
     }
 
     private void Update()

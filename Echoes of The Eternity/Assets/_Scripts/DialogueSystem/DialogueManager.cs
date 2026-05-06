@@ -155,7 +155,7 @@ public class DialogueManager : MonoBehaviour
         dialogueRunner.SelectOption(choice);
     }
 
-    private void HandleDialogueEnd()
+    private void HandleDialogueEnd(EndNodeType endType)
     {
         if (playerController != null)
         {
@@ -172,6 +172,18 @@ public class DialogueManager : MonoBehaviour
 
         if (dialogueUI != null) dialogueUI.SetActive(false);
         if (playerHUD != null) playerHUD.SetActive(true);
+
+        // --- Handle specific end behaviors here ---
+        if (endType == EndNodeType.Attack)
+        {
+            Debug.Log("Dialogue Ended - Target turns HOSTILE!");
+            // Notify AI logic to enter attack state
+        }
+        else if (endType == EndNodeType.Trade)
+        {
+            Debug.Log("Dialogue Ended - Open TRADE menu!");
+            // Trigger shop/barter UI
+        }
     }
 
     private void ClearOptionsImmediate()

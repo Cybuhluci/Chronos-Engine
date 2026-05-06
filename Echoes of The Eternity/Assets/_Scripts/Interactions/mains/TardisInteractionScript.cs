@@ -63,38 +63,6 @@ namespace Luci.Interactions
         {
             CheckForInteractable();
             HandleInteractionInput();
-
-            transform.position = playerCamera.transform.position;
-            transform.rotation = playerCamera.transform.rotation;
-        }
-
-        // returns pointer position in screen coordinates. Prefer InputSystem Point action, fall back to legacy mouse
-        private Vector2 GetPointerPosition()
-        {
-            // Prefer direct pointer device from the Input System if available
-            #if ENABLE_INPUT_SYSTEM
-            var pointer = Pointer.current;
-            if (pointer != null)
-            {
-                var p = pointer.position.ReadValue();
-                if (p != Vector2.zero) return p;
-            }
-
-            // Try PlayerInput actions if assigned
-            if (playerInput != null)
-            {
-                var act = playerInput.actions.FindAction("Point");
-                if (act != null)
-                {
-                    var val = act.ReadValue<Vector2>();
-                    if (val != Vector2.zero) return val;
-                }
-            }
-            #endif
-
-            // Last resort: legacy Input.mousePosition
-            return playerInput.actions["Point"].ReadValue<Vector2>();
-            // using "return Input.mousePosition;" makes an error, and the game doesnt turn on.
         }
 
         private void CheckForInteractable()
@@ -104,15 +72,7 @@ namespace Luci.Interactions
             bool found = false;
             Ray ray = default;
 
-            Vector2 mousePos = GetPointerPosition();
-
-            ray = playerCamera.ScreenPointToRay(mousePos);
-            found = Physics.Raycast(ray, out hit, interactionRange, interactableLayer);
-
-            cursorPosition = mousePos; // for UI positioning
-
-            // update UI cursor position regardless of whether an interactable was found
-            UpdateCursorUIPosition(mousePos);
+            found = Physics.Raycast(transform.position, transform.forward, out hit, interactionRange, interactableLayer);
 
             // If we have a hit from raycast or overlap, try to get IInteractable
             if (found)
@@ -157,7 +117,6 @@ namespace Luci.Interactions
                         {
                             cursorParent.SetActive(true);
                             // position via helper to account for canvas render mode
-                            UpdateCursorUIPosition(mousePos);
                         }
 
                         // select cursor sprite based on interaction type
@@ -233,11 +192,6 @@ namespace Luci.Interactions
                     wasReleased = action.WasReleasedThisFrame();
                     // note: WasPressedThisFrame could be used to start, but IsPressed covers that.
                 }
-                else
-                {
-                    isPressed = Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.F);
-                    wasReleased = Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.F);
-                }
 
                 if (isPressed && !_holdCompleted)
                 {
@@ -285,33 +239,6 @@ namespace Luci.Interactions
             if (interactionCircle != null) interactionCircle.fillAmount = 0f;
         }
 
-        private void UpdateCursorUIPosition(Vector2 screenPos)
-        {
-            if (cursorParent == null) return;
-            // If canvas is set and in Screen Space - Overlay or Camera, convert appropriately
-            if (uiCanvas != null)
-            {
-                var canvasRect = uiCanvas.GetComponent<RectTransform>();
-                var cursorRect = cursorParent.GetComponent<RectTransform>();
-                if (canvasRect == null || cursorRect == null)
-                {
-                    // fallback to world positioning
-                    cursorParent.transform.position = screenPos;
-                    return;
-                }
-
-                Camera cam = (uiCanvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : uiCanvas.worldCamera;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, cam, out Vector2 localPoint);
-                // place using anchoredPosition so anchors don't interfere
-                cursorRect.anchoredPosition = localPoint;
-            }
-            else
-            {
-                // fallback: position in screen space (works if cursorParent is not under canvas)
-                cursorParent.transform.position = screenPos;
-            }
-        }
-
         // Try to detect a common pattern for an "isActive" flag on the interactable MonoBehaviour.
         private bool IsInteractableActive(TardisInteractable interactable)
         {
@@ -349,9 +276,8 @@ namespace Luci.Interactions
         // Useful debug visualization in the editor
         private void OnDrawGizmosSelected()
         {
-            Vector2 mousePos = playerInput.actions["Point"].ReadValue<Vector2>();
-            Ray ray = playerCamera.ScreenPointToRay(mousePos);
-            Gizmos.DrawRay(ray.origin, ray.direction * interactionRange);
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawRay(transform.position, transform.forward * interactionRange);
         }
     }
 }

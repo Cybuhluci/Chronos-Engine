@@ -23,9 +23,54 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("Item added to inventory: " + item.itemName);
     }
 
+    public void AddItemByID(string itemID, int amount)
+    {
+        if (ItemDatabase.GetItem(itemID, out InventoryItemSO item))
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                AddItem(item);
+            }
+            SaveInventoryToFile();
+        }
+        else
+        {
+            Debug.LogWarning("Item with ID " + itemID + " not found in database.");
+        }
+    }
+
+    public void RemoveItemByID(string itemID, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            InventoryItemSO itemToRemove = collectedItems.Find(item => item.id == itemID);
+            if (itemToRemove != null)
+            {
+                RemoveItem(itemToRemove);
+            }
+            else
+            {
+                Debug.LogWarning("No more items with ID " + itemID + " found in inventory to remove.");
+                break;
+            }
+        }
+        SaveInventoryToFile();
+    }
+
     public bool HasItem(InventoryItemSO item)
     {
         return collectedItems.Contains(item);
+    }
+
+    public int GetItemCount(string itemID)
+    {
+        int count = 0;
+        foreach (var collectedItem in collectedItems)
+        {
+            if (collectedItem.id == itemID)
+                count++;
+        }
+        return count;
     }
 
     public void RemoveItem(InventoryItemSO item)

@@ -1,3 +1,4 @@
+using TARDIS.Main;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +32,7 @@ public class MissionSelect : MonoBehaviour
     public void StoreMission(string missionName)
     {
         storedMission = missionName;
+        _42Main.Instance.SetFlightDestination(storedMission);
     }
 
     public string GetStoredMission()

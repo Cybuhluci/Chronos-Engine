@@ -7,6 +7,9 @@ namespace Luci
     [RequireComponent(typeof(PlayerInput))]
     public class FirstPersonController : MonoBehaviour
     {
+        public static FirstPersonController Instance { get; private set; }
+        public GameObject playerHUD;
+
         [SerializeField] PDAManager _PDAManager;
         [SerializeField] GunMainScript _GMS;
         [SerializeField] FTPpausescript _FTPpause;
@@ -127,6 +130,8 @@ namespace Luci
 
         private void Awake()
         {
+            Instance = this;
+
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");

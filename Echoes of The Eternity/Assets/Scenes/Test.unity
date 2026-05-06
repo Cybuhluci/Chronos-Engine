@@ -1420,13 +1420,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1087201726056232295, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
-      propertyPath: armourManager
-      value: 
-      objectReference: {fileID: 1844005187}
     - target: {fileID: 2083587597570059573, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495681312127147773, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
+      propertyPath: dialogueType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3020153489868521150, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1472,8 +1472,8 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8176083973237668251, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2070102639}
+      insertIndex: 3
+      addedObject: {fileID: 1042604377}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
 --- !u!114 &910551284 stripped
@@ -1599,6 +1599,64 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037476124}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1042604376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1042604377}
+  - component: {fileID: 1042604379}
+  - component: {fileID: 1042604378}
+  m_Layer: 7
+  m_Name: Quest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1042604377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042604376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1844005196}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1042604378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042604376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0293f8e2cfac334487db67efc158d7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestManager
+  allQuests: []
+--- !u!114 &1042604379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042604376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4a902639ac93547b045ec3b3f42719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventManager
 --- !u!1 &1116782483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,18 +1858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1d3f9d10e4b3342ad4849f013726fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
---- !u!114 &1844005187 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1150590486888159435, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
-  m_PrefabInstance: {fileID: 910551281}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0b5b4f3c603654ca8c6e9bd3d2a4a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ArmourManager
---- !u!4 &1844005197 stripped
+--- !u!4 &1844005196 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8176083973237668251, guid: 7f8df32b07f7d814f97697d2c8ad9303, type: 3}
   m_PrefabInstance: {fileID: 910551281}
@@ -2317,66 +2364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633ad44ae9f25124da256cbcd22a052e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectibleInteractScript
---- !u!1 &2070102638
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2070102639}
-  - component: {fileID: 2070102641}
-  - component: {fileID: 2070102640}
-  m_Layer: 7
-  m_Name: Level
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2070102639
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070102638}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1844005197}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2070102640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070102638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f664b7971cc8c46419996e4851276205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SkillsManager
---- !u!114 &2070102641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070102638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8f810466d5f8f40bbf9624ea33159f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLevelSystem
-  currentLevel: 1
-  currentXP: 0
-  tmpxptonextlvl: 0
 --- !u!1 &2084102823
 GameObject:
   m_ObjectHideFlags: 0

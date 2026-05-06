@@ -109,6 +109,18 @@ public class FactionManager : MonoBehaviour
         return null;
     }
 
+    public int GetPositiveKarma(string factionID)
+    {
+        var reputation = GetReputation(factionID);
+        return reputation != null ? reputation.positiveKarma : 0;
+    }
+
+    public int GetNegativeKarma(string factionID)
+    {
+        var reputation = GetReputation(factionID);
+        return reputation != null ? reputation.negativeKarma : 0;
+    }
+
     public Dictionary<string, FactionReputation> GetAllReputations()
     {
         return playerReputations;

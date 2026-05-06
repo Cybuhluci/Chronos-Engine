@@ -12,16 +12,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057a01684ff425945862c3e0ee656085, type: 3}
   m_Name: REDguy
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSO
-  startNodeId: 0
+  startNodeId: f619986f-f306-4b13-8052-7b1969cfb832
   nodes:
-  - id: 0
-    name: RED guy
+  - id: f619986f-f306-4b13-8052-7b1969cfb832
+    name: Start
+    nodeType: 0
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 49be800d-f731-44b8-ba91-ea00ff976f29
+    actionTarget: {fileID: 0}
+    choices: []
+    position: {x: -15, y: -125}
+  - id: 49be800d-f731-44b8-ba91-ea00ff976f29
+    name: Dialogue...
+    nodeType: 1
+    endNodeType: 0
     dialogueText: Hi!
+    nextDialogueNodeId: bf9260c1-ce5f-42d6-b274-7d79c5d77d2d
+    actionTarget: {fileID: 0}
+    choices: []
+    position: {x: 85, y: -127}
+  - id: ee44a2b1-472d-4584-a08d-977fef22ebc2
+    name: End
+    nodeType: 3
+    endNodeType: 0
+    dialogueText: ...
     nextDialogueNodeId: 
+    actionTarget: {fileID: 0}
+    choices: []
+    position: {x: 1161, y: -321}
+  - id: 1
+    name: RED guy
+    nodeType: 1
+    endNodeType: 0
+    dialogueText: Fuck you mean, "No."?
+    nextDialogueNodeId: d1e0f3a1-c4d7-4e68-8a49-55b535d94b00
+    actionTarget: {fileID: 0}
+    choices: []
+    position: {x: 517, y: -178}
+  - id: 1b
+    name: RED guy
+    nodeType: 1
+    endNodeType: 0
+    dialogueText: Yes, we must reintroduce ourselves.
+    nextDialogueNodeId: 49be800d-f731-44b8-ba91-ea00ff976f29
+    actionTarget: {fileID: 0}
+    choices: []
+    position: {x: 1225, y: 20}
+  - id: d1e0f3a1-c4d7-4e68-8a49-55b535d94b00
+    name: Choice...
+    nodeType: 2
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionTarget: {fileID: 0}
     choices:
-    - text: Goodbye!
-      targetNodeId: -1
-      endsConversation: 1
+    - text: I mean I don't want to talk to you.
+      targetNodeId: ee44a2b1-472d-4584-a08d-977fef22ebc2
+      endsConversation: 0
       requiredFlag: 
       requiredValue: 0
       setFlag: 
@@ -29,6 +77,43 @@ MonoBehaviour:
       onChosen:
         m_PersistentCalls:
           m_Calls: []
+    - text: Let us reintroduce ourselves.
+      targetNodeId: 1b
+      endsConversation: 0
+      requiredFlag: 
+      requiredValue: 0
+      setFlag: 
+      setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
+    position: {x: 683, y: -191}
+  - id: 528c1e86-9a8f-465e-9d02-d752b445da17
+    name: End
+    nodeType: 3
+    endNodeType: 2
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionTarget: {fileID: 0}
+    choices: []
+    position: {x: 531, y: 109}
+  - id: d72d93f0-df08-48c2-a0f5-3e015afb3b6e
+    name: End
+    nodeType: 3
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionTarget: {fileID: 0}
+    choices: []
+    position: {x: 548, y: -9}
+  - id: bf9260c1-ce5f-42d6-b274-7d79c5d77d2d
+    name: Choice...
+    nodeType: 2
+    endNodeType: 0
+    dialogueText: ...
+    nextDialogueNodeId: 
+    actionTarget: {fileID: 0}
+    choices:
     - text: No.
       targetNodeId: 1
       endsConversation: 0
@@ -39,23 +124,8 @@ MonoBehaviour:
       onChosen:
         m_PersistentCalls:
           m_Calls: []
-  - id: 1
-    name: RED guy
-    dialogueText: Fuck you mean, "No."?
-    nextDialogueNodeId: 
-    choices:
-    - text: I meant I don't want to speak with you.
-      targetNodeId: -1
-      endsConversation: 1
-      requiredFlag: 
-      requiredValue: 0
-      setFlag: 
-      setValue: 0
-      onChosen:
-        m_PersistentCalls:
-          m_Calls: []
-    - text: Allow us to reintroduce ourselves.
-      targetNodeId: 1b
+    - text: Goodbye.
+      targetNodeId: d72d93f0-df08-48c2-a0f5-3e015afb3b6e
       endsConversation: 0
       requiredFlag: 
       requiredValue: 0
@@ -64,8 +134,14 @@ MonoBehaviour:
       onChosen:
         m_PersistentCalls:
           m_Calls: []
-  - id: 1b
-    name: RED guy
-    dialogueText: Yes, we must reintroduce ourselves.
-    nextDialogueNodeId: 0
-    choices: []
+    - text: Let's Barter!
+      targetNodeId: 528c1e86-9a8f-465e-9d02-d752b445da17
+      endsConversation: 0
+      requiredFlag: 
+      requiredValue: 0
+      setFlag: 
+      setValue: 0
+      onChosen:
+        m_PersistentCalls:
+          m_Calls: []
+    position: {x: 221, y: -127}
